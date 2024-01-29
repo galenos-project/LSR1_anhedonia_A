@@ -164,7 +164,7 @@ DoP <- Sys.Date()
 
 
 # All function needed to run this notebook (analyses, etc.) should be in a util.R file
-source("utils/util.R")
+source("util/util.R")
 
 # obtain the data and prepare them for analysis - all data cleaning routines should be in this .R script 
 
