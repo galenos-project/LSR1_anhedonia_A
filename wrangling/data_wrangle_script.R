@@ -11,7 +11,7 @@ source("wrangling/wrangling_functions.R", local = TRUE)
 LSR <- 'LSR1'
 
 # Import SyRF outcome data
-LSR1_SyRFOutcomes <- read_csv("data/Quantitative_data_-_2024_01_24_-_e98bc7cf-dfa7-47b9-a9fa-344406c46e1c_-_Investigators_Unblinded.csv")
+LSR1_SyRFOutcomes <- read_csv("data/Quantitative_data_-_2024_01_29_-_e98bc7cf-dfa7-47b9-a9fa-344406c46e1c_-_Investigators_Unblinded.csv")
 
 ###### Tidying and cleaning the data ######
 #clean ; from TiAb etc
@@ -99,14 +99,22 @@ reconciled_records <- split_columns(reconciled_records)
 # Aim = Make each experiment one comparison (with sham where present, control and intervention)
 ## Differentiate between positive and negative controls and TAAR1KO's
 
-reconciled_cohort_label <- reconciled_records %>%
-  mutate(
-    Treatment1Type = case_when(
-      str_detect(InterventionLabel, regex("veh|con", ignore_case = TRUE)) ~ "Negative control",
-      is.na(InterventionLabel) ~ NA_character_,
-      TRUE ~ "Intervention"
+  
+  reconciled_cohort_label <- reconciled_records %>%
+    mutate(
+      Treatment1Type = case_when(
+        str_detect(`InterventionLabel[1]`, regex("veh|con", ignore_case = TRUE)) ~ "Negative control",
+        is.na(`InterventionLabel[1]`) ~ NA_character_,
+        TRUE ~ "Intervention"
+      ),
+      Treatment1Typesupp = case_when(
+        str_detect(`InterventionLabel[2]`, regex("veh|con", ignore_case = TRUE)) ~ "Negative control",
+        is.na(`InterventionLabel[2]`) ~ NA_character_,
+        TRUE ~ "Intervention"
+      )
     )
-  )
+  
+  
 
 ## sort the blank disease models (which are equivalent to sham)
 reconciled_cohort_label <- reconciled_cohort_label %>%
@@ -142,8 +150,8 @@ reconciled_cohort_type <- reconciled_cohort_label %>%
     `IsDiseaseModelControl[1]` == TRUE & Treatment1Type == "Intervention"  ~ "Sham with intervention",
     `IsDiseaseModelControl[1]` == TRUE ~ "Sham"
   )) %>% 
-  relocate(CohortType, .after = InterventionID) %>% 
-  relocate(c(Treatment1Type), .after = InterventionLabel) %>% 
+  relocate(CohortType, .after = `InterventionID[2]`) %>% 
+  relocate(c(Treatment1Type), .after = `InterventionLabel[1]`) %>% 
   relocate(`IsDiseaseModelControl[1]`, .after = `ModelID[2]`)
 
 reconciled_cohort_type <- reconciled_cohort_type %>%
@@ -196,36 +204,47 @@ data <- data %>%
 ##### Extract treatment names and doses ####
 data <- data%>%
   mutate(drugname1 = case_when(
-    grepl("imipramine", data$`Name of Intervention`) ~ "imipramine",
-    grepl("olanzepine", data$`Name of Intervention`) ~ "olanzapine",
-    grepl("AMANTADINE", data$`Name of Intervention`) ~ "amantadine",
-    grepl("orientalis", data$`Name of Intervention`) ~ "seed extracts of P. orientalis (S4)",
-    grepl("Quinpirole", data$`Name of Intervention`) ~ "quinpirole",
-    grepl("QUINPIROLE", data$`Name of Intervention`) ~ "quinpirole",
-    grepl("L-DOPA", data$`Name of Intervention`) ~ "L-DOPA",
-    grepl("ARIPIPRAZOLE", data$`Name of Intervention`) ~ "aripiprazole",
-    grepl("ESCITALOPRAM", data$`Name of Intervention`) ~ "escitalopram",
-    grepl("IMPIRAMINE", data$`Name of Intervention`) ~ "imipramine",
-    grepl("D-AMPHETAMINE", data$`Name of Intervention`) ~ "D-amphetamine",
-    grepl("DOPAMINE", data$`Name of Intervention`) ~ "dopamine",
-    grepl("SCH23390", data$`Name of Intervention`) ~ "SCH23390",
-    grepl("SKF38393", data$`Name of Intervention`) ~ "SKF38393",
-    grepl("BUPROPION", data$`Name of Intervention`) ~ "buproprion",
-    grepl("risperidone", data$`Name of Intervention`) ~ "risperidone",
-    grepl("Risperidone", data$`Name of Intervention`) ~ "risperidone",
-    grepl("clozapine", data$`Name of Intervention`) ~ "clozapine",
-    grepl("CRYPTOTANSHINONE", data$`Name of Intervention`) ~ "cryptotanshinone",
-    grepl("Aripiprazole", data$`Name of Intervention`) ~ "aripiprazole",
-    grepl("aripiprazole", data$`Name of Intervention`) ~ "aripiprazole",
-    grepl("selegiline", data$`Name of Intervention`) ~ "selegiline",
-    grepl("OLZ", data$`Name of Intervention`) ~ "olanzapine",
-    grepl("quinpirole", data$`Name of Intervention`) ~ "quinpirole",
-    grepl("bromocriptine", data$`Name of Intervention`) ~ "bromocriptine",
-    grepl("Pramipexole", data$`Name of Intervention`) ~ "pramipexole",    
-    grepl("ROPINIROLE", data$`Name of Intervention`) ~ "ropinirole",    
-    grepl("TRANCYLCYPROMINE", data$`Name of Intervention`) ~ "tranylcypromine",
-    grepl("APH199", data$`Name of Intervention`) ~ "APH199",
-    is.na(data$`Name of Intervention`) ~ "No treatment",
+    grepl("imipramine", data$`Name of Intervention[1]`) ~ "imipramine",
+    grepl("olanzepine", data$`Name of Intervention[1]`) ~ "olanzapine",
+    grepl("AMANTADINE", data$`Name of Intervention[1]`) ~ "amantadine",
+    grepl("orientalis", data$`Name of Intervention[1]`) ~ "P. orientalis seed",
+    grepl("Quinpirole", data$`Name of Intervention[1]`) ~ "quinpirole",
+    grepl("QUINPIROLE", data$`Name of Intervention[1]`) ~ "quinpirole",
+    grepl("L-DOPA", data$`Name of Intervention[1]`) ~ "L-DOPA",
+    grepl("ARIPIPRAZOLE", data$`Name of Intervention[1]`) ~ "aripiprazole",
+    grepl("ESCITALOPRAM", data$`Name of Intervention[1]`) ~ "escitalopram",
+    grepl("IMPIRAMINE", data$`Name of Intervention[1]`) ~ "imipramine",
+    grepl("D-AMPHETAMINE", data$`Name of Intervention[1]`) ~ "D-amphetamine",
+    grepl("DOPAMINE", data$`Name of Intervention[1]`) ~ "dopamine",
+    grepl("SCH23390", data$`Name of Intervention[1]`) ~ "SCH23390",
+    grepl("SKF38393", data$`Name of Intervention[1]`) ~ "SKF38393",
+    grepl("SKF-38393", data$`Name of Intervention[1]`) ~ "SKF38393",
+    grepl("BUPROPION", data$`Name of Intervention[1]`) ~ "buproprion",
+    grepl("risperidone", data$`Name of Intervention[1]`) ~ "risperidone",
+    grepl("Risperidone", data$`Name of Intervention[1]`) ~ "risperidone",
+    grepl("clozapine", data$`Name of Intervention[1]`) ~ "clozapine",
+    grepl("CRYPTOTANSHINONE", data$`Name of Intervention[1]`) ~ "cryptotanshinone",
+    grepl("Aripiprazole", data$`Name of Intervention[1]`) ~ "aripiprazole",
+    grepl("aripiprazole", data$`Name of Intervention[1]`) ~ "aripiprazole",
+    grepl("selegiline", data$`Name of Intervention[1]`) ~ "selegiline",
+    grepl("OLZ", data$`Name of Intervention[1]`) ~ "olanzapine",
+    grepl("quinpirole", data$`Name of Intervention[1]`) ~ "quinpirole",
+    grepl("bromocriptine", data$`Name of Intervention[1]`) ~ "bromocriptine",
+    grepl("Pramipexole", data$`Name of Intervention[1]`) ~ "pramipexole",    
+    grepl("ROPINIROLE", data$`Name of Intervention[1]`) ~ "ropinirole",    
+    grepl("TRANCYLCYPROMINE", data$`Name of Intervention[1]`) ~ "tranylcypromine",
+    grepl("APH199", data$`Name of Intervention[1]`) ~ "APH199",
+    grepl("METHYLPHENIDATE", data$`Name of Intervention[1]`) ~ "methyphenidate",
+    grepl("ESCITALOPRAM", data$`Name of Intervention[1]`) ~ "escitalopram",
+    grepl("LEVODOPA", data$`Name of Intervention[1]`) ~ "L-DOPA",
+    grepl("BROMOCRIPTINE", data$`Name of Intervention[1]`) ~ "bromocriptine",
+    grepl("PRAMIPREXOLE", data$`Name of Intervention[1]`) ~ "pramipexole",
+    grepl("Δ3 ,2-hydroxybakuchiol", data$`Name of Intervention[1]`) ~ "2_HBC",
+    grepl("SCH23390", data$`Name of Intervention[1]`) ~ "SCH23390",
+    grepl("PIRIBEDIL", data$`Name of Intervention[1]`) ~ "piribedil",
+    grepl("bromocriptine", data$`Name of Intervention[1]`) ~ "bromocriptine",
+    grepl("SKF83959", data$`Name of Intervention[1]`) ~ "SKF83959",
+    is.na(data$`Name of Intervention[1]`) ~ "No treatment",
     TRUE ~ "Other"
   ))
 
@@ -403,8 +422,8 @@ data2<- data2 %>% rename(GreaterIsWorse = GreaterIsWorse_I)
 #data2<- data2 %>% rename(`Category of disease model induction method:` = `Category of disease model induction method:_I`)
 data2<- data2 %>% rename(`Measurement unit of treatment dose:` = `Measurement unit for treatment dose:_I`)
 #data2<- data2 %>% rename(`Measurement unit of treatment dose:[2]` = `Measurement unit of treatment dose:[2]_I`)
-data2<- data2 %>% rename(`Duration of treatment` = `Duration of treatment:_I`)
-data2<- data2 %>% rename(`Unit of measurement for treatment duration` = `Unit of measurement for treatment duration:_I`)
+data2<- data2 %>% rename(`Duration of treatment` = `Duration of treatment:[1]_I`)
+data2<- data2 %>% rename(`Unit of measurement for treatment duration` = `Unit of measurement for treatment duration:[1]_I`)
 #data2<- data2 %>% rename(`Duration of treatment[2]` = `Duration of treatment[2]_I`)
 #data2<- data2 %>% rename(`Unit of measurement for treatment duration[2]` = `Unit of measurement for treatment duration[2]_I`)
 data2<- data2 %>% rename(`Species of animals?` = `Species of animals?_I`)
@@ -592,9 +611,9 @@ df <- df %>%
 
 # Replace unit of measurements for drugs with abbreviations 
 df <- df %>% 
-  mutate(`Measurement unit of treatment dose:` = str_replace_all(`Measurement unit of treatment dose:`, "miligrams \\(mg\\) per kg", "mg/kg"),
-         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit of treatment dose:`, "micrograms \\(ug\\) per kg", "ug/kg"),
-         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit of treatment dose:`, "micrograms (ug)", "ug")
+  mutate(`Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "miligrams \\(mg\\) per kg", "mg/kg"),
+         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "micrograms \\(ug\\) per kg", "ug/kg"),
+         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "micrograms (ug)", "ug")
   ) 
 
 ### Duration of treatment (categorical)
@@ -620,8 +639,9 @@ df <- df %>%
 ### Prophylactic or therapeutic
 
 
+
 df <- df %>% 
-  mutate(ProphylacticOrTherapeutic = case_when(`Timing of treatment administration:_I` == "After disease model induction" ~ "Therapeutic", 
+  mutate(ProphylacticOrTherapeutic = case_when(`Timing of treatment administration:[1]_I` == "After disease model induction" ~ "Therapeutic", 
                                                TRUE ~ "Prophylactic"))
 
 ## Give original variables better names for analysis in new columns - this is all for simple 
@@ -631,7 +651,7 @@ df <- df %>%
          Strain = `Animal strain?`,
          Sex = `Sex of animals?`, 
          DrugName = drugname1_I,  #change for combination
-         InterventionAdministrationRoute = `Treatment administration route:_I`, #change for combination
+         InterventionAdministrationRoute = `Treatment administration route:[1]_I`, #change for combination
          DoseOfIntervention_mgkg = `Dose of treatment used:_I`)  #FOR LSR1 THESE ARE ALL IN UNIT mg/kg SO NO CONVERSION NEEDED
 
 ## Categorise by outcome type - requires checking with each iteration
