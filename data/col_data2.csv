@@ -1,0 +1,198 @@
+(ARRIVE) Are all experimental and control groups clearly defined?
+(ARRIVE) Are all experimental and control groups clearly defined?_C
+(ARRIVE) Are ALL species of animal used specified?
+(ARRIVE) Are ALL species of animal used specified?_C
+(ARRIVE) Are any exclusions of animals/EUs/data points reported?
+(ARRIVE) Are any exclusions of animals/EUs/data points reported?_C
+(ARRIVE) Are both timing & frequency with which procedures took place specified?
+(ARRIVE) Are both timing & frequency with which procedures took place specified?_C
+(ARRIVE) Are criteria for including&excluding animals/EUs/data points provided?
+(ARRIVE) Are criteria for including&excluding animals/EUs/data points provided?_C
+(ARRIVE) Are desc stats for each exp group provided with measure of variability?
+(ARRIVE) Are desc stats for each exp group provided with measure of variability?_C
+(ARRIVE) Clear whether researchers were aware of/blinded to group allocation?
+(ARRIVE) Clear whether researchers were aware of/blinded to group allocation?_C
+(ARRIVE) Declare potential conflicts of interest or declare that none exist?
+(ARRIVE) Declare potential conflicts of interest or declare that none exist?_C
+(ARRIVE) Description of methods to assess if data met statistical assumptions?
+(ARRIVE) Description of methods to assess if data met statistical assumptions?_C
+(ARRIVE) Details of acclimatisation periods to experimental locations provided?
+(ARRIVE) Details of acclimatisation periods to experimental locations provided?_C
+(ARRIVE) Do they list all funding sources (including grant identifier)?
+(ARRIVE) Do they list all funding sources (including grant identifier)?_C
+"(ARRIVE) if ethical approval was not sought/granted, is justification provided?"
+"(ARRIVE) if ethical approval was not sought/granted, is justification provided?_C"
+"(ARRIVE) Is at least one of age, weight or dev stage of the animals specified?"
+"(ARRIVE) Is at least one of age, weight or dev stage of the animals specified?_C"
+(ARRIVE) Is it clear whether randomised allocation to group for any experiments?
+(ARRIVE) Is it clear whether randomised allocation to group for any experiments?_C
+(ARRIVE) Is the effect size and confidence interval provided?
+(ARRIVE) Is the effect size and confidence interval provided?_C
+(ARRIVE) Is the exact number of EUs in each group at start of study provided?
+(ARRIVE) Is the exact number of EUs in each group at start of study provided?_C
+"(ARRIVE) Is the experimental unit (animal, cage, litter) clearly identified?"
+"(ARRIVE) Is the experimental unit (animal, cage, litter) clearly identified?_C"
+(ARRIVE) Is the method by which the sample size was chosen explained?
+(ARRIVE) Is the method by which the sample size was chosen explained?_C
+(ARRIVE) Is the sex of the animals specified?
+(ARRIVE) Is the sex of the animals specified?_C
+(ARRIVE) Is the statistical approach used to analyse each outcome detailed?
+(ARRIVE) Is the statistical approach used to analyse each outcome detailed?_C
+(ARRIVE) Provide name ethics review committee/equivalent + license/protocol ID?
+(ARRIVE) Provide name ethics review committee/equivalent + license/protocol ID?_C
+(RoB) Are reports of the study free of selective outcome reporting?
+(RoB) Are reports of the study free of selective outcome reporting?_C
+(RoB) Was the allocation adequately concealed?
+(RoB) Was the allocation adequately concealed?_C
+(RoB) was the allocation sequence adequately generated and applied?
+(RoB) was the allocation sequence adequately generated and applied?_C
+(RoB) Was the outcome assessor blinded?
+(RoB) Was the outcome assessor blinded?_C
+(RoB) Was the study free of other problems that could result in high RoB?
+(RoB) Was the study free of other problems that could result in high RoB?_C
+(RoB) Were animals selected at random for outcome assessment?
+(RoB) Were animals selected at random for outcome assessment?_C
+(RoB) Were groups similar at baseline or adjusted for confounders in analysis?
+(RoB) Were groups similar at baseline or adjusted for confounders in analysis?_C
+(RoB) Were incomplete outcome data adequately addressed?
+(RoB) Were incomplete outcome data adequately addressed?_C
+(RoB) Were the animals randomly housed during the experiment?
+(RoB) Were the animals randomly housed during the experiment?_C
+Abstract
+Abstract_C
+Age of animals at intervention? (mean)
+Age of animals at intervention? (mean)_C
+Age of animals at intervention? (range lower bound)
+Age of animals at intervention? (range lower bound)_C
+Age of animals at intervention? (range upper bound)
+Age of animals at intervention? (range upper bound)_C
+Age of animals at intervention? (SD)
+Age of animals at intervention? (SD)_C
+AlternateName
+AlternateName_C
+Animal strain?
+Animal strain?_C
+"ARRIVE) For all outcomes, are details provided of exactly what was measured?"
+"ARRIVE) For all outcomes, are details provided of exactly what was measured?_C"
+At which point was weight measured/reported?
+At which point was weight measured/reported?_C
+AuthorAddress
+AuthorAddress_C
+Authors
+Authors_C
+CohortId
+CohortId_C
+CohortId_I
+CohortType
+CohortType_C
+CohortType_I
+Control
+CustomId
+CustomId_C
+CustomId_I
+DateTimeDataEntered
+DateTimeDataEntered_C
+DateTimeStudyAdded
+DateTimeStudyAdded_C
+DiseaseModelLabel(s)[1]
+DiseaseModelLabel(s)[1]_C
+DiseaseModelLabel(s)[2]
+DiseaseModelLabel(s)[2]_C
+Doi
+Doi_C
+Dose of treatment used:
+Dose of treatment used:_C
+Duration of treatment:
+Duration of treatment:_C
+ErrorType
+ErrorType_C
+ExperimentID
+ExperimentID_C
+Genetic background of animals?
+Genetic background of animals?_C
+Greater value = worse outcome
+Greater value = worse outcome_C
+GreaterIsWorse
+GreaterIsWorse_C
+GroupID
+GroupID_C
+How long before/after treatment was disease model induction?
+How long before/after treatment was disease model induction?_C
+InvestigatorId
+InvestigatorId_C
+InvestigatorName
+InvestigatorName_C
+Is any role of the funder in the design/analysis/reporting of study described?
+Is any role of the funder in the design/analysis/reporting of study described?_C
+Is this a reconciliation?
+Is this a reconciliation?_C
+Keywords
+Keywords_C
+Measurement unit for treatment dose:
+Measurement unit for treatment dose:_C
+Method of allocation of experimental units to groups?
+Method of allocation of experimental units to groups?_C
+OutcomeAverageType
+OutcomeAverageType_C
+PdfRelativePath
+PdfRelativePath_C
+PublicationName
+PublicationName_C
+Reconciled
+Reconciled_C
+ReferenceType
+ReferenceType_C
+Sex of animals?
+Sex of animals?_C
+Should this have been excluded?
+Should this have been excluded?_C
+Species of animals?
+Species of animals?_C
+StudyId
+StudyId_C
+SystematicSearchId
+SystematicSearchId_C
+SystematicSearchName
+SystematicSearchName_C
+Time elapsed since intervention administration?
+Time elapsed since intervention administration?_C
+TimeInMinute
+TimeInMinute_C
+Timing of disease model induction[1]
+Timing of disease model induction[1]_C
+Timing of disease model induction[2]
+Timing of disease model induction[2]_C
+Timing of treatment administration:
+Timing of treatment administration:_C
+Title
+Title_C
+Treatment administration route:
+Treatment administration route:_C
+Treatment dosing regime:
+Treatment dosing regime:_C
+Type of measurement:
+Type of measurement:_C
+Type of numerical data:
+Type of numerical data:_C
+Type of outcome data:
+Type of outcome data:_C
+Type of outcome:
+Type of outcome:_C
+Unit of measurement (age)
+Unit of measurement (age)_C
+Unit of measurement for time separating model induction and treatment:
+Unit of measurement for time separating model induction and treatment:_C
+Unit of measurement for treatment duration:
+Unit of measurement for treatment duration:_C
+Unit of measurement for weight
+Unit of measurement for weight_C
+Unit of measurement?
+Unit of measurement?_C
+Url
+Url_C
+Were caregivers/investigator blinded to which intervention each animal received?
+Were caregivers/investigator blinded to which intervention each animal received?_C
+What is the experimental unit?
+What is the experimental unit?_C
+Year
+Year_C
