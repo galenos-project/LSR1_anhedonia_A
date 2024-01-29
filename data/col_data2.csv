@@ -80,44 +80,46 @@ AuthorAddress
 AuthorAddress_C
 Authors
 Authors_C
-CohortId
 CohortId_C
-CohortId_I
 CohortType
 CohortType_C
-CohortType_I
-Control
 CustomId
 CustomId_C
-CustomId_I
 DateTimeDataEntered
 DateTimeDataEntered_C
 DateTimeStudyAdded
 DateTimeStudyAdded_C
+did all animals randomised to cohorts in expt contribute to outcome reported?_C
 DiseaseModelLabel(s)[1]
 DiseaseModelLabel(s)[1]_C
 DiseaseModelLabel(s)[2]
 DiseaseModelLabel(s)[2]_C
 Doi
 Doi_C
-Dose of treatment used:
-Dose of treatment used:_C
-Duration of treatment:
-Duration of treatment:_C
-ErrorType
-ErrorType_C
+Dose of treatment used:[1]
+Dose of treatment used:[2]
+Duration of treatment:[1]
+Duration of treatment:[2]
 ExperimentID
 ExperimentID_C
+ExperimentLabel_C
 Genetic background of animals?
-Genetic background of animals?_C
 Greater value = worse outcome
 Greater value = worse outcome_C
 GreaterIsWorse
 GreaterIsWorse_C
-GroupID
-GroupID_C
-How long before/after treatment was disease model induction?
-How long before/after treatment was disease model induction?_C
+How long before/after treatment was disease model induction?[1]
+How long before/after treatment was disease model induction?[1]_C
+How long before/after treatment was disease model induction?[2]
+How long before/after treatment was disease model induction?[2]_C
+InterventionID[1]
+InterventionID[1]_C
+InterventionID[2]
+InterventionID[2]_C
+InterventionLabel[1]
+InterventionLabel[1]_C
+InterventionLabel[2]
+InterventionLabel[2]_C
 InvestigatorId
 InvestigatorId_C
 InvestigatorName
@@ -126,14 +128,32 @@ Is any role of the funder in the design/analysis/reporting of study described?
 Is any role of the funder in the design/analysis/reporting of study described?_C
 Is this a reconciliation?
 Is this a reconciliation?_C
+IsDiseaseModelControl[1]_C
+IsDiseaseModelControl[2]
+IsDiseaseModelControl[2]_C
+IsTreatmentControl[1]
+IsTreatmentControl[1]_C
+IsTreatmentControl[2]
+IsTreatmentControl[2]_C
 Keywords
 Keywords_C
-Measurement unit for treatment dose:
+Measurement unit for treatment dose:[1]
+Measurement unit for treatment dose:[2]
 Measurement unit for treatment dose:_C
 Method of allocation of experimental units to groups?
 Method of allocation of experimental units to groups?_C
-OutcomeAverageType
-OutcomeAverageType_C
+Method of pro-dopaminergic action:...62[1]
+Method of pro-dopaminergic action:...62[2]
+Method of pro-dopaminergic action:...64[1]
+Method of pro-dopaminergic action:...64[2]
+ModelID[1]
+ModelID[1]_C
+ModelID[2]
+ModelID[2]_C
+Name of Intervention[1]
+Name of Intervention[2]
+OutcomeId_C
+OutcomeLabel_C
 PdfRelativePath
 PdfRelativePath_C
 PublicationName
@@ -143,7 +163,6 @@ Reconciled_C
 ReferenceType
 ReferenceType_C
 Sex of animals?
-Sex of animals?_C
 Should this have been excluded?
 Should this have been excluded?_C
 Species of animals?
@@ -156,20 +175,39 @@ SystematicSearchName
 SystematicSearchName_C
 Time elapsed since intervention administration?
 Time elapsed since intervention administration?_C
-TimeInMinute
-TimeInMinute_C
 Timing of disease model induction[1]
 Timing of disease model induction[1]_C
 Timing of disease model induction[2]
 Timing of disease model induction[2]_C
-Timing of treatment administration:
-Timing of treatment administration:_C
+Timing of treatment administration:[1]
+Timing of treatment administration:[2]
 Title
 Title_C
-Treatment administration route:
-Treatment administration route:_C
-Treatment dosing regime:
-Treatment dosing regime:_C
+Treatment administration route:[1]
+Treatment administration route:[2]
+Treatment dosing regime:[1]
+Treatment dosing regime:[1]_C
+Treatment dosing regime:[2]
+Treatment dosing regime:[2]_C
+Treatment1Label_C
+Treatment1Type
+Treatment1Type_C
+Type of control for disease model[1]
+Type of control for disease model[1]_C
+Type of control for disease model[2]
+Type of control for disease model[2]_C
+Type of control used:[1]
+Type of control used:[1]_C
+Type of control used:[2]
+Type of control used:[2]_C
+Type of depression/anhedonia model[1]
+Type of depression/anhedonia model[1]_C
+Type of depression/anhedonia model[2]
+Type of depression/anhedonia model[2]_C
+Type of disease model induction[1]
+Type of disease model induction[1]_C
+Type of disease model induction[2]
+Type of disease model induction[2]_C
 Type of measurement:
 Type of measurement:_C
 Type of numerical data:
@@ -177,13 +215,14 @@ Type of numerical data:_C
 Type of outcome data:
 Type of outcome data:_C
 Type of outcome:
-Type of outcome:_C
 Unit of measurement (age)
 Unit of measurement (age)_C
-Unit of measurement for time separating model induction and treatment:
-Unit of measurement for time separating model induction and treatment:_C
-Unit of measurement for treatment duration:
-Unit of measurement for treatment duration:_C
+Unit of measurement for time separating model induction and treatment:[1]
+Unit of measurement for time separating model induction and treatment:[1]_C
+Unit of measurement for time separating model induction and treatment:[2]
+Unit of measurement for time separating model induction and treatment:[2]_C
+Unit of measurement for treatment duration:[1]
+Unit of measurement for treatment duration:[2]
 Unit of measurement for weight
 Unit of measurement for weight_C
 Unit of measurement?
@@ -196,3 +235,4 @@ What is the experimental unit?
 What is the experimental unit?_C
 Year
 Year_C
+ErrorType
