@@ -184,18 +184,7 @@ subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_value
   
   # Add a check for the number of levels in the moderator variable
   if (length(levels(df2[[moderator]])) >= 1) {
-  #  message("In this iteration of the review, there was insufficient data to perform subgroup analysis for this variable (data for one subgroup only)")
-  #  return(NULL)
-  #}
-  
-  #if ((n_distinct(df2$StudyId) > 2) & (n_distinct(df2$ExperimentID_I) >10)) {
-  #df2$RoB <- as.numeric(df2$RoBScore)
-  #df2$RoBScore <- factor(df2$RoBScore, levels = c(0, 1, 2))
-  
-  
-  #df2<-df2 %>% 
-    #filter(SMD>-6) %>% 
-    #filter(SMD<6) # delete missing values and some weirdly large values, like -15 and 16
+
   
   df2 <- df2 %>% mutate(effect_id = row_number()) # add effect_id column
   
@@ -710,10 +699,10 @@ SyRCLE_RoB_summary <- function(df, experiment_type, outcome) {
     filter(outcome_type == outcome) 
 
 
-RoB <- unique(df[,c(3,5,11,24:56)])
+RoB <- unique(df[,c(4,6,12,26:58)])
 
 #change studyId to Author, year
-RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors,"\\b\\w+\\b"),', ',RoB$Year))
+RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors_I,"\\b\\w+\\b"),', ',RoB$Year_I))
 
 # fix >1 publication per first author in a year
 
@@ -739,7 +728,7 @@ RoB <- RoB[order(RoB$StudyId),]
 
 
 #extract Syrcle RoB scores
-SyRCLE <- RoB[,c(1,4:13)]
+SyRCLE <- RoB[,c(37,4:13)]
 
 #Change "yes' to 'low' and 'No' to 'high'
 SyRCLE <- mutate_all(SyRCLE, list(~ ifelse(. == 'Yes', 'Low', .)))
@@ -759,10 +748,10 @@ SyRCLE_RoB_traffic <- function(df, experiment_type, outcome) {
     filter(outcome_type == outcome) 
   
 
-  RoB <- unique(df[,c(3,5,11,24:56)])
+  RoB <- unique(df[,c(4,6,12,26:58)])
 
   #change studyId to Author, year
-  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors,"\\b\\w+\\b"),', ',RoB$Year))
+  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors_I,"\\b\\w+\\b"),', ',RoB$Year_I))
   
   # fix >1 publication per first author in a year
   
@@ -788,7 +777,7 @@ SyRCLE_RoB_traffic <- function(df, experiment_type, outcome) {
   
   
   #extract Syrcle RoB scores
-  SyRCLE <- RoB[,c(1,4:13)]
+  SyRCLE <- RoB[,c(37,4:13)]
   
   #Change "yes' to 'low' and 'No' to 'high'
   SyRCLE <- mutate_all(SyRCLE, list(~ ifelse(. == 'Yes', 'Low', .)))
@@ -809,10 +798,10 @@ ARRIVE_summary <- function(df, experiment_type, outcome) {
     filter(outcome_type == outcome)
   
 
-  RoB <- unique(df[,c(3,5,11,24:56)])
+  RoB <- unique(df[,c(4,6,12,26:58)])
 
   #change studyId to Author, year
-  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors,"\\b\\w+\\b"),', ',RoB$Year))
+  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors_I,"\\b\\w+\\b"),', ',RoB$Year_I))
   
   # fix >1 publication per first author in a year
   
@@ -837,7 +826,7 @@ ARRIVE_summary <- function(df, experiment_type, outcome) {
   RoB <- RoB[order(RoB$StudyId),]
 
   #extract ARRIVE reporting scores
-ARRIVE <- RoB[,c(1,14:36)]
+ARRIVE <- RoB[,c(37,14:36)]
 
 #Change "yes' to 'low' and 'No' to 'high'
 ARRIVE <- mutate_all(ARRIVE, list(~ ifelse(. == 'Yes', 'Low', .)))
@@ -867,10 +856,10 @@ ARRIVE_traffic <- function(df, experiment_type, outcome) {
   dfb <- subset(dfa, dfa$outcome_type == outcome)
 
 
-  RoB <- unique(dfb[,c(3,5,11,24:56)])
+  RoB <- unique(dfb[,c(4,6,12,26:58)])
 
   #change studyId to Author, year
-  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors,"\\b\\w+\\b"),', ',RoB$Year))
+  RoB$StudyId <- toupper(paste0(str_extract(RoB$Authors_I,"\\b\\w+\\b"),', ',RoB$Year_I))
   
   # fix >1 publication per first author in a year
   
@@ -895,7 +884,7 @@ ARRIVE_traffic <- function(df, experiment_type, outcome) {
   RoB <- RoB[order(RoB$StudyId),]
   
   #extract ARRIVE reporting scores
-  ARRIVE <- RoB[,c(1,14:36)]
+  ARRIVE <- RoB[,c(37,14:36)]
   
   #Change "yes' to 'low' and 'No' to 'high'
   ARRIVE <- mutate_all(ARRIVE, list(~ ifelse(. == 'Yes', 'Low', .)))
@@ -1130,7 +1119,101 @@ check_moderator_levels <- function(df, experiment, outcome) {
   return(x)  # Return the formatted string
 }
 
+check_moderator_levels_i <- function(df, experiment, outcome) {
+  
+  moderator_vars <- c("Sex", "CatDisInd", "InterventionAdministrationRoute", 
+                      "ProphylacticOrTherapeutic", "TreatmentDurationCategory", 
+                      "DrugName")
 
+  
+  df2 <- filter_experiment_outcome_type(df, experiment, outcome)
+  single_level_mods <- character()  # Initialize an empty character vector to store moderators
+  
+  for (moderator in moderator_vars) {
+    # convert to factor if not already
+    if (!is.factor(df2[[moderator]])) {
+      df2[[moderator]] <- factor(df2[[moderator]])
+    }
+    
+    # check number of levels
+    moderator_levels <- df2 %>%
+      group_by(!!sym(moderator)) %>%
+      summarise(n = n_distinct(StudyId)) %>%
+      ungroup() %>%
+      summarise(moderator_levels = n_distinct(!!sym(moderator))) %>%
+      pull(moderator_levels)
+    
+    if (moderator_levels < 2) {
+      single_level_mods <- c(single_level_mods, moderator)
+    }
+  }
+  
+  # rename moderator variables in list to match names in the inline text
+  
+  single_level_mods1 <- single_level_mods %>% 
+    str_replace("TreatmentDurationCategory", "Duration of treatment period") %>% 
+    str_replace("InterventionAdministrationRoute", "Route of intervention administration") %>%
+    str_replace("ProphylacticOrTherapeutic", "Prophylactic or therapeutic intervention") %>%
+    str_replace("CategoryDiseaseInduction", "Disease induction method") %>%
+    str_replace("DrugName", "Intervention admnistered (drug)") %>% 
+    tolower()
+  
+  if (length(single_level_mods1) > 1) {
+    x <- paste(head(single_level_mods1, -1), collapse = ", ")
+    x <- paste(x, "and", tail(single_level_mods1, 1))
+  } else {
+    x <- single_level_mods1
+  }
+  
+  return(x)  # Return the formatted string
+}
+
+check_moderator_levels_m <- function(df, experiment, outcome) {
+  
+  moderator_vars <- c("Sex", "CatDisInd")
+  
+  
+  df2 <- filter_experiment_outcome_type(df, experiment, outcome)
+  single_level_mods <- character()  # Initialize an empty character vector to store moderators
+  
+  for (moderator in moderator_vars) {
+    # convert to factor if not already
+    if (!is.factor(df2[[moderator]])) {
+      df2[[moderator]] <- factor(df2[[moderator]])
+    }
+    
+    # check number of levels
+    moderator_levels <- df2 %>%
+      group_by(!!sym(moderator)) %>%
+      summarise(n = n_distinct(StudyId)) %>%
+      ungroup() %>%
+      summarise(moderator_levels = n_distinct(!!sym(moderator))) %>%
+      pull(moderator_levels)
+    
+    if (moderator_levels < 2) {
+      single_level_mods <- c(single_level_mods, moderator)
+    }
+  }
+  
+  # rename moderator variables in list to match names in the inline text
+  
+  single_level_mods1 <- single_level_mods %>% 
+    str_replace("TreatmentDurationCategory", "Duration of treatment period") %>% 
+    str_replace("InterventionAdministrationRoute", "Route of intervention administration") %>%
+    str_replace("ProphylacticOrTherapeutic", "Prophylactic or therapeutic intervention") %>%
+    str_replace("CategoryDiseaseInduction", "Disease induction method") %>%
+    str_replace("DrugName", "Intervention admnistered (drug)") %>% 
+    tolower()
+  
+  if (length(single_level_mods1) > 1) {
+    x <- paste(head(single_level_mods1, -1), collapse = ", ")
+    x <- paste(x, "and", tail(single_level_mods1, 1))
+  } else {
+    x <- single_level_mods1
+  }
+  
+  return(x)  # Return the formatted string
+}
 run_sse_SMD_L <- function(df, type, outcome, rho_value = 0.5) {
   
   #  df<-filter_experiment_outcome_type(df, experiment, outcome)
