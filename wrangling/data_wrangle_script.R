@@ -190,17 +190,6 @@ data <- data %>%
 #### SyRF correction section ends
 
 
-##### Remove DA knockouts and data reported from subgroups #####
-#data_rem <- subset(data, data$`DiseaseModelLabel(s)` == 'DAT +/-')
-#data <- anti_join(data, data_rem)
-#remove data reported from subgroups
-#data_rem <- data %>% filter(str_detect(`DiseaseModelLabel(s)`, "SUBGROUP") | str_detect(CohortLabel, 'SUBGROUP'))
-#data <- anti_join(data, data_rem)
-#data <- data %>%
-#  mutate(`DiseaseModelLabel(s)` = ifelse(`DiseaseModelLabel(s)` == "DAT -/-", "DAT KO", `DiseaseModelLabel(s)`))
-#data <- data %>% mutate_all(trimws)
-
-
 ##### Extract treatment names and doses ####
 data <- data%>%
   mutate(drugname1 = case_when(
@@ -213,7 +202,7 @@ data <- data%>%
     grepl("L-DOPA", data$`Name of Intervention[1]`) ~ "L-DOPA",
     grepl("ARIPIPRAZOLE", data$`Name of Intervention[1]`) ~ "aripiprazole",
     grepl("ESCITALOPRAM", data$`Name of Intervention[1]`) ~ "escitalopram",
-    grepl("IMPIRAMINE", data$`Name of Intervention[1]`) ~ "imipramine",
+    grepl("IMIPRAMINE", data$`Name of Intervention[1]`) ~ "imipramine",
     grepl("D-AMPHETAMINE", data$`Name of Intervention[1]`) ~ "D-amphetamine",
     grepl("DOPAMINE", data$`Name of Intervention[1]`) ~ "dopamine",
     grepl("SCH23390", data$`Name of Intervention[1]`) ~ "SCH23390",
@@ -244,80 +233,116 @@ data <- data%>%
     grepl("PIRIBEDIL", data$`Name of Intervention[1]`) ~ "piribedil",
     grepl("bromocriptine", data$`Name of Intervention[1]`) ~ "bromocriptine",
     grepl("SKF83959", data$`Name of Intervention[1]`) ~ "SKF83959",
-    is.na(data$`Name of Intervention[1]`) ~ "No treatment",
+    grepl("SIMVASTATIN", data$`Name of Intervention[1]`) ~ "simvastatin",
+    grepl("IMPIRAMINE", data$`Name of Intervention[1]`) ~ "imipramine",
+    is.na(data$`Name of Intervention[1]`) ~ NA,
+    TRUE ~ "Other"
+  ))
+
+data <- data%>%
+  mutate(drugname2 = case_when(
+    grepl("imipramine", data$`Name of Intervention[2]`) ~ "imipramine",
+    grepl("olanzepine", data$`Name of Intervention[2]`) ~ "olanzapine",
+    grepl("AMANTADINE", data$`Name of Intervention[2]`) ~ "amantadine",
+    grepl("orientalis", data$`Name of Intervention[2]`) ~ "P. orientalis seed",
+    grepl("Quinpirole", data$`Name of Intervention[2]`) ~ "quinpirole",
+    grepl("QUINPIROLE", data$`Name of Intervention[2]`) ~ "quinpirole",
+    grepl("L-DOPA", data$`Name of Intervention[2]`) ~ "L-DOPA",
+    grepl("ARIPIPRAZOLE", data$`Name of Intervention[2]`) ~ "aripiprazole",
+    grepl("ESCITALOPRAM", data$`Name of Intervention[2]`) ~ "escitalopram",
+    grepl("IMIPRAMINE", data$`Name of Intervention[2]`) ~ "imipramine",
+    grepl("D-AMPHETAMINE", data$`Name of Intervention[2]`) ~ "D-amphetamine",
+    grepl("DOPAMINE", data$`Name of Intervention[2]`) ~ "dopamine",
+    grepl("SCH23390", data$`Name of Intervention[2]`) ~ "SCH23390",
+    grepl("SKF38393", data$`Name of Intervention[2]`) ~ "SKF38393",
+    grepl("SKF-38393", data$`Name of Intervention[2]`) ~ "SKF38393",
+    grepl("BUPROPION", data$`Name of Intervention[2]`) ~ "buproprion",
+    grepl("risperidone", data$`Name of Intervention[2]`) ~ "risperidone",
+    grepl("Risperidone", data$`Name of Intervention[2]`) ~ "risperidone",
+    grepl("clozapine", data$`Name of Intervention[2]`) ~ "clozapine",
+    grepl("CRYPTOTANSHINONE", data$`Name of Intervention[2]`) ~ "cryptotanshinone",
+    grepl("Aripiprazole", data$`Name of Intervention[2]`) ~ "aripiprazole",
+    grepl("aripiprazole", data$`Name of Intervention[2]`) ~ "aripiprazole",
+    grepl("selegiline", data$`Name of Intervention[2]`) ~ "selegiline",
+    grepl("OLZ", data$`Name of Intervention[2]`) ~ "olanzapine",
+    grepl("quinpirole", data$`Name of Intervention[2]`) ~ "quinpirole",
+    grepl("bromocriptine", data$`Name of Intervention[2]`) ~ "bromocriptine",
+    grepl("Pramipexole", data$`Name of Intervention[2]`) ~ "pramipexole",    
+    grepl("ROPINIROLE", data$`Name of Intervention[2]`) ~ "ropinirole",    
+    grepl("TRANCYLCYPROMINE", data$`Name of Intervention[2]`) ~ "tranylcypromine",
+    grepl("APH199", data$`Name of Intervention[2]`) ~ "APH199",
+    grepl("METHYLPHENIDATE", data$`Name of Intervention[2]`) ~ "methyphenidate",
+    grepl("ESCITALOPRAM", data$`Name of Intervention[2]`) ~ "escitalopram",
+    grepl("LEVODOPA", data$`Name of Intervention[2]`) ~ "L-DOPA",
+    grepl("BROMOCRIPTINE", data$`Name of Intervention[2]`) ~ "bromocriptine",
+    grepl("PRAMIPREXOLE", data$`Name of Intervention[2]`) ~ "pramipexole",
+    grepl("Δ3 ,2-hydroxybakuchiol", data$`Name of Intervention[2]`) ~ "2_HBC",
+    grepl("SCH23390", data$`Name of Intervention[2]`) ~ "SCH23390",
+    grepl("PIRIBEDIL", data$`Name of Intervention[2]`) ~ "piribedil",
+    grepl("bromocriptine", data$`Name of Intervention[2]`) ~ "bromocriptine",
+    grepl("SKF83959", data$`Name of Intervention[2]`) ~ "SKF83959",
+    grepl("SIMVASTATIN", data$`Name of Intervention[2]`) ~ "simvastatin",
+    grepl("IMPIRAMINE", data$`Name of Intervention[2]`) ~ "imipramine",
+    is.na(data$`Name of Intervention[2]`) ~ NA,
     TRUE ~ "Other"
   ))
 
 
 
-columnnmae13 <- "Measurement unit for treatment dose:"
+columnnmae13 <- "Measurement unit for treatment dose:[1]"
 condition <- data$StudyId == 'd51b4559-f349-4c76-a5db-e63698b10f46'
 data[condition, columnnmae13] <- "micrograms (ug) per kg"
 
 condition <- data$CohortId == '20c38490-ce3a-40a2-b262-91652c67ea03'
 data[condition, columnnmae13] <- "mg/kg"
 
-colname14 <- "Dose of treatment used:"
+
+colname14 <- "Dose of treatment used:[1]"
 condition <- data$CohortId == '20c38490-ce3a-40a2-b262-91652c67ea03'
 data[condition, colname14] <- '1'
 
-data$Treatment1Label <- paste0(data$drugname1, ", ", data$`Dose of treatment used:`, ' ', data$`Measurement unit for treatment dose:`)
 
 
-##### Get names of each cohort as drug, dose, unit ####
-#data <- data %>% 
-#  mutate(TreatmentLabel1 = case_when(
-#    grepl("Intervention", data$Treatment1Type) ~ paste0(drugname1, ", ", `Dose of treatment used:[1]`, ' ', `Measurement unit of treatment dose:[1]`),
-#    (grepl("Positive control", data$Treatment1Type) & is.na(`Dose of positive control treatment?[1]`)) ~ paste0(drugname1, ", ", `Dose of treatment used:[1]`," ",`Measurement unit of treatment dose:[1]`),
-#    (grepl("Positive control", data$Treatment1Type) & !is.na(`Dose of positive control treatment?[1]`)) ~ paste0(drugname1, ", ", `Dose of positive control treatment?[1]`," ",`Measurement unit of treatment dose:[1]`)
-#  ))
+data <- data %>% 
+  mutate(`Measurement unit for treatment dose:[1]` = case_when(
+    str_detect(`Measurement unit for treatment dose:[1]`, "(?i)miligrams\\s?\\(mg\\)\\s?per\\s?kg") ~ "mg/kg",
+    str_detect(`Measurement unit for treatment dose:[1]`, "(?i)micrograms\\s?\\(ug\\)\\s?per\\s?kg") ~ "ug/kg",
+    str_detect(`Measurement unit for treatment dose:[1]`, "(?i)micrograms\\s?\\(ug\\)") ~ "ug",
+    TRUE ~ `Measurement unit for treatment dose:[1]`
+  ))
 
-#data <- data %>% 
-#  mutate(TreatmentLabel2 = case_when(
-#    grepl("Intervention", data$Treatment2Type) ~ paste0(drugname2, ", ", `Dose of treatment used:[2]`, ' ', `Measurement unit of treatment dose:[2]`),
-#    (grepl("Positive control", data$Treatment2Type) & is.na(`Dose of positive control treatment?[2]`)) ~ paste0(drugname2, ", ", `Dose of treatment used:[2]`," ",`Measurement unit of treatment dose:[2]`),
-#    (grepl("Positive control", data$Treatment2Type) & !is.na(`Dose of positive control treatment?[2]`)) ~ paste0(drugname2, ", ", `Dose of positive control treatment?[2]`," ",`Measurement unit of treatment dose:[2]`)
-#  ))
 
-#### for table
+
+data <- data %>% 
+  mutate(`Measurement unit for treatment dose:[2]` = if_else(
+    str_detect(`Measurement unit for treatment dose:[2]`, "miligrams \\(mg\\) per kg"),
+    "mg/kg",
+    if_else(
+      str_detect(`Measurement unit for treatment dose:[2]`, "micrograms \\(ug\\) per kg"),
+      "ug/kg",
+      if_else(
+        str_detect(`Measurement unit for treatment dose:[2]`, "micrograms \\(ug\\)"),
+        "ug",
+        `Measurement unit for treatment dose:[2]`  # If none of the conditions are met, keep the original value
+      )
+    )
+  ))
+
+
+data$Treatment1Label1 <- paste0(data$drugname1, ", ", data$`Dose of treatment used:[1]`, ' ', data$`Measurement unit for treatment dose:[1]`)
+data$Treatment1Label2 <- paste0(data$drugname2, ", ", data$`Dose of treatment used:[2]`, ' ', data$`Measurement unit for treatment dose:[2]`)
+
+data <- data %>% 
+  mutate(
+    TreatmentLabel = case_when(
+      !is.na(drugname1) & !is.na(drugname2) ~ paste(Treatment1Label1, "&", Treatment1Label2),
+      !is.na(drugname1) ~ Treatment1Label1,
+      !is.na(drugname2) ~ Treatment1Label2,
+      TRUE ~ NA_character_
+    )
+  )
 
 data$DrugLabel <- data$drugname1
-
-#data <- data %>% 
-#  mutate(DrugLabel1 = case_when(
-#    grepl("Intervention", data$Treatment1Type) ~ drugname1,
-#    (grepl("Positive control", data$Treatment1Type) & is.na(`Dose of positive control treatment?[1]`)) ~ drugname1, 
-#    (grepl("Positive control", data$Treatment1Type) & !is.na(`Dose of positive control treatment?[1]`)) ~ drugname1, 
-#  ))
-
-#data <- data %>% 
-#  mutate(DrugLabel2 = case_when(
-#    grepl("Intervention", data$Treatment2Type) ~ drugname2, 
-#    (grepl("Positive control", data$Treatment2Type) & is.na(`Dose of positive control treatment?[2]`)) ~ drugname2,
-#    (grepl("Positive control", data$Treatment2Type) & !is.na(`Dose of positive control treatment?[2]`)) ~ drugname2, 
-#  ))
-
-
-#data <- data %>% 
-#  mutate(
-#    TreatmentLabel = case_when(
-#      !is.na(TreatmentLabel1) & !is.na(TreatmentLabel2) ~ paste(TreatmentLabel1, "&", TreatmentLabel2),
-#      !is.na(TreatmentLabel1) ~ TreatmentLabel1,
-#      !is.na(TreatmentLabel2) ~ TreatmentLabel2,
-#      TRUE ~ NA_character_
-#    )
-#  )
-
-#data <- data %>% 
-#  mutate(
-#    DrugLabel = case_when(
-#      !is.na(DrugLabel1) & !is.na(DrugLabel2) ~ paste(DrugLabel1, "&", DrugLabel2),
-#      !is.na(DrugLabel1) ~ DrugLabel1,
-#      !is.na(DrugLabel2) ~ DrugLabel2,
-#      TRUE ~ NA_character_
-#    )
-#  )
-
 
 ###for each cohort, label sham and control groups, along with TAAR1KO -ve control Contol for combination interventions (== positive control)
 ### first, we need to work out the attributes of each group - wgat types of comparisons will they allow?
@@ -362,7 +387,7 @@ for (i in 1:nrow(group_characteristics)) {
       data_TvCs <- bind_rows(data_TvCs, cohset)
     }}}
 
-data_TvCs$Label <- data_TvCs$Treatment1Label.x
+data_TvCs$Label <- data_TvCs$TreatmentLabel.x
 data_TvCs$SortLabel <- "TvC"
 data_TvCs <- subset(data_TvCs, !is.na(data_TvCs$Intervention) & !is.na(data_TvCs$Control) & !is.na(data_TvCs$Sham))
 
@@ -386,7 +411,7 @@ for (i in 1:nrow(group_characteristics)) {
     left_join(cohset %>% filter(CohortType == "Negative control"), by = c("Control" = "CohortLabel"))
   data_TvC <- bind_rows(data_TvC, cohset)
 }
-data_TvC$Label <- data_TvC$Treatment1Label.x
+data_TvC$Label <- data_TvC$TreatmentLabel.x
 data_TvC$SortLabel <- "TvC"
 data_TvC <- subset(data_TvC, !is.na(data_TvC$Intervention) & !is.na(data_TvC$Control))
 
@@ -394,47 +419,58 @@ data_sub_TvC <- subset(data_TvC, !data_TvC$GroupID.x %in% data_TvCs$GroupID.x)
 data_TvCc <- bind_rows(data_TvCs, data_sub_TvC)
 
 
+##### 3.1.2 C v S  : effect of model ####
+
+data_CvS <- data.frame()
+
+for (i in 1:nrow(group_characteristics)) {
+  group <- group_characteristics[i, 1]
+  cohset <- data[data$GroupID == as.character(group), ]  
+  
+  # Create combinations of interventions and positive controls
+  combinations <- expand.grid(
+    Control = unique(cohset$CohortLabel [cohset$CohortType == "Sham"]),
+    Intervention = unique(cohset$CohortLabel [cohset$CohortType == "Negative control"])
+  )
+  
+  # Merge combinations with the original data
+  cohset <- combinations %>%
+    left_join(cohset %>% filter(CohortType == "Negative control"), by = c("Intervention" = "CohortLabel")) %>%
+    left_join(cohset %>% filter(CohortType == "Sham"), by = c("Control" = "CohortLabel"))
+  data_CvS <- bind_rows(data_CvS, cohset)
+}
+data_CvS$Label <- data_CvS$TreatmentLabel.x
+data_CvS$SortLabel <- "CvS"
+data_CvS <- subset(data_CvS, !is.na(data_CvS$Intervention) & !is.na(data_CvS$Control))
 
 
 ##### combine to a single df and merge back to main #####
 
-data2 <- data_TvCc
+data2 <- bind_rows(data_TvCc, data_CvS)
+
 
 data2 <- data2 %>%
   rename_at(vars(ends_with(".x")), ~str_remove(., "\\.x") %>% paste0("_I")) %>%
   rename_at(vars(ends_with(".y")), ~str_remove(., "\\.y") %>% paste0("_C"))
 
-###get names (wrangled externally) of columns to delete
-#colnames_data2 <- colnames(data2)
-#write.csv(colnames_data2, 'col_data2.csv')
-
-col_data2 <- col_data2 <- read_csv("data/col_data2.csv", 
-                                   col_names = FALSE)
-cols2delete <- col_data2[[1]]
-
-data2 <- data2 %>% select(-cols2delete)
 
 #####colname corrections #####
-data2<- data2 %>% rename(`Type of outcome` = `Type of outcome:_I`)
-data2<- data2 %>% rename(StudyId = StudyId_I)
-data2<- data2 %>% rename(ErrorType = ErrorType_I)
-data2<- data2 %>% rename(GreaterIsWorse = GreaterIsWorse_I)
-#data2<- data2 %>% rename(`Category of disease model induction method:` = `Category of disease model induction method:_I`)
-data2<- data2 %>% rename(`Measurement unit of treatment dose:` = `Measurement unit for treatment dose:_I`)
-#data2<- data2 %>% rename(`Measurement unit of treatment dose:[2]` = `Measurement unit of treatment dose:[2]_I`)
-data2<- data2 %>% rename(`Duration of treatment` = `Duration of treatment:[1]_I`)
-data2<- data2 %>% rename(`Unit of measurement for treatment duration` = `Unit of measurement for treatment duration:[1]_I`)
-#data2<- data2 %>% rename(`Duration of treatment[2]` = `Duration of treatment[2]_I`)
-#data2<- data2 %>% rename(`Unit of measurement for treatment duration[2]` = `Unit of measurement for treatment duration[2]_I`)
-data2<- data2 %>% rename(`Species of animals?` = `Species of animals?_I`)
-data2<- data2 %>% rename(`Animal strain?` = `Animal strain?_I`)
-data2<- data2 %>% rename(`Sex of animals?` = `Sex of animals?_I`)
-data2<- data2 %>% rename(`Were caregivers/investigator blinded to which intervention each animal received?` = `Were caregivers/investigator blinded to which intervention each animal received?_I`)
-data2<- data2 %>% rename(`Is any role of the funder in the design/analysis/reporting of study described?` = `Is any role of the funder in the design/analysis/reporting of study described?_I`)
-data2<- data2 %>% rename(Title = Title_I)
-data2<- data2 %>% rename(Year = Year_I)
-data2<- data2 %>% rename(ModelID = `ModelID[1]_I`)
-data2<- data2 %>% rename(Authors = Authors_I)
+data2$`Type of outcome` <- data2$`Type of outcome:_I`
+data2$StudyId <- data2$StudyId_I
+data2$ErrorType <- data2$ErrorType_I
+data2$GreaterIsWorse <- data2$GreaterIsWorse_I
+data2$`Measurement unit of treatment dose:` <- data2$`Measurement unit for treatment dose:_I`
+data2$`Duration of treatment` <- data2$`Duration of treatment:[1]_I`
+data2$`Unit of measurement for treatment duration` <- data2$`Unit of measurement for treatment duration:[1]_I`
+data2$`Species of animals?` <- data2$`Species of animals?_I`
+data2$`Animal strain?` <- data2$`Animal strain?_I`
+data2$`Sex of animals?` <- data2$`Sex of animals?_I`
+data2$`Were caregivers/investigator blinded to which intervention each animal received?` <- data2$`Were caregivers/investigator blinded to which intervention each animal received?_I`
+data2$`Is any role of the funder in the design/analysis/reporting of study described?` <- data2$`Is any role of the funder in the design/analysis/reporting of study described?_I`
+data2$Title <- data2$Title_I
+data2$Year <- data2$Year_I
+data2$ModelID <- data2$`ModelID[1]_I`
+data2$Authors <- data2$Authors_I
 
 #GroupIdlist <- unique(data2$GroupID.x) ##?
 
@@ -587,34 +623,38 @@ diagnostic <- dataall.direction %>%
 
 df <- dataall.direction
 
-# Correct "SEP" : All SEP VALUES FOR DRUG NAMES ARE SEP-363856. Checked each paper on 14.12.23. StudyID's: eba6e60f, c064173a, 84b834
-df <- df %>% 
-  mutate(drugname1 = str_replace_all(drugname1, "SEP(?!-363856)", "SEP-363856"))
-df <- df %>% 
-  mutate(drugname1_C = str_replace_all(drugname1_C, "SEP(?!-363856)", "SEP-363856"))
-df <- df %>% 
-  mutate(drugname1_I = str_replace_all(drugname1_I, "SEP(?!-363856)", "SEP-363856"))
-df <- df %>% 
-  mutate(drugname2 = str_replace_all(drugname1, "SEP(?!-363856)", "SEP-363856"))
-df <- df %>% 
-  mutate(drugname2_C = str_replace_all(drugname1_C, "SEP(?!-363856)", "SEP-363856"))
-df <- df %>% 
-  mutate(drugname2_I = str_replace_all(drugname1_I, "SEP(?!-363856)", "SEP-363856"))
-
-#df <- df %>% 
-#  mutate(CategoryDiseaseInduction = case_when(
-#    CategoryDiseaseInduction == "Genetic (e.g. DISC1 KO, DAT KO, D2R overexpression)" ~ "Genetic", 
-#    CategoryDiseaseInduction == "Pharmacological (e.g. psychostimulants, NMDA antagonists)" ~ "Pharmacological",
-#    TRUE ~ CategoryDiseaseInduction  # Keep other values unchanged
-#  ))
-
 
 # Replace unit of measurements for drugs with abbreviations 
 df <- df %>% 
-  mutate(`Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "miligrams \\(mg\\) per kg", "mg/kg"),
-         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "micrograms \\(ug\\) per kg", "ug/kg"),
-         `Measurement unit of treatment dose:` = str_replace_all(`Measurement unit for treatment dose:[1]_I`, "micrograms (ug)", "ug")
-  ) 
+  mutate(`Measurement unit of treatment dose1:` = if_else(
+    str_detect(`Measurement unit for treatment dose:[1]_I`, "miligrams \\(mg\\) per kg"),
+    "mg/kg",
+    if_else(
+      str_detect(`Measurement unit for treatment dose:[1]_I`, "micrograms \\(ug\\) per kg"),
+      "ug/kg",
+      if_else(
+        str_detect(`Measurement unit for treatment dose:[1]_I`, "micrograms \\(ug\\)"),
+        "ug",
+        `Measurement unit for treatment dose:[1]_I`  # If none of the conditions are met, keep the original value
+      )
+    )
+  ))
+
+df <- df %>% 
+  mutate(`Measurement unit of treatment dose2:` = if_else(
+    str_detect(`Measurement unit for treatment dose:[2]_I`, "miligrams \\(mg\\) per kg"),
+    "mg/kg",
+    if_else(
+      str_detect(`Measurement unit for treatment dose:[2]_I`, "micrograms \\(ug\\) per kg"),
+      "ug/kg",
+      if_else(
+        str_detect(`Measurement unit for treatment dose:[2]_I`, "micrograms \\(ug\\)"),
+        "ug",
+        `Measurement unit for treatment dose:[2]_I`  # If none of the conditions are met, keep the original value
+      )
+    )
+  ))
+
 
 ### Duration of treatment (categorical)
 
@@ -652,7 +692,7 @@ df <- df %>%
          Sex = `Sex of animals?`, 
          DrugName = drugname1_I,  #change for combination
          InterventionAdministrationRoute = `Treatment administration route:[1]_I`, #change for combination
-         DoseOfIntervention_mgkg = `Dose of treatment used:_I`)  #FOR LSR1 THESE ARE ALL IN UNIT mg/kg SO NO CONVERSION NEEDED
+         DoseOfIntervention_mgkg = `Dose of treatment used:[1]_I`)  
 
 ## Categorise by outcome type - requires checking with each iteration
 df <-  df %>%
@@ -774,13 +814,21 @@ df <- df %>%
                                     ARRIVEScore > 15 & ARRIVEScore <= 19 ~ "E: 16-19 criteria met",
                                     ARRIVEScore > 19 ~ "F: > 20 criteria met")) 
 
-df <- df %>% 
-  mutate(Label = str_replace_all(Label, "miligrams \\(mg\\) per kg", "mg/kg")) %>%
-  mutate(Label = str_replace_all(Label, "micrograms \\(ug\\) per kg", "ug/kg")) %>%
-  mutate(Label = str_replace_all(Label, "micrograms \\(ug\\)", "ug"))
+
 
 df$CatDisInd <- df$`Type of depression/anhedonia model[1]_I`
    
+# remove studies with 999 as N or SD
+df4 <- subset(df, !df$NumberOfAnimals_I == 999)
+df4 <- subset(df4, !df4$NumberOfAnimals_C == 999)
+df4 <- subset(df4, !df4$OutcomeError_C == 999)
+df <- subset(df4, !df4$OutcomeError_I == 999)
+
+df <- df %>% 
+  mutate_all(~replace(., . == 999, NA))
+
+
+
 
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
