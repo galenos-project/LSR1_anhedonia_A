@@ -29,7 +29,6 @@ editor_options:
             -   SyRCLE RoB assessment
             -   Alternative SyRCLE RoB assessment
             -   ARRIVE guideline reporting completeness
-            -   Alternative evaluation of ARRIVE reporting guidelines performance
             -   Heterogeneity explained by covariates
         -   2.1.5 Sensitivity Analyses
             -   Imputed rho values of 0.2 and 0.8
@@ -46,7 +45,6 @@ editor_options:
             -   SyRCLE RoB assessment
             -   Alternative SyRCLE RoB assessment
             -   ARRIVE guideline reporting completeness
-            -   Alternative evaluation of ARRIVE reporting guidelines performance
             -   Heterogeneity explained by covariates
         -   2.2.5 Sensitivity Analyses
             -   Imputed rho values of 0.2 and 0.8
@@ -56,14 +54,14 @@ editor_options:
 
     -   2.4 Outcome 2: Dopamine / DOPAC ratio
 
-2.  Effect of dopaminergic agents
+3.  Effect of dopaminergic agents
 
     -   2.1 Outcome 1: Sucrose preference
 
-        -   2.1.1 Risks of bias
-        -   2.1.2 Reporting completeness
-        -   2.1.3 Meta-analysis
-        -   2.1.4 Subgroup analyses and meta-regression
+        -   3.1.1 Risks of bias
+        -   3.1.2 Reporting completeness
+        -   3.1.3 Meta-analysis
+        -   3.1.4 Subgroup analyses and meta-regression
             -   Sex
             -   Category of disease induction
             -   Route of intervention administration
@@ -78,19 +76,18 @@ editor_options:
             -   SyRCLE RoB assessment
             -   Alternative SyRCLE RoB assessment
             -   ARRIVE guideline reporting completeness
-            -   Alternative evaluation of ARRIVE reporting guidelines performance
             -   Heterogeneity explained by covariates
-        -   2.1.5 Sensitivity Analyses
+        -   3.1.5 Sensitivity Analyses
             -   Imputed rho values of 0.2 and 0.8
             -   NMD
-        -   2.1.6 Reporting bias/small-study effects
+        -   3.1.6 Reporting bias/small-study effects
 
-    -   2.2 Outcome 2: Dopamine concentration
+    -   3.2 Outcome 2: Dopamine concentration
 
-        -   2.2.1 Risks of bias
-        -   2.2.2 Reporting completeness
-        -   2.2.3 Meta-analysis
-        -   2.2.4 Subgroup analyses and meta-regression
+        -   3.2.1 Risks of bias
+        -   3.2.2 Reporting completeness
+        -   3.2.3 Meta-analysis
+        -   3.2.4 Subgroup analyses and meta-regression
             -   Sex
             -   Category of disease induction
             -   Route of intervention administration
@@ -105,22 +102,21 @@ editor_options:
             -   SyRCLE RoB assessment
             -   Alternative SyRCLE RoB assessment
             -   ARRIVE guideline reporting completeness
-            -   Alternative evaluation of ARRIVE reporting guidelines performance
             -   Heterogeneity explained by covariates
-        -   2.2.5 Sensitivity Analyses
+        -   3.2.5 Sensitivity Analyses
             -   Imputed rho values of 0.2 and 0.8
             -   NMD
-        -   2.2.6 Reporting bias/small-study effects
+        -   3.2.6 Reporting bias/small-study effects
 
-    -   2.3 Outcome 3: DOPAC concentration
+    -   3.3 Outcome 3: DOPAC concentration
 
-    -   2.4 Outcome 2: Dopamine / DOPAC ratio
+    -   3.4 Outcome 2: Dopamine / DOPAC ratio
 
-3.  Attrition bias and adverse effects of treatment
+4.  Attrition bias and adverse effects of treatment
 
-4.  Summary of the evidence
+5.  Summary of the evidence
 
-5.  Software used
+6.  Software used
 
 ```{r setup, message=F, echo=F, include=F}
 ### libraries
@@ -384,7 +380,15 @@ References of included studies are located in the appendix. Included studies use
 
 Within the literature we identified distinct categories of experiments and the data presented would allow several meta-analytical contrasts to be drawn:
 
-1.  **Treatment vs control**. These were experiments investigating the effect of administering a TAAR1 agonist alone, reported in `r nrow(df %>% filter(SortLabel == "TvC"))` experiments from `r nrow(df %>% filter(SortLabel == "TvC") %>% distinct(StudyId))` publications..
+1.  **Effects of diease modelling**. These are experiments investigating the effect of models of depression, reported in `r nrow(df %>% filter(SortLabel == "CvS"))` experiments from `r nrow(df %>% filter(SortLabel == "CvS") %>% distinct(StudyId))` publications. 
+
+In these studies the:
+
+-   **Control group** is a group of animals that is (1) not subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment. 
+
+-   **Intervention group** is a group of animals that is (1) subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment
+
+2.  **Treatment vs control**. These were experiments investigating the effect of administering a TAAR1 agonist alone, reported in `r nrow(df %>% filter(SortLabel == "TvC"))` experiments from `r nrow(df %>% filter(SortLabel == "TvC") %>% distinct(StudyId))` publications.
 
 In these studies the:
 
@@ -411,15 +415,13 @@ All analyses were conducted allowing for the following hierarchical levels in a 
 
 The hierarchical grouping may therefore be considered thus: **Strains** of laboratory animals are included in several **Studies**, each of which can report one or more **Experiments**, and each Experiment is comprised of at least two **Cohorts** which are considered identical except for differing in the experimental manipulation (the **Intervention**) or not being exposed to the disease modelling procedures (a **Sham** cohort, these only being used to provide a baseline for outcome measures to allow Normalised Mean Difference meta-analysis). An **Experiment** can include several **experimental contrasts**, for instance where different doses of drugs are compared to the same control group.
 
-*NB: We constructed multilevel models without Knapp-Hartung adjustments as these are not available for rma.mv class objects in the metafor package* ([metafor](https://cran.r-project.org/web/packages/metafor/metafor.pdf)). *Instead, the model is set to `test = "t"` to use t- and F-distributions for making inferences, and `dfs="contain"` to improve the method of approximating degrees of freedom of these distributions.*
+We constructed multilevel models without Knapp-Hartung adjustments as these are not available for rma.mv class objects in the metafor package. Instead, the model is set to `test = "t"` to use t- and F-distributions for making inferences, and `dfs="contain"` to improve the method of approximating degrees of freedom of these distributions.*
 
-The scales and units used to measure outcomes in preclinical studies often differ between studies although they may measure the same underlying biological construct. The primary effect size used for meta-analysis of preclinical studies is therefore the standardised mean difference (SMD, Hedge's g). We also present a sensitivity analysis using normalised mean difference (NMD), where there are sufficient data for sham proceedures to allow this.
-
-No studies were excluded on the basis of extreme effect sizes reported.
+The scales and units used to measure outcomes in preclinical studies often differ between studies although they may measure the same underlying biological construct. The primary effect size used for meta-analysis of preclinical studies is therefore the standardised mean difference (SMD, Hedge's g). For experiments testing the effects of interventions we also present a sensitivity analysis using normalised mean difference (NMD), where there are sufficient data for sham proceedures to allow this. This analysis is not possible for studies of the effect of modelling depression.
 
 For some experimental contrasts, more than one outcome of the same category - for instance dopamine concentrations in different brain regions - was measured in the same cohort of animals. Alternatively, some publications used the same drug doses with the same outcome measures in independent experiments. For these reasons, some of the forest plots may appear to include 'duplicate' Study - Drug - Dose combinations with different outcomes. For the later, these are accounted for in the heirarchical analysis, but for the former there were insufficient levels of the different outcome category measured to allow for hierachical analysis and so this was not performed.
 
-# 2 Effect of model induction
+# 2 Effects of model induction
 
 ```{r # Split df by experiment and outcome type into dataframes to simply inline code below - TAAR1 Agonist v Control, eval = TRUE, echo = FALSE}
 df_S <- filter(df, SortLabel == "CvS")
@@ -445,15 +447,9 @@ df_S_ratio <- filter_experiment_outcome_type(df, "CvS", "DA/DOPC ratio")
 
 ### 2.1.1 Risks of bias
 
-Figure 2.1.1a shows the risk of bias summary for studies investigating the effect of administering a TAAR1 agonist on Sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 2.1.1b shows the corresponding traffic light plot.
+Figure 2.1.1 shows the risk of bias summary for studies investigating the effect of modelling depression on sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. 
 
-**Figure 2.1.1a**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
-SyRCLE_RoB_summary(df, "CvS", "Sucrose preference test")
-```
-
-**Figure 2.1.1b**
+**Figure 2.1.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "CvS", "Sucrose preference test")
@@ -461,15 +457,9 @@ SyRCLE_RoB_traffic(df, "CvS", "Sucrose preference test")
 
 ### 2.1.2 Reporting completeness
 
-Figure 2.1.2a shows the reporting completeness summary for studies investigating the effect of administering a TAAR1 agonist on Sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 2.1.2b shows the corresponding traffic light plot.
+Figure 2.1.2 shows the reporting completeness summary for studies investigating the effect of modelling depression on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. 
 
-**Figure 2.1.2a**
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 7}
-ARRIVE_summary(df, "CvS", "Sucrose preference test")
-```
-
-**Figure 2.1.2b**
+**Figure 2.1.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 ARRIVE_traffic(df, "CvS", "Sucrose preference test")
@@ -483,7 +473,7 @@ SMD_S_SPT <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.5)
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text1 <- "The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
+  output_text1 <- "The effect of administering a dopaminergic agent on sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
   output_text2 <- "Figure 2.1.3"
 
 } else {
@@ -501,7 +491,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
 
 ```{r echo=FALSE}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text3 <- paste0("For dopaminergic agents v Control, dopaminergic agents had a pooled effect on Sucrose preference of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
+  output_text3 <- paste0("Dopaminergic agents had a pooled effect on sucrose preference of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
 
 } else {
   output_text3 <- ""
@@ -511,7 +501,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r SMD_S_SPT[["s.nlevels"]][2]` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(SMD_S_SPT$data$StudyId_I` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
 
 ### 2.1.4 Subgroup analyses and meta-regressions
 
