@@ -801,17 +801,33 @@ df <- df %>%
 
 # Calculate overall RoB score
 
-df <- df %>%
+dfTvC <- df %>%
+  subset(df$SortLabel == 'TvC') %>%
   rowwise() %>%
-  mutate(RoSBScoreAny = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)) %>%
+  mutate(RoSBScoreAny = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)/3) %>%
   ungroup()
 
-df <- df %>%
+dfTvC <- dfTvC %>%
+  subset(dfTvC$SortLabel == 'TvC') %>%
   rowwise() %>%
-  mutate(RoBScore = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)) %>%
+  mutate(RoBScore = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)/3) %>%
   ungroup() %>% 
   mutate(RoBScore = paste0(RoBScore, " criteria met"))
 
+dfCvS <- df %>%
+  subset(df$SortLabel == 'CvS') %>%
+  rowwise() %>%
+  mutate(RoSBScoreAny = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)/2) %>%
+  ungroup()
+
+dfCvS <- dfCvS %>%
+  subset(dfCvS$SortLabel == 'CvS') %>%
+  rowwise() %>%
+  mutate(RoBScore = sum(c_across(contains("RoB")) == "Yes", na.rm = TRUE)/2) %>%
+  ungroup() %>% 
+  mutate(RoBScore = paste0(RoBScore, " criteria met"))
+
+df <- rbind(dfTvC, dfCvS)
 
 df$RoSBScoreAny <- as.numeric(df$RoSBScoreAny)
 
@@ -827,8 +843,9 @@ df <- df %>%
   rename(`(ARRIVE) Is any role of the funder in the design/analysis/reporting of the study described?` = `Is any role of the funder in the design/analysis/reporting of study described?`)
 
 # Calculate overall ARRIVE score
-df <- df %>%
-  mutate(ARRIVEScore = rowSums(across(contains("ARRIVE"), ~ (.x == "Yes") | (.x == "NA (ethical approval declared)")), na.rm = TRUE)) %>% 
+dfTvC <- df %>%
+  subset(df$SortLabel == 'TvC') %>%
+  mutate(ARRIVEScore = rowSums(across(contains("ARRIVE"), ~ (.x == "Yes") | (.x == "NA (ethical approval declared)")), na.rm = TRUE)/3) %>% 
   mutate(ARRIVEScoreCat = case_when(ARRIVEScore <= 3 ~ "A: < 3 criteria met",
                                     ARRIVEScore > 3 & ARRIVEScore <= 7 ~ "B: 4-7 criteria met",
                                     ARRIVEScore > 7 & ARRIVEScore <= 11 ~ "C: 8-11 criteria met",
@@ -836,6 +853,17 @@ df <- df %>%
                                     ARRIVEScore > 15 & ARRIVEScore <= 19 ~ "E: 16-19 criteria met",
                                     ARRIVEScore > 19 ~ "F: > 20 criteria met")) 
 
+dfCvS <- df %>%
+  subset(df$SortLabel == 'CvS') %>%
+  mutate(ARRIVEScore = rowSums(across(contains("ARRIVE"), ~ (.x == "Yes") | (.x == "NA (ethical approval declared)")), na.rm = TRUE)/2) %>% 
+  mutate(ARRIVEScoreCat = case_when(ARRIVEScore <= 3 ~ "A: < 3 criteria met",
+                                    ARRIVEScore > 3 & ARRIVEScore <= 7 ~ "B: 4-7 criteria met",
+                                    ARRIVEScore > 7 & ARRIVEScore <= 11 ~ "C: 8-11 criteria met",
+                                    ARRIVEScore > 11 & ARRIVEScore <= 15 ~ "D: 12-15 criteria met",
+                                    ARRIVEScore > 15 & ARRIVEScore <= 19 ~ "E: 16-19 criteria met",
+                                    ARRIVEScore > 19 ~ "F: > 20 criteria met")) 
+
+df <- rbind(dfTvC, dfCvS)
 
 
 df$CatDisInd <- df$`Type of depression/anhedonia model[1]_I`
