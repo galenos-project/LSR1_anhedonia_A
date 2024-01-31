@@ -302,20 +302,20 @@ condition <- data$CohortId == '20c38490-ce3a-40a2-b262-91652c67ea03'
 data[condition, colname14] <- '1'
 
 colname15 <- "Animal strain?"
-condition <- data$CohortId == 'f4f81624-4f5f-401f-a2b5-62a690fbd6d1'
-data[condition, colname14] <- 'NMRI'
+condition <- data$StudyId == 'f4f81624-4f5f-401f-a2b5-62a690fbd6d1'
+data[condition, colname15] <- 'NMRI'
 
 colname15 <- "Animal strain?"
-condition <- data$CohortId == '944c6614-089b-4f41-bf57-ab08e5afb4c0'
-data[condition, colname14] <- 'Swiss albino'
+condition <- data$StudyId == '944c6614-089b-4f41-bf57-ab08e5afb4c0'
+data[condition, colname15] <- 'Swiss albino'
 
 colname15 <- "Animal strain?"
-condition <- data$CohortId == 'a47258ef-5b15-443e-b043-07c1f11659ed'
-data[condition, colname14] <- 'PVG Hooded'
+condition <- data$StudyId == 'a47258ef-5b15-443e-b043-07c1f11659ed'
+data[condition, colname15] <- 'PVG Hooded'
 
 colname15 <- "Animal strain?"
-condition <- data$CohortId == 'cc6534a5-d880-45a2-ab36-544a2e30d3c1'
-data[condition, colname14] <- 'WAG/Rij'
+condition <- data$StudyId == 'cc6534a5-d880-45a2-ab36-544a2e30d3c1'
+data[condition, colname15] <- 'WAG/Rij'
 
 
 
@@ -537,7 +537,10 @@ dataall <- dataall %>%
                                  str_detect(OutcomeLabel_I, regex("sucrose", ignore_case = TRUE)) ~ "Sucrose preference test",
                                  str_detect(OutcomeLabel_I, regex("DA")) ~ "Dopamine concentration", 
                                  str_detect(OutcomeLabel_I, regex("Dopamine", ignore_case = TRUE)) ~ "Dopamine concentration",
-                                 str_detect(OutcomeLabel_I, regex("DRD2", ignore_case = TRUE)) ~ "DRD2 mRNA expression",
+                                 str_detect(OutcomeLabel_I, regex("DRD2", ignore_case = TRUE)) ~ "Dopamine receptor biology",
+                                 str_detect(OutcomeLabel_I, regex("D2R", ignore_case = TRUE)) ~ "Dopamine receptor biology",
+                                 str_detect(OutcomeLabel_I, regex("D1 receptor", ignore_case = TRUE)) ~ "Dopamine receptor biology",
+                                 str_detect(OutcomeLabel_I, regex("D2 receptor", ignore_case = TRUE)) ~ "Dopamine receptor biology",
                                  TRUE ~ `Type of outcome`)) %>% 
   relocate(OutcomeType, .after = OutcomeLabel)
 
@@ -719,6 +722,7 @@ df <-  df %>%
     OutcomeType == "DOPAC concentration" ~ "DOPAC concentration",
     OutcomeType == "Dopamine concentration" ~ "Dopamine concentration",
     OutcomeType == "DA/DOPC ratio" ~ "DA/DOPC ratio",
+    OutcomeType == "Dopamine receptor biology" ~ "Dopamine receptor biology",
     TRUE ~ "Other"
   )) 
 
