@@ -301,19 +301,19 @@ colname14 <- "Dose of treatment used:[1]"
 condition <- data$CohortId == '20c38490-ce3a-40a2-b262-91652c67ea03'
 data[condition, colname14] <- '1'
 
-colname15 <- "Animal Species?"
+colname15 <- "Animal strain?"
 condition <- data$CohortId == 'f4f81624-4f5f-401f-a2b5-62a690fbd6d1'
 data[condition, colname14] <- 'NMRI'
 
-colname15 <- "Animal Species?"
+colname15 <- "Animal strain?"
 condition <- data$CohortId == '944c6614-089b-4f41-bf57-ab08e5afb4c0'
 data[condition, colname14] <- 'Swiss albino'
 
-colname15 <- "Animal Species?"
+colname15 <- "Animal strain?"
 condition <- data$CohortId == 'a47258ef-5b15-443e-b043-07c1f11659ed'
 data[condition, colname14] <- 'PVG Hooded'
 
-colname15 <- "Animal Species?"
+colname15 <- "Animal strain?"
 condition <- data$CohortId == 'cc6534a5-d880-45a2-ab36-544a2e30d3c1'
 data[condition, colname14] <- 'WAG/Rij'
 
