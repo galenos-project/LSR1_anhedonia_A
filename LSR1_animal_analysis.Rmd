@@ -501,7 +501,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(SMD_S_SPT$data$StudyId_I` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId_I))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
 
 ### 2.1.4 Subgroup analyses and meta-regressions
 
@@ -784,7 +784,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Dopamine concentration")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r SMD_S_SPT[["s.nlevels"]][2]` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
 
 ### 2.2.4 Subgroup analyses and meta-regressions
 
@@ -1096,7 +1096,7 @@ forest_metafor(SMD_S_SPT, "TvC", "Sucrose preference test")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r SMD_S_SPT[["s.nlevels"]][2]` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
 
 ### 3.1.4 Subgroup analyses and meta-regressions
 
@@ -1239,8 +1239,6 @@ SMD_S_SPT_DurRx_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "Treat
 
 The pooled SMD estimate for experiments administering the TAAR1 agonist for less than 1 week was `r SMD_S_SPT_DurRx[SMD_S_SPT_DurRx$TreatmentDurationCategory == "Less than 1 week", "SMD"]` for 1 to 4 weeks was `r SMD_S_SPT_DurRx[SMD_S_SPT_DurRx$TreatmentDurationCategory == "Between 1-4 weeks", "SMD"]` and for experiments administering the TAAR1 agonist for more than 4 weeks was `r SMD_S_SPT_DurRx[SMD_S_SPT_DurRx$TreatmentDurationCategory == "More than 4 weeks", "SMD"]`.
 
-```
-
 #### The intervention administered
 
 Figure 3.1.4.5 displays the estimates for the pooled SMD's when comparisons are stratified by the intervention administered. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by the intervention administered, is displayed as a diamond shape at the bottom of the plot.
@@ -1332,29 +1330,8 @@ SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", 
 
 The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[3]`.
 
-#### ARRIVE reporting completeness guidelines
 
-Experiments were categorised based on the number of ARRIVE guidelines (of which there are 23) met. The categorisation was as follows: Experiments meeting 3 or fewer criteria were labeled as "A: \< 3 criteria met"; those meeting 4 to 7 criteria were labeled "B: 4-7 criteria met"; for 8 to 11 criteria, "C: 8-11 criteria met"; for 12 to 15 criteria, "D: 12-15 criteria met"; for 16 to 19 criteria, "E: 16-19 criteria met"; and experiments meeting more than 19 criteria were labeled as "F: \> 20 criteria met".
-
-Figure 3.1.4.12 displays the estimates for the pooled SMD's when comparisons are stratified by this categorisation that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by ARRIVE reporting completeness guidelines, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 3.1.4.12**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-#SMD_S_SPT_ARRIVE <- subgroup_analysis(df, "TvC", "Sucrose preference test", "ARRIVEScoreCat", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#forest_subgroup(SMD_S_SPT_ARRIVE, "ARRIVEScoreCat", "Sucrose preference test","number of\n ARRIVE items met")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#SMD_S_SPT_ARRIVE_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "ARRIVEScoreCat", 0.5)
-```
-
-The p-value for the association between the number of ARRIVE guidelines reporting items and outcome reported was `r round(SMD_S_SPT_ARRIVE_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_ARRIVE_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_ARRIVE_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_ARRIVE_noI$sigma2[3]`.
-
-#### Alternative evaluation of ARRIVE reporting guidelines performance
+#### ARRIVE reporting guidelines performance
 
 As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
@@ -1449,12 +1426,12 @@ NMD_S_SPT <- run_ML_NMD(df, "TvC", "Sucrose preference test", 0.5)
 **Figure 3.1.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
-forest_metafor_NMD(NMD_S_SPT, "locomotor hyperactivity")
+forest_metafor_NMD(NMD_S_SPT, "Sucrose preference test")
 ```
 
-For TAAR1 Agonist v Control, TAAR1 interventions had a pooled effect on Sucrose preference of NMD = `r NMD_S_SPT[["beta"]][1]` (95% CI: `r NMD_S_SPT[["ci.lb"]]` to `r NMD_S_SPT[["ci.ub"]]`) with a prediction interval of `r predict(NMD_S_SPT)$pi.lb` to `r predict(NMD_S_SPT)$pi.ub`). For reference the pooled effect size for SMD was `r SMD_S_SPT[["beta"]][1]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
+Dopaminergic interventions had a pooled effect on Sucrose preference of NMD = `r NMD_S_SPT[["beta"]][1]` (95% CI: `r NMD_S_SPT[["ci.lb"]]` to `r NMD_S_SPT[["ci.ub"]]`) with a prediction interval of `r predict(NMD_S_SPT)$pi.lb` to `r predict(NMD_S_SPT)$pi.ub`). For reference the pooled effect size for SMD was `r SMD_S_SPT[["beta"]][1]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
 
-`r NMD_S_SPT[["k"]]` experimental comparisons were reported in `r NMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r NMD_S_SPT[["s.nlevels"]][2]` publications and involving `r NMD_S_SPT[["s.nlevels"]][1]` different animal strains. Between-strain variance was `r round(NMD_S_SPT$sigma2[1], 3)`, between-study variance was `r round(NMD_S_SPT$sigma2[2], 3)`, and within-study variance (between experiments) was `r round(NMD_S_SPT$sigma2[3], 3)`.
+`r NMD_S_SPT[["k"]]` experimental comparisons were reported in `r NMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(NMD_S_SPT$data$StudyId))` publications and involving `r NMD_S_SPT[["s.nlevels"]][1]` different animal strains. Between-strain variance was `r round(NMD_S_SPT$sigma2[1], 3)`, between-study variance was `r round(NMD_S_SPT$sigma2[2], 3)`, and within-study variance (between experiments) was `r round(NMD_S_SPT$sigma2[3], 3)`.
 
 ### 3.1.6 Reporting bias/small-study effects
 
@@ -1538,7 +1515,7 @@ forest_metafor(SMD_S_SPT, "TvC", "Dopamine concentration")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r SMD_S_SPT[["s.nlevels"]][2]` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
 
 ### 3.2.4 Subgroup analyses and meta-regressions
 
@@ -1777,29 +1754,7 @@ SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "TvC", "Dopamine concentration", "
 
 The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[3]`.
 
-#### ARRIVE reporting completeness guidelines
-
-Experiments were categorised based on the number of ARRIVE guidelines (of which there are 23) met. The categorisation was as follows: Experiments meeting 3 or fewer criteria were labeled as "A: \< 3 criteria met"; those meeting 4 to 7 criteria were labeled "B: 4-7 criteria met"; for 8 to 11 criteria, "C: 8-11 criteria met"; for 12 to 15 criteria, "D: 12-15 criteria met"; for 16 to 19 criteria, "E: 16-19 criteria met"; and experiments meeting more than 19 criteria were labeled as "F: \> 20 criteria met".
-
-Figure 3.2.4.12 displays the estimates for the pooled SMD's when comparisons are stratified by this categorisation that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by ARRIVE reporting completeness guidelines, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 3.2.4.12**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-#SMD_S_SPT_ARRIVE <- subgroup_analysis(df, "TvC", "Dopamine concentration", "ARRIVEScoreCat", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#forest_subgroup(SMD_S_SPT_ARRIVE, "ARRIVEScoreCat", "Dopamine concentration","number of\n ARRIVE items met")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#SMD_S_SPT_ARRIVE_noI <- subgroup_SMD(df, "TvC", "Dopamine concentration", "ARRIVEScoreCat", 0.5)
-```
-
-
-
-#### Alternative evaluation of ARRIVE reporting guidelines performance
+#### ARRIVE reporting guidelines performance
 
 As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
@@ -1914,7 +1869,7 @@ forest_metafor_NMD(NMD_S_SPT, "Dopamine concentration")
 
 Dopaminergic drugs had a pooled effect on dopamine concentartion of NMD = `r NMD_S_SPT[["beta"]][1]` (95% CI: `r NMD_S_SPT[["ci.lb"]]` to `r NMD_S_SPT[["ci.ub"]]`) with a prediction interval of `r predict(NMD_S_SPT)$pi.lb` to `r predict(NMD_S_SPT)$pi.ub`). For reference the pooled effect size for SMD was `r SMD_S_SPT[["beta"]][1]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
 
-`r NMD_S_SPT[["k"]]` experimental comparisons were reported in `r NMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r NMD_S_SPT[["s.nlevels"]][2]` publications and involving `r NMD_S_SPT[["s.nlevels"]][1]` different animal strains. Between-strain variance was `r round(NMD_S_SPT$sigma2[1], 3)`, between-study variance was `r round(NMD_S_SPT$sigma2[2], 3)`, and within-study variance (between experiments) was `r round(NMD_S_SPT$sigma2[3], 3)`.
+`r NMD_S_SPT[["k"]]` experimental comparisons were reported in `r NMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(NMD_S_SPT$data$StudyId))` publications and involving `r NMD_S_SPT[["s.nlevels"]][1]` different animal strains. Between-strain variance was `r round(NMD_S_SPT$sigma2[1], 3)`, between-study variance was `r round(NMD_S_SPT$sigma2[2], 3)`, and within-study variance (between experiments) was `r round(NMD_S_SPT$sigma2[3], 3)`.
 
 ### 3.2.6 Reporting bias/small-study effects
 
