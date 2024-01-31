@@ -1,0 +1,42 @@
+"","Study","Model","Strain","Outcome","N"
+"1","AMIRI, 2016","maternal separation","Other","Sucrose preference test",24
+"2","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","DOPAC concentration",20
+"3","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","Dopamine concentration",20
+"4","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","Sucrose preference test",14
+"5","BROCCO, 2006","CMS","Wistar (rat)","Sucrose preference test",288
+"6","CARRATAL, 2023","Tetrabenzine","CD-1 (mouse)","Sucrose preference test",132
+"7","EREN, 2007","CMS","Wistar (rat)","Sucrose preference test",80
+"8","EREN, 2014","CUMS","Wistar (rat)","Sucrose preference test",64
+"9","FATIMA, 2020","PNS","Wistar (rat)","Other",24
+"10","FATIMA, 2020","PNS","Wistar (rat)","Sucrose preference test",12
+"11","JIANG, 2014","Defeat","C57BL/6J (mouse)","Sucrose preference test",100
+"12","KOO, 2018","MCAO","C57BL/6 (mouse)","Sucrose preference test",36
+"13","KRUPINA, 1995","MPTP","Wistar (rat)","Sucrose preference test",480
+"14","MUSCAT, 1992","stress","Lister hooded (rat)","Sucrose preference test",40
+"15","OSACKA, 2022","CMS","Sprague-dawley (rat)","Sucrose preference test",21
+"16","PAPP, 1993","CUMS","Lister hooded (rat)","Sucrose preference test",256
+"17","PAPP, 1994","CMS","Wistar (rat)","Other",160
+"18","PAPP, 1994","CMS","Wistar (rat)","Sucrose preference test",120
+"19","PAPP, 1996","CUMS","Wistar (rat)","Sucrose preference test",60
+"20","PAPP, 1996","CUMS 2","Wistar (rat)","Sucrose preference test",48
+"21","QIAO, 2020","CUS","Sprague-dawley (rat)","Dopamine concentration",24
+"22","QIAO, 2020","CUS","Sprague-dawley (rat)","Other",24
+"23","QIAO, 2020","CUS","Sprague-dawley (rat)","Sucrose preference test",24
+"24","RANA, 2014","CMS","Other","Sucrose preference test",60
+"25","RANA, 2014","CMS","Wistar (rat)","Sucrose preference test",128
+"26","STAMFORD, 1991","CUMS","Lister hooded (rat)","Dopamine concentration",72
+"27","STAMFORD, 1991","CUMS","Lister hooded (rat)","Sucrose preference test",54
+"28","TAN, 2015","TBI","Sprague-dawley (rat)","DOPAC concentration",120
+"29","TAN, 2015","TBI","Sprague-dawley (rat)","Dopamine concentration",120
+"30","TAN, 2015","TBI","Sprague-dawley (rat)","Sucrose preference test",60
+"31","TOMAZ, 2020","LPS","Wistar (rat)","Sucrose preference test",16
+"32","WANG, 2021","CUS","C57BL/6 (mouse)","Sucrose preference test",16
+"33","WEI, 2021","CMS","C57BL/6J (mouse)","Sucrose preference test",12
+"34","WILLNER, 1994","CUMS","Other","Sucrose preference test",44
+"35","WU, 2014","CUMS","Sprague-dawley (rat)","Sucrose preference test",12
+"36","YAN, 2022","CUMS","Sprague-dawley (rat)","DA/DOPC ratio",60
+"37","YAN, 2022","CUMS","Sprague-dawley (rat)","Dopamine concentration",60
+"38","YAN, 2022","CUMS","Sprague-dawley (rat)","Sucrose preference test",20
+"39","YU, 2016","CUS","Wistar (rat)","Sucrose preference test",48
+"40","YUAN, 2011","CUMS","Sprague-dawley (rat)","Sucrose preference test",17
+"41","ZHAO, 2018","CMS","Sprague-dawley (rat)","Sucrose preference test",60
