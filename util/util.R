@@ -405,10 +405,14 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_
   }}
 
 
-forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text) {
+forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, titletype) {
    # this uses GGplot2 to draw a forest plot for the subgroup analyses, and returns the plot 
   
-    title <- paste0("Effect of dopaminergic agents on ",outcome, " by ", moderator_text)           
+    if(titletype == "CvS"){
+      title <- paste0("Effect of modelling depression on ",outcome, " by ", moderator_text)  }
+    if(titletype == "TvC"){
+        title <- paste0("Effect of dopaminergic intervention on ",outcome, " by ", moderator_text)  }
+        
     
     model <- modelsumm
     colnames(model) <- c('moderator','k','SMD','se','p','ci_l','ci_u','symbol','size','summary','fontfaace','fontsize','d1','d2')
@@ -447,8 +451,8 @@ forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text) {
       coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
       geom_vline(xintercept = 0, linetype = "solid") +
       geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
-      annotate("text", x = axis_min-1, y = lnth, label = "Dopaminergic\nagents worse", hjust = 0) +
-      annotate("text", x = axis_max+1, y = lnth, label = "Dopaminergic\nagents better", hjust = 1) +
+      annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
+      annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
       geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
       theme(axis.line.y = element_blank(),
             axis.ticks.y = element_blank(),
