@@ -49,6 +49,22 @@ editor_options:
         -   2.2.5 Sensitivity Analyses
             -   Imputed rho values of 0.2 and 0.8
         -   2.2.6 Reporting bias/small-study effects
+        
+    -   2.3 Outcome 2: Dopamine concentration
+
+        -   2.3.1 Risks of bias
+        -   2.3.2 Reporting completeness
+        -   2.3.3 Meta-analysis
+        -   2.3.4 Subgroup analyses and meta-regression
+            -   Sex
+            -   Category of disease induction
+            -   SyRCLE RoB assessment
+            -   Alternative SyRCLE RoB assessment
+            -   ARRIVE guideline reporting completeness
+            -   Heterogeneity explained by covariates
+        -   2.3.5 Sensitivity Analyses
+            -   Imputed rho values of 0.2 and 0.8
+        -   2.3.6 Reporting bias/small-study effects
 
     -   2.3 Outcome 3: DOPAC concentration
 
@@ -120,7 +136,6 @@ editor_options:
 
 ```{r setup, message=F, echo=F, include=F}
 ### libraries
-library(ggplot2)
 library(devtools)
 library(dosresmeta)
 library(dplyr)
@@ -274,7 +289,7 @@ tab2m$N <- as.numeric(tab2m$N)
 
 original_data <- tab2m
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(2,5,6,7,8,10,11,12,13,14,15,16,17,19,20,23,25,27,30,31,32,33,34,35,38,39,40,41)
+rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,18,20,23,24,26,29,30,31,32,33,34,37,38,39,41)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -329,7 +344,7 @@ tab2i$N <- as.numeric(tab2i$N)
 
 original_data <- tab2i
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(4,7,10,11,12,14,16,19,20,21,22,25,27,29,31,33,37,40,42,48,49,50,51,53,54,63,64,65,68)
+rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,20,22,24,28,29,30,33,36,38,44,45,46,47,49,50,59,60,61,65)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -384,24 +399,26 @@ Within the literature we identified distinct categories of experiments and the d
 
 In these studies the:
 
--   **Control group** is a group of animals that is (1) not subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment. 
+  -   **Control group** is a group of animals that is (1) not subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment. 
 
--   **Intervention group** is a group of animals that is (1) subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment
+  -   **Intervention group** is a group of animals that is (1) subjected to a depression model induction paradigm and (2) is administered a control treatment (vehicle) or no treatment
 
-2.  **Treatment vs control**. These were experiments investigating the effect of administering a TAAR1 agonist alone, reported in `r nrow(df %>% filter(SortLabel == "TvC"))` experiments from `r nrow(df %>% filter(SortLabel == "TvC") %>% distinct(StudyId))` publications.
+2.  **Treatment vs control**. These were experiments investigating the effect of administering a dopaminergic agent, reported in `r nrow(df %>% filter(SortLabel == "TvC"))` experiments from `r nrow(df %>% filter(SortLabel == "TvC") %>% distinct(StudyId))` publications.
 
 In these studies the:
 
--   **Control group** is a group of animals that is (1) subjected to a psychosis model induction paradigm and (2) administered a control treatment (vehicle) or no treatment
+  -   **Control group** is a group of animals that is (1) subjected to a depression model induction paradigm and (2) administered a control treatment (vehicle) or no treatment
 
--   **Intervention group** is a group of animals that is (1) subjected to a psychosis model induction paradigm and (2) administered a TAAR1 agonist treatment
+  -   **Intervention group** is a group of animals that is (1) subjected to a depression model induction paradigm and (2) administered a TAAR1 agonist treatment
 
--   **Sham group** is a group of animals that is (1) not subjected to a psychosis model induction paradigm and (2) administered a control treatment (vehicle) or no treatment. These data are equired to allow a 'normalised mean difference' effect size to be calculated, given by
+  -   **Sham group** is a group of animals that is (1) not subjected to a depression model induction paradigm and (2) administered a control treatment (vehicle) or no treatment. These data are required to allow a 'normalised mean difference' effect size to be calculated, given by
 
-    $$
-    \frac{(\text{Contol - Treatment})}
-    {(\text{Control - Sham)}} \text{   x   100}
-    $$
+$$
+\frac{{\bar{\mu}_C - \bar{\mu}_T}}{{\bar{\mu}_C - \bar{\mu}_S}} \times 100
+$$
+
+
+where $\bar{\mu}_C$, $\bar{\mu}_T$, $\bar{\mu}_S$ are the mean reported scores in the control, treatment, and sham groups respectively.
 
 Outcomes with ≥2 independent effect sizes were considered for meta-analysis. In this iteration of the review, this includes `r df %>% group_by(outcome_type) %>% filter(n_distinct(StudyId) > 1) %>% summarise(n = n_distinct(StudyId)) %>% arrange(desc(n)) %>% pull(outcome_type) %>% unique() %>% tolower() %>% { if (length(.) > 1) paste(paste(head(., -1), collapse = ", "), "and", tail(., 1)) else .}`.
 
@@ -413,13 +430,15 @@ All analyses were conducted allowing for the following hierarchical levels in a 
 
 -   **Level 3: Experiment** - effect sizes measured in the same experiment within a study, where often a control group contributes to several effect sizes
 
+Each level for the heirarchy was only included in the model if more than 4 categories were present for at least one of these levels. Where more than 4 categories are not present for all levels, the variance attributable to that level is reported as zero.
+
 The hierarchical grouping may therefore be considered thus: **Strains** of laboratory animals are included in several **Studies**, each of which can report one or more **Experiments**, and each Experiment is comprised of at least two **Cohorts** which are considered identical except for differing in the experimental manipulation (the **Intervention**) or not being exposed to the disease modelling procedures (a **Sham** cohort, these only being used to provide a baseline for outcome measures to allow Normalised Mean Difference meta-analysis). An **Experiment** can include several **experimental contrasts**, for instance where different doses of drugs are compared to the same control group.
 
 We constructed multilevel models without Knapp-Hartung adjustments as these are not available for rma.mv class objects in the metafor package. Instead, the model is set to `test = "t"` to use t- and F-distributions for making inferences, and `dfs="contain"` to improve the method of approximating degrees of freedom of these distributions.*
 
 The scales and units used to measure outcomes in preclinical studies often differ between studies although they may measure the same underlying biological construct. The primary effect size used for meta-analysis of preclinical studies is therefore the standardised mean difference (SMD, Hedge's g). For experiments testing the effects of interventions we also present a sensitivity analysis using normalised mean difference (NMD), where there are sufficient data for sham proceedures to allow this. This analysis is not possible for studies of the effect of modelling depression.
 
-For some experimental contrasts, more than one outcome of the same category - for instance dopamine concentrations in different brain regions - was measured in the same cohort of animals. Alternatively, some publications used the same drug doses with the same outcome measures in independent experiments. For these reasons, some of the forest plots may appear to include 'duplicate' Study - Drug - Dose combinations with different outcomes. For the later, these are accounted for in the heirarchical analysis, but for the former there were insufficient levels of the different outcome category measured to allow for hierachical analysis and so this was not performed.
+For some experimental contrasts, more than one outcome of the same category - for instance dopamine concentrations in different brain regions - was measured in the same cohort of animals. Sometimes, sucrose preference tests were performed in the same cohort at different times. Some publications used the same drug doses with the same outcome measures in independent experiments. For these reasons, some of the forest plots may appear to include 'duplicate' Study - Drug - Dose combinations with different outcomes. For the later, these are accounted for in the heirarchical analysis, but for the former there were insufficient levels of the different outcome category measured to allow for hierachical analysis and so this was not performed.
 
 # 2 Effects of model induction
 
@@ -428,6 +447,7 @@ df_S <- filter(df, SortLabel == "CvS")
 df_S_SPT <- filter_experiment_outcome_type(df, "CvS", "Sucrose preference test")
 df_S_DA <- filter_experiment_outcome_type(df, "CvS", "Dopamine concentration")
 df_S_DO <- filter_experiment_outcome_type(df, "CvS", "DOPAC concentration")
+df_S_DR <- filter_experiment_outcome_type(df, "CvS", "Dopamine receptor biology")
 df_S_ratio <- filter_experiment_outcome_type(df, "CvS", "DA/DOPC ratio")
 ```
 
@@ -437,11 +457,13 @@ df_S_ratio <- filter_experiment_outcome_type(df, "CvS", "DA/DOPC ratio")
 
 -   Dopamine concentration: `r length(table(df_S_DA$StudyId))` studies and `r nrow(df_S_DA)` comparisons in `r {strains <- unique(df_S_DA$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
 
+-   Dopamine receptor biology: `r length(table(df_S_DR$StudyId))` studies and `r nrow(df_S_DR)` comparisons in `r {strains <- unique(df_S_DR$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
+
 -   DOPAC concentration: `r length(table(df_S_DO$StudyId))` studies and `r nrow(df_S_DO)` comparisons in `r {strains <- unique(df_S_DO$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
 
 -   DA/DOPC ratio: `r length(table(df_S_ratio$StudyId))` studies and `r nrow(df_S_ratio)` comparisons in `r {strains <- unique(df_S_ratio$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
 
-\* This outcomes were identified in the study protocol as the primary outcome of interest.
+\* This outcome was identified in the study protocol as the primary outcome of interest.
 
 ## 2.1 Outcome 1: Sucrose preference
 
@@ -451,7 +473,7 @@ Figure 2.1.1 shows the risk of bias summary for studies investigating the effect
 
 **Figure 2.1.1**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 SyRCLE_RoB_traffic(df, "CvS", "Sucrose preference test")
 ```
 
@@ -461,7 +483,7 @@ Figure 2.1.2 shows the reporting completeness summary for studies investigating 
 
 **Figure 2.1.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
 ARRIVE_traffic(df, "CvS", "Sucrose preference test")
 ```
 
@@ -473,7 +495,7 @@ SMD_S_SPT <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.5)
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text1 <- "The effect of administering a dopaminergic agent on sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
+  output_text1 <- "The effect of modelling depression on sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
   output_text2 <- "Figure 2.1.3"
 
 } else {
@@ -491,7 +513,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
 
 ```{r echo=FALSE}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text3 <- paste0("Dopaminergic agents had a pooled effect on sucrose preference of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
+  output_text3 <- paste0("Depression modelling had a pooled effect on sucrose preference of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
 
 } else {
   output_text3 <- ""
@@ -501,7 +523,8 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId_I))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId_I))` publications and involving `r length(unique(SMD_S_SPT$data$Strain))` different animal strains. 
+The between `r SMD_S_SPT$s.names[1]` variance was `r SMD_S_SPT$sigma2[1]` (`r SMD_S_SPT$s.nlevels[1]` categories), The between `r SMD_S_SPT$s.names[2]` variance was `r SMD_S_SPT$sigma2[2]` (`r SMD_S_SPT$s.nlevels[2]` categories), and The between `r SMD_S_SPT$s.names[3]` variance was `r SMD_S_SPT$sigma2[3]` (`r SMD_S_SPT$s.nlevels[3]` categories).
 
 ### 2.1.4 Subgroup analyses and meta-regressions
 
@@ -515,9 +538,9 @@ For each outcome, the covariates of interest for subgroup analyses and meta-regr
 
 -   **Method of disease induction**
 
-We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered at low risk of bias or high reporting completeness to allow such a sensitivity analysis
+We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered entirely at low risk of bias or of high reporting completeness to allow such a sensitivity analysis
 
-The significance (p value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0. Note that in this iteration of the review, insufficient data was available to conduct subgroup analysis for the following variables, as only one subgroup level was present: `r check_moderator_levels_m(df, "CvS", "Sucrose preference test")`
+The significance (p value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
 
 
 #### Sex
@@ -531,14 +554,14 @@ SMD_S_SPT_sex <- subgroup_analysis(df, "CvS", "Sucrose preference test", "Sex", 
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_sex, "Sex", "Sucrose preference test","Sex")
+forest_subgroup(SMD_S_SPT_sex, "Sex", "Sucrose preference test","Sex","CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "Sex", 0.5)
 ```
 
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_sex_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_sex_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_sex_noI$sigma2[3]`.
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`.
 
 #### Category of disease induction
 
@@ -551,93 +574,72 @@ SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "CvS", "Sucrose preference test", "
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Sucrose preference test","Category of \nDisease Induction")
+forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Sucrose preference test","Category of \nDisease Induction", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "CatDisInd", 0.5)
 ```
 
-The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_CatDisInd_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_CatDisInd_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_CatDisInd_noI$sigma2[3]`.
+The p-value for the association between the depression model used and the outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`.
 
 #### SyRCLE RoB assessment
 
-Figure 2.1.4.10 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.10**
+**Figure 2.1.4.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBScore", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Sucrose preference test","SyRCLE RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Sucrose preference test","SyRCLE RoB score", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "RoBScore", 0.5)
 ```
 
-The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoB_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoB_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoB_noI$sigma2[3]`.
+The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`. 
+
 
 #### Alternative SyRCLE RoB assessment
 
-Figure 2.1.4.11 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.11**
+**Figure 2.1.4.4**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBTF", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Sucrose preference test","RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Sucrose preference test","RoB score", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "RoBTF", 0.5)
 ```
 
-The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[3]`.
+The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`. 
 
-#### ARRIVE reporting completeness guidelines
+#### ARRIVE reporting guidelines performance
 
-Experiments were categorised based on the number of ARRIVE guidelines (of which there are 23) met. The categorisation was as follows: Experiments meeting 3 or fewer criteria were labeled as "A: \< 3 criteria met"; those meeting 4 to 7 criteria were labeled "B: 4-7 criteria met"; for 8 to 11 criteria, "C: 8-11 criteria met"; for 12 to 15 criteria, "D: 12-15 criteria met"; for 16 to 19 criteria, "E: 16-19 criteria met"; and experiments meeting more than 19 criteria were labeled as "F: \> 20 criteria met".
-
-Figure 2.1.4.12 displays the estimates for the pooled SMD's when comparisons are stratified by this categorisation that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by ARRIVE reporting completeness guidelines, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.1.4.12**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-SMD_S_SPT_ARRIVE <- subgroup_analysis(df, "CvS", "Sucrose preference test", "ARRIVEScoreCat", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_ARRIVE, "ARRIVEScoreCat", "Sucrose preference test","number of\n ARRIVE items met")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-SMD_S_SPT_ARRIVE_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "ARRIVEScoreCat", 0.5)
-```
-
-The p-value for the association between the number of ARRIVE guidelines reporting items and outcome reported was `r round(SMD_S_SPT_ARRIVE_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_ARRIVE_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_ARRIVE_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_ARRIVE_noI$sigma2[3]`.
-
-#### Alternative evaluation of ARRIVE reporting guidelines performance
-
-As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
+We provide a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_ARR2 <- metaregression_analysis(df, "CvS", "Sucrose preference test", "ARRIVEScore", 0.5)
 
 ```
 
-**Figure 2.1.4.13**
+**Figure 2.1.4.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
 SMD_S_SPT_ARR2$regression_plot
 ```
 
-The estimate for $\beta$ was `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` (p = `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`). The between-strain variance was `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[1]`, the between-study variance `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[3]`.
+The estimate for $\beta$ was `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` (p = `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`). 
 
 #### Heterogeneity explained by covariates (Effect of modelling on Sucrose preference)
 
@@ -658,20 +660,20 @@ The table below shows which of the covariates, if any, explain some of the heter
 |                 Sex                 |          \-          |                \-                |                                    \-                                    |    `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`%    |
 |                 \-                  |       *Female*       |    `r SMD_S_SPT_sexI$beta[1]`    |        `r SMD_S_SPT_sexI$ci.lb[1]` - `r SMD_S_SPT_sexI$ci.ub[1]`         |                         \-                         |
 |                 \-                  |        *Male*        |    `r SMD_S_SPT_sexI$beta[2]`    |        `r SMD_S_SPT_sexI$ci.lb[2]` - `r SMD_S_SPT_sexI$ci.ub[2]`         |                         \-                         |
-|                 \-                  |       *Mixed*        |    `r SMD_S_SPT_sexI$beta[3]`    |        `r SMD_S_SPT_sexI$ci.lb[3]` - `r SMD_S_SPT_sexI$ci.ub[3]`         |                         \-                         |
-|                 \-                  |    *Not reported*    |    `r SMD_S_SPT_sexI$beta[4]`    |        `r SMD_S_SPT_sexI$ci.lb[4]` - `r SMD_S_SPT_sexI$ci.ub[4]`         |                         \-                         |
+|                 \-                  |       *Not reported*        |    `r SMD_S_SPT_sexI$beta[3]`    |        `r SMD_S_SPT_sexI$ci.lb[3]` - `r SMD_S_SPT_sexI$ci.ub[3]`         |                         \-                         |
 | Category of disease model induction |          \-          |                \-                |                                    \-                                    | `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`% |
-|                 \-                  |      *Genetic*       | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` - `r SMD_S_SPT_CatDisInd_noI$ci.ub[1]` |                         \-                         |
-|                 \-                  |  *Pharmacological*   | `r SMD_S_SPT_CatDisIndI$beta[2]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[2]` - `r SMD_S_SPT_CatDisIndI$ci.ub[2]`   |                         \-                         |
+|                 \-                  |      *Behavioural early life stress*       | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` - `r SMD_S_SPT_CatDisInd_noI$ci.ub[1]` |                         \-                         |
+|                 \-                  |  *Chronic unpredictable mild stress*   | `r SMD_S_SPT_CatDisIndI$beta[2]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[2]` - `r SMD_S_SPT_CatDisIndI$ci.ub[2]`   |                         \-                         |
+|                 \-                  |  *Pharmacological early life stress*   | `r SMD_S_SPT_CatDisIndI$beta[3]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[3]` - `r SMD_S_SPT_CatDisIndI$ci.ub[3]`   | 
+|                 \-                  |  *Pharmacological post weaning stress*   | `r SMD_S_SPT_CatDisIndI$beta[4]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[4]` - `r SMD_S_SPT_CatDisIndI$ci.ub[4]`   | 
+|                 \-                  |  *Social or social defeat stress*   | `r SMD_S_SPT_CatDisIndI$beta[5]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[5]` - `r SMD_S_SPT_CatDisIndI$ci.ub[5]`   | 
+|                 \-                  |  *Surgical models*   | `r SMD_S_SPT_CatDisIndI$beta[6]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[6]` - `r SMD_S_SPT_CatDisIndI$ci.ub[6]`   | 
 |            Risk of Bias             |          \-          |                \-                |                                    \-                                    | `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`% |
 |                 \-                  |   *0 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[1]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]`   |                         \-                         |
 |                 \-                  |   *1 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[2]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]`   |                         \-                         |
 |                 \-                  |   *2 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[3]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[3]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[3]`   |                         \-                         |
-|       Reporting completeness        |          \-          |                \-                |                                    \-                                    |  `r round((r2_ml(SMD_S_SPT_ARRIVEI)[1]*100),1)`%   |
-|                 \-                  |  *4-7 criteria met*  |  `r SMD_S_SPT_ARRIVEI$beta[1]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[1]` - `r SMD_S_SPT_ARRIVEI$ci.ub[1]`      |                         \-                         |
-|                 \-                  | *8-11 criteria met*  |  `r SMD_S_SPT_ARRIVEI$beta[2]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[2]` - `r SMD_S_SPT_ARRIVEI$ci.ub[2]`      |                         \-                         |
-|                 \-                  | *12-15 criteria met* |  `r SMD_S_SPT_ARRIVEI$beta[3]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[3]` - `r SMD_S_SPT_ARRIVEI$ci.ub[3]`      |                         \-                         |
-|                 \-                  | *16-19 criteria met* |  `r SMD_S_SPT_ARRIVEI$beta[4]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[4]` - `r SMD_S_SPT_ARRIVEI$ci.ub[4]`      |                         \-                         |
+|       Reporting completeness        |          \-          |                \-                |                                    \-                                    |  `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`%   |
+|                 \-                  |  *per unit increase*  |  `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]`   |     `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` - `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]`      |                         \-                         |
 
 ### 2.1.5 Sensitivity Analyses
 
@@ -683,25 +685,25 @@ We examine the robustness of the findings for the primary outcome by performing 
 
 #### Imputed rho values of 0.2 and 0.8
 
-In the previous analyses for the effect of TAAR1 agonists on Sucrose preference, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+In the previous analyses for the effect of depression modelling on sucrose preference, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.2 <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, depression modelling had a pooled effect on sucrose preference of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.8 <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, depression modelling had a pooled effect on sucrose preference of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_SPT[["beta"]]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
 
 #### NMD
 
-NMD analysis is not aplicable to the analysis of the effects of disease modelling.
+NMD analysis is not applicable to the analysis of the effects of disease modelling.
 
 ### 2.1.6 Reporting bias/small-study effects
 
@@ -712,21 +714,15 @@ run_sse_plot_SMD_L(df, 'CvS', 'Sucrose preference test')
 #run_sse_NMD(df)
 ```
 
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["k"]]` studies of modelling of depression where Sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2]))`) in the context of a baseline estimate of effect of `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["beta"]][1]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.lb"]][1]` to `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.ub"]][1]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][1]))`).
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2]))`).
 
-## 2.2 Outcome 2: Dopamine levels
+## 2.2 Outcome 2: Dopamine concentrations
 
 ### 2.2.1 Risks of bias
 
-Figure 2.2.1a shows the risk of bias summary for studies investigating the effect of administering a TAAR1 agonist on Sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 2.2.1b shows the corresponding traffic light plot.
+Figure 2.2.1a shows the risk of bias traffic light plot for studies investigating the effect of modelling depression on dopamine concentrations in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. 
 
-**Figure 2.2.1a**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
-SyRCLE_RoB_summary(df, "CvS", "Dopamine concentration")
-```
-
-**Figure 2.2.1b**
+**Figure 2.2.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "CvS", "Dopamine concentration")
@@ -734,15 +730,9 @@ SyRCLE_RoB_traffic(df, "CvS", "Dopamine concentration")
 
 ### 2.2.2 Reporting completeness
 
-Figure 2.2.2a shows the reporting completeness summary for studies investigating the effect of administering a TAAR1 agonist on Sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 2.2.2b shows the corresponding traffic light plot.
+Figure 2.2.2 shows the traffic light plot for reporting completeness summary for studies investigating the effect of the modelling of depression on dopamine concentration in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 2.2.2b shows the corresponding traffic light plot.
 
-**Figure 2.2.2a**
-
-```{r warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 7}
-ARRIVE_summary(df, "CvS", "Dopamine concentration")
-```
-
-**Figure 2.2.2b**
+**Figure 2.2.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 ARRIVE_traffic(df, "CvS", "Dopamine concentration")
@@ -756,7 +746,7 @@ SMD_S_SPT <- run_ML_SMD(df, "CvS", "Dopamine concentration", 0.5)
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text1 <- "The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 2.2.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
+  output_text1 <- "The effect of administering a dopaminergic agent on dopamine concentrations in animals using SMD as the effect size is shown in Figure 2.2.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate."
   output_text2 <- "Figure 2.2.3"
 
 } else {
@@ -774,7 +764,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Dopamine concentration")
 
 ```{r echo=FALSE}
  if (any(class(SMD_S_SPT) == "rma.mv")) {
-  output_text3 <- paste0("For dopaminergic agents v Control, dopaminergic agents had a pooled effect on Sucrose preference of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
+  output_text3 <- paste0("Induction of models of depression induced a pooled effect on dopamine concentrations of SMD = ", round(SMD_S_SPT[['beta']], 3), " (95% CI: ", round(SMD_S_SPT[['ci.lb']], 3), " to ", round(SMD_S_SPT[['ci.ub']], 3), ", with a prediction interval of ", round(predict(SMD_S_SPT)$pi.lb, 3), " to ", round(predict(SMD_S_SPT)$pi.ub, 3),").") 
 
 } else {
   output_text3 <- ""
@@ -784,7 +774,9 @@ forest_metafor(SMD_S_SPT, "CvS", "Dopamine concentration")
 
 `r output_text3`
 
-`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r SMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r SMD_S_SPT[["s.nlevels"]][1]` different animal strains. The between strain variance was `r SMD_S_SPT$sigma2[1]`, the between study variance `r SMD_S_SPT$sigma2[2]` and the within-experiment variance `r SMD_S_SPT$sigma2[3]`.
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$data$Strain))` different animal strains. Because the number of strains was less than 5, this was not used as a factor in the meta-analysis. 
+
+The between study variance was `r SMD_S_SPT$sigma2[1]` and the within-experiment variance `r SMD_S_SPT$sigma2[2]`.
 
 ### 2.2.4 Subgroup analyses and meta-regressions
 
@@ -792,7 +784,7 @@ forest_metafor(SMD_S_SPT, "CvS", "Dopamine concentration")
 options(scipen=100, digits=3)
 ```
 
-For each outcome, the covariates of interest for subgroup analysesand meta-regressions were:
+For each outcome, the covariates of interest for subgroup analyses and meta-regressions were:
 
 -   **Sex**
 
@@ -800,7 +792,7 @@ For each outcome, the covariates of interest for subgroup analysesand meta-regre
 
 We also conducted subgroup analyses using **(1) SyRCLE Risk of Bias** and **(2) ARRIVE reporting completeness** assessment scores as covariates to evaluate their influence on effect size estimates. These were not specified in the study protocol, but evaluation of risk of bias is required for the Summary of Evidence table, and no studies were considered at low risk of bias or high reporting completeness to allow such a sensitivity analysis
 
-The significance (p value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0. Note that in this iteration of the review, insufficient data was available to conduct subgroup analysis for the following variables, as only one subgroup level was present: `r check_moderator_levels_m(df, "CvS", "Sucrose preference test")`
+The significance (p value) reported is that for a test of whether the moderators are significantly different one from another, rather than whether the effect is significantly different from 0.
 
 
 #### Sex
@@ -814,14 +806,14 @@ SMD_S_SPT_sex <- subgroup_analysis(df, "CvS", "Dopamine concentration", "Sex", 0
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_sex, "Sex", "Dopamine concentration","Sex")
+forest_subgroup(SMD_S_SPT_sex, "Sex", "Dopamine concentration","Sex", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex_noI <- subgroup_SMD(df, "CvS", "Dopamine concentration", "Sex", 0.5)
 ```
 
-The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_sex_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_sex_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_sex_noI$sigma2[3]`.
+The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`. 
 
 #### Category of disease induction
 
@@ -834,93 +826,71 @@ SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "CvS", "Dopamine concentration", "C
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Dopamine concentration","Category of \nDisease Induction")
+forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Dopamine concentration","Category of \nDisease Induction", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "CvS", "Dopamine concentration", "CatDisInd", 0.5)
 ```
 
-The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_CatDisInd_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_CatDisInd_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_CatDisInd_noI$sigma2[3]`.
+The p-value for the association between the depression model used and the outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`.
 
 #### SyRCLE RoB assessment
 
-Figure 2.2.4.10 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.2.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.2.4.10**
+**Figure 2.2.4.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "CvS", "Dopamine concentration", "RoBScore", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Dopamine concentration","SyRCLE RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Dopamine concentration","SyRCLE RoB score", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Dopamine concentration", "RoBScore", 0.5)
 ```
 
-The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoB_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoB_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoB_noI$sigma2[3]`.
+The p-value for the association between SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`.
 
 #### Alternative SyRCLE RoB assessment
 
-Figure 2.2.4.11 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.2.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.2.4.11**
+**Figure 2.2.4.4**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Dopamine concentration", "RoBTF", 0.5)
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Dopamine concentration","RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Dopamine concentration","RoB score", "CvS")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Dopamine concentration", "RoBTF", 0.5)
 ```
 
-The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_SyRCLERoBTF_noI$sigma2[3]`.
+The p-value for the association between low SyRCLE Risks of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`.
 
-#### ARRIVE reporting completeness guidelines
+#### ARRIVE reporting guidelines performance
 
-Experiments were categorised based on the number of ARRIVE guidelines (of which there are 23) met. The categorisation was as follows: Experiments meeting 3 or fewer criteria were labeled as "A: \< 3 criteria met"; those meeting 4 to 7 criteria were labeled "B: 4-7 criteria met"; for 8 to 11 criteria, "C: 8-11 criteria met"; for 12 to 15 criteria, "D: 12-15 criteria met"; for 16 to 19 criteria, "E: 16-19 criteria met"; and experiments meeting more than 19 criteria were labeled as "F: \> 20 criteria met".
-
-Figure 2.2.4.12 displays the estimates for the pooled SMD's when comparisons are stratified by this categorisation that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by ARRIVE reporting completeness guidelines, is displayed as a diamond shape at the bottom of the plot.
-
-**Figure 2.2.4.12**
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
-#SMD_S_SPT_ARRIVE <- subgroup_analysis(df, "CvS", "Dopamine concentration", "ARRIVEScoreCat", 0.5)
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#forest_subgroup(SMD_S_SPT_ARRIVE, "ARRIVEScoreCat", "Dopamine concentration","number of\n ARRIVE items met")
-```
-
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-#SMD_S_SPT_ARRIVE_noI <- subgroup_SMD(df, "CvS", "Dopamine concentration", "ARRIVEScoreCat", 0.5)
-```
-
-The p-value for the association between the number of ARRIVE guidelines reporting items and outcome reported was `r round(SMD_S_SPT_ARRIVE_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_ARRIVE_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_ARRIVE_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_ARRIVE_noI$sigma2[3]`.
-
-#### Alternative evaluation of ARRIVE reporting guidelines performance
-
-As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
+We provide a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_ARR2 <- metaregression_analysis(df, "CvS", "Dopamine concentration", "ARRIVEScore", 0.5)
 
 ```
 
-**Figure 2.2.4.13**
+**Figure 2.2.4.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
 SMD_S_SPT_ARR2$regression_plot
 ```
 
-The estimate for $\beta$ was `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` (p = `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`). The between-strain variance was `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[1]`, the between-study variance `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_ARR2$metaregression_summary$sigma2[3]`.
+The estimate for $\beta$ was `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` (p = `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`). 
 
 #### Heterogeneity explained by covariates (Effect of modelling on Sucrose preference)
 
@@ -929,7 +899,7 @@ SMD_S_SPT_sexI <- subgroup_SMDI(df, "CvS", "Dopamine concentration", "Sex", 0.5)
 SMD_S_SPT_CatDisIndI <- subgroup_SMDI(df, "CvS", "Dopamine concentration", "CatDisInd", 0.5)
 ```
 
-The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect sizes of the effect of TAAR1 agonists on Sucrose preference. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The co-efficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
+The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect sizes of depression modelling on sucrose preference. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The co-efficients are derived form an RMA model fitted with an intercept (and so represent, for each category, the point estimate and 95% CIs of the effect in that category).
 
 <!--# need to also add the results from potency and doses in the table below -->
 
@@ -937,22 +907,18 @@ The table below shows which of the covariates, if any, explain some of the heter
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
 |           Overall effect            |          \-          |      `r SMD_S_SPT$beta[1]`       |                `r SMD_S_SPT$ci.lb` - `r SMD_S_SPT$ci.ub`                 |                         \-                         |
 |                 Sex                 |          \-          |                \-                |                                    \-                                    |    `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`%    |
-|                 \-                  |       *Female*       |    `r SMD_S_SPT_sexI$beta[1]`    |        `r SMD_S_SPT_sexI$ci.lb[1]` - `r SMD_S_SPT_sexI$ci.ub[1]`         |                         \-                         |
-|                 \-                  |        *Male*        |    `r SMD_S_SPT_sexI$beta[2]`    |        `r SMD_S_SPT_sexI$ci.lb[2]` - `r SMD_S_SPT_sexI$ci.ub[2]`         |                         \-                         |
-|                 \-                  |       *Mixed*        |    `r SMD_S_SPT_sexI$beta[3]`    |        `r SMD_S_SPT_sexI$ci.lb[3]` - `r SMD_S_SPT_sexI$ci.ub[3]`         |                         \-                         |
-|                 \-                  |    *Not reported*    |    `r SMD_S_SPT_sexI$beta[4]`    |        `r SMD_S_SPT_sexI$ci.lb[4]` - `r SMD_S_SPT_sexI$ci.ub[4]`         |                         \-                         |
+|                 \-                  |       *Male*       |    `r SMD_S_SPT_sexI$beta[1]`    |        `r SMD_S_SPT_sexI$ci.lb[1]` - `r SMD_S_SPT_sexI$ci.ub[1]`         |                         \-                         |
+|                 \-                  |        *Not reported*        |    `r SMD_S_SPT_sexI$beta[2]`    |        `r SMD_S_SPT_sexI$ci.lb[2]` - `r SMD_S_SPT_sexI$ci.ub[2]`         |                         \-                         |
 | Category of disease model induction |          \-          |                \-                |                                    \-                                    | `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`% |
-|                 \-                  |      *Genetic*       | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` - `r SMD_S_SPT_CatDisInd_noI$ci.ub[1]` |                         \-                         |
-|                 \-                  |  *Pharmacological*   | `r SMD_S_SPT_CatDisIndI$beta[2]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[2]` - `r SMD_S_SPT_CatDisIndI$ci.ub[2]`   |                         \-                         |
+|                 \-                  |      *Chronic unpredictable mild stress*       | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` - `r SMD_S_SPT_CatDisInd_noI$ci.ub[1]` |                         \-                         |
+|                 \-                  |  *Pharmacological early life stress*   | `r SMD_S_SPT_CatDisIndI$beta[2]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[2]` - `r SMD_S_SPT_CatDisIndI$ci.ub[2]`   | 
+|                 \-                  |  *Surgical models*   | `r SMD_S_SPT_CatDisIndI$beta[3]` |  `r SMD_S_SPT_CatDisIndI$ci.lb[3]` - `r SMD_S_SPT_CatDisIndI$ci.ub[3]`   | \-                         |
 |            Risk of Bias             |          \-          |                \-                |                                    \-                                    | `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`% |
 |                 \-                  |   *0 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[1]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]`   |                         \-                         |
 |                 \-                  |   *1 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[2]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]`   |                         \-                         |
-|                 \-                  |   *2 criteria met*   | `r SMD_S_SPT_SyRCLERoBI$beta[3]` |  `r SMD_S_SPT_SyRCLERoBI$ci.lb[3]` - `r SMD_S_SPT_SyRCLERoBI$ci.ub[3]`   |                         \-                         |
-|       Reporting completeness        |          \-          |                \-                |                                    \-                                    |  `r round((r2_ml(SMD_S_SPT_ARRIVEI)[1]*100),1)`%   |
-|                 \-                  |  *4-7 criteria met*  |  `r SMD_S_SPT_ARRIVEI$beta[1]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[1]` - `r SMD_S_SPT_ARRIVEI$ci.ub[1]`      |                         \-                         |
-|                 \-                  | *8-11 criteria met*  |  `r SMD_S_SPT_ARRIVEI$beta[2]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[2]` - `r SMD_S_SPT_ARRIVEI$ci.ub[2]`      |                         \-                         |
-|                 \-                  | *12-15 criteria met* |  `r SMD_S_SPT_ARRIVEI$beta[3]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[3]` - `r SMD_S_SPT_ARRIVEI$ci.ub[3]`      |                         \-                         |
-|                 \-                  | *16-19 criteria met* |  `r SMD_S_SPT_ARRIVEI$beta[4]`   |     `r SMD_S_SPT_ARRIVEI$ci.lb[4]` - `r SMD_S_SPT_ARRIVEI$ci.ub[4]`      |                         \-                         |
+|       Reporting completeness        |          \-          |                \-                |                                    \-                                    |  `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`%   |
+|                 \-                  |  *per unit increase*  |  `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]`   |     `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` - `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]`      |                         \-                         |
+
 
 ### 2.2.5 Sensitivity Analyses
 
@@ -964,25 +930,25 @@ We examine the robustness of the findings for the primary outcome by performing 
 
 #### Imputed rho values of 0.2 and 0.8
 
-In the previous analyses for the effect of TAAR1 agonists on Sucrose preference, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+In the previous analyses for the effect of depression modelling on dopamine concentrations, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.2 <- run_ML_SMD(df, "CvS", "Dopamine concentration", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, the modelling of depression had a pooled effect on dopamine concentrtaions of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.8 <- run_ML_SMD(df, "CvS", "Dopamine concentration", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, the modelling of depression had a pooled effect on dopamine concentrtaions of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_SPT[["beta"]]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
 
 #### NMD
 
-NMD analysis is not aplicable to the analysis of the effects of disease modelling.
+NMD analysis is not applicable to the analysis of the effects of disease modelling.
 
 ### 2.2.6 Reporting bias/small-study effects
 
@@ -993,7 +959,43 @@ run_sse_plot_SMD_L(df, 'CvS', 'Dopamine concentration')
 #run_sse_NMD(df)
 ```
 
-Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["k"]]` studies of modelling of depression where Sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][2]))`) in the context of a baseline estimate of effect of `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["beta"]][1]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.lb"]][1]` to `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.ub"]][1]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][1]))`).
+Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["k"]]` studies of modelling of depression where dopamine concentrations were measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Dopamine concentration')[["pval"]][2]))`).
+
+## 2.3 Outcome 3: Dopamine receptor biology
+
+
+
+### 2.3.1 Risks of bias
+
+Figure 2.3.1 shows the risk of bias traffic light plot for studies investigating the effect of modelling depression on doapmine receptor biology in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. 
+
+**Figure 2.3.1**
+
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
+SyRCLE_RoB_traffic(df, "CvS", "Dopamine receptor biology")
+```
+
+### 2.3.2 Reporting completeness
+
+Figure 2.3.2 shows the traffic light plot for reporting completeness summary for studies investigating the effect of the modelling of depression on Dopamine receptor biology in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 2.3.2 shows the corresponding traffic light plot.
+
+**Figure 2.3.2**
+
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+ARRIVE_traffic(df, "CvS", "Dopamine receptor biology")
+```
+
+### 2.3.3 Meta-analysis
+
+Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. We provide a conventional random effects model to illustrate the data.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
+SMD_SP_DR <- run_SMD(df, 'CvS', 'Dopamine receptor biology')
+```
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
+forest_metafor(SMD_SP_DR, 'CvS', 'Dopamine receptor biology')
+```
 
 ## 2.3 Outcome 3: DOPAC concentration
 
@@ -1141,7 +1143,7 @@ SMD_S_SPT_sex <- subgroup_analysis(df, "TvC", "Sucrose preference test", "Sex", 
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_sex, "Sex", "Sucrose preference test","Sex")
+forest_subgroup(SMD_S_SPT_sex, "Sex", "Sucrose preference test","Sex", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1161,14 +1163,16 @@ SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "TvC", "Sucrose preference test", "
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Sucrose preference test","Category of \nDisease Induction")
+forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Sucrose preference test","Category of \nDisease Induction", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "CatDisInd", 0.5)
 ```
 
-The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`. The between-strain variance was `r SMD_S_SPT_CatDisInd_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_CatDisInd_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_CatDisInd_noI$sigma2[3]`.
+The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`. 
+
+The between-strain variance was `r SMD_S_SPT_CatDisInd_noI$sigma2[1]`, the between-study variance `r SMD_S_SPT_CatDisInd_noI$sigma2[2]`, and the within-experiment variance `r SMD_S_SPT_CatDisInd_noI$sigma2[3]`.
 
 #### Route of intervention administration
 
@@ -1181,7 +1185,7 @@ SMD_S_SPT_AdminRoute <- subgroup_analysis(df, "TvC", "Sucrose preference test", 
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_AdminRoute, "InterventionAdministrationRoute", "Sucrose preference test","Route of \nAdministration")
+forest_subgroup(SMD_S_SPT_AdminRoute, "InterventionAdministrationRoute", "Sucrose preference test","Route of \nAdministration", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1201,7 +1205,7 @@ SMD_S_SPT_ProphThera <- subgroup_analysis(df, "TvC", "Sucrose preference test", 
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_ProphThera, "ProphylacticOrTherapeutic", "Sucrose preference test","Treatment before \nor after model induction")
+forest_subgroup(SMD_S_SPT_ProphThera, "ProphylacticOrTherapeutic", "Sucrose preference test","Treatment before \nor after model induction", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1217,7 +1221,7 @@ SMD_S_SPT_DurRx <- subgroup_analysis(df, "TvC", "Sucrose preference test", "Trea
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_DurRx, "TreatmentDurationCategory", "Sucrose preference test","Duration of treatment")
+forest_subgroup(SMD_S_SPT_DurRx, "TreatmentDurationCategory", "Sucrose preference test","Duration of treatment", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1250,7 +1254,7 @@ SMD_S_SPT_Drug <- subgroup_analysis(df, "TvC", "Sucrose preference test", "DrugN
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_Drug, "DrugName", "Sucrose preference test","Drug")
+forest_subgroup(SMD_S_SPT_Drug, "DrugName", "Sucrose preference test","Drug", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1301,7 +1305,7 @@ SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "TvC", "Sucrose preference test", "
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Sucrose preference test","SyRCLE RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Sucrose preference test","SyRCLE RoB score", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1321,7 +1325,7 @@ SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Sucrose preference test",
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Sucrose preference test","RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Sucrose preference test","RoB score", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1333,7 +1337,7 @@ The p-value for the association between low SyRCLE Risks of Bias reporting and o
 
 #### ARRIVE reporting guidelines performance
 
-As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
+We provide a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_ARR2 <- metaregression_analysis(df, "TvC", "Sucrose preference test", "ARRIVEScore", 0.5)
@@ -1560,7 +1564,7 @@ SMD_S_SPT_sex <- subgroup_analysis(df, "TvC", "Dopamine concentration", "Sex", 0
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_sex, "Sex", "Dopamine concentration","Sex")
+forest_subgroup(SMD_S_SPT_sex, "Sex", "Dopamine concentration","Sex", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1580,7 +1584,7 @@ SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "TvC", "Dopamine concentration", "C
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Dopamine concentration","Category of \nDisease Induction")
+forest_subgroup(SMD_S_SPT_CatDisInd, "CatDisInd", "Dopamine concentration","Category of \nDisease Induction", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1600,7 +1604,7 @@ SMD_S_SPT_AdminRoute <- subgroup_analysis(df, "TvC", "Dopamine concentration", "
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_AdminRoute, "InterventionAdministrationRoute", "Dopamine concentration","Route of \nAdministration")
+forest_subgroup(SMD_S_SPT_AdminRoute, "InterventionAdministrationRoute", "Dopamine concentration","Route of \nAdministration", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1620,7 +1624,7 @@ SMD_S_SPT_ProphThera <- subgroup_analysis(df, "TvC", "Dopamine concentration", "
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_ProphThera, "ProphylacticOrTherapeutic", "Dopamine concentration","Treatment before \nor after model induction")
+forest_subgroup(SMD_S_SPT_ProphThera, "ProphylacticOrTherapeutic", "Dopamine concentration","Treatment before \nor after model induction", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1636,7 +1640,7 @@ SMD_S_SPT_DurRx <- subgroup_analysis(df, "TvC", "Dopamine concentration", "Treat
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_DurRx, "TreatmentDurationCategory", "Dopamine concentration","Duration of treatment")
+forest_subgroup(SMD_S_SPT_DurRx, "TreatmentDurationCategory", "Dopamine concentration","Duration of treatment", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1671,7 +1675,7 @@ SMD_S_SPT_Drug <- subgroup_analysis(df, "TvC", "Dopamine concentration", "DrugNa
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_Drug, "DrugName", "Dopamine concentration","Drug")
+forest_subgroup(SMD_S_SPT_Drug, "DrugName", "Dopamine concentration","Drug", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1725,7 +1729,7 @@ SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "TvC", "Dopamine concentration", "R
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Dopamine concentration","SyRCLE RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoB, "RoBScore", "Dopamine concentration","SyRCLE RoB score", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1745,7 +1749,7 @@ SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Dopamine concentration", 
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Dopamine concentration","RoB score")
+forest_subgroup(SMD_S_SPT_SyRCLERoBTF, "RoBTF", "Dopamine concentration","RoB score", "TvC")
 ```
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
@@ -1756,7 +1760,7 @@ The p-value for the association between low SyRCLE Risks of Bias reporting and o
 
 #### ARRIVE reporting guidelines performance
 
-As an alternative to a categorical consideration of ARRIVE reporting guideline performance, we also present a metaregression where the number of ARRIVE items met is considered as a continuous variable.
+We provide a metaregression where the number of ARRIVE items met is considered as a continuous variable.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_ARR2 <- metaregression_analysis(df, "TvC", "Dopamine concentration", "ARRIVEScore", 0.5)
