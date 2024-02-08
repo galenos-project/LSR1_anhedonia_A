@@ -286,7 +286,7 @@ tab2m$N <- as.numeric(tab2m$N)
 
 original_data <- tab2m
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,18,20,23,24,26,29,30,31,32,33,34,37,38,39,41)
+rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,19,20,23,24,25,26,27,28,31,32,33)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -308,25 +308,17 @@ for (i in seq_len(nrow(original_data))) {
     if (j == 1) {
       cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
     }
+    if (i == nrow(original_data)) {
+      cell_style <- gsub('border-bottom: 1px solid black;', 'border-bottom: 2px solid black;', cell_style)
+    }
     cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
   }
   cat('</tr>')
 }
 
-# Bottom border for the last row
-cat('<tr style="border-top: 1px solid black;">')
-for (j in seq_len(ncol(original_data))) {
-  cell_content <- original_data[nrow(original_data), j]
-  cell_style <- ifelse(nrow(original_data) %in% rows_with_bold_lines, 'border-bottom: 2px solid black; padding: 8px; text-align: center;', 'border-bottom: 2px solid black; padding: 8px; text-align: center;')
-  if (j == 1) {
-    cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
-  }
-  cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
-}
-cat('</tr>')
-
 cat('</table>')
 cat('</div>')
+
 
 
 ```
@@ -343,7 +335,7 @@ tab2i$N <- as.numeric(tab2i$N)
 
 original_data <- tab2i
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,20,22,24,28,29,30,33,36,38,44,45,46,47,49,50,59,60,61,65)
+rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,22,24,27,30,36,37,38,39,41,42,51,52,53)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -365,25 +357,17 @@ for (i in seq_len(nrow(original_data))) {
     if (j == 1) {
       cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
     }
+    if (i == nrow(original_data)) {
+      cell_style <- gsub('border-bottom: 1px solid black;', 'border-bottom: 2px solid black;', cell_style)
+    }
     cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
   }
   cat('</tr>')
 }
 
-# Bottom border for the last row
-cat('<tr style="border-top: 1px solid black;">')
-for (j in seq_len(ncol(original_data))) {
-  cell_content <- original_data[nrow(original_data), j]
-  cell_style <- ifelse(nrow(original_data) %in% rows_with_bold_lines, 'border-bottom: 2px solid black; padding: 8px; text-align: center;', 'border-bottom: 2px solid black; padding: 8px; text-align: center;')
-  if (j == 1) {
-    cell_style <- gsub('text-align: center;', 'text-align: left;', cell_style)
-  }
-  cat(paste('<td style="', cell_style, '">', cell_content, '</td>', sep = ''))
-}
-cat('</tr>')
-
 cat('</table>')
 cat('</div>')
+
 
 
 ```
