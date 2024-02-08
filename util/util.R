@@ -182,81 +182,95 @@ subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_value
   if (is.character(df2[[moderator]])) {
     df2[[moderator]] <- factor(df2[[moderator]])}
   
+  # List of factors to consider
+  factors_to_consider <- c("Strain", "StudyId", "ExperimentID_I")
+  
+  # Create the random effects formula
+  random_formula <- create_formula(factors_to_consider, df2)
+  
+  if (is.null(random_formula)) {
+    cat("Insufficient levels for random effects grouping. Skipping meta-analysis.\n")
+    return(NULL)
+  }
   # Add a check for the number of levels in the moderator variable
   if (length(levels(df2[[moderator]])) >= 1) {
-
-  
-  df2 <- df2 %>% mutate(effect_id = row_number()) # add effect_id column
-  
-  #calculate variance-covariance matrix of the sampling errors for dependent effect sizes
-  
-  VCVM_SMD <- vcalc(vi = SMDv,
-                    cluster = StudyId, 
-                    subgroup= ExperimentID_I,
-                    obs=effect_id,
-                    data = df2, 
-                    rho = rho_value) 
-  
-  # ML model on df2 with subgroup
-  subgroup_analysis <- rma.mv(
-    yi = SMD,
-    V = VCVM_SMD,
-    random = ~1 | Strain / StudyId / ExperimentID_I,
-    data = df2,
-    mods = as.formula(paste("~", moderator, "-1")),
-    method = 'REML',
-    test = "t",
-    dfs = "contain"
-  )
-  
-  #subgroup_analysis_predict <- predict(subgroup_analysis)
-  
-  ## ML model on df2 without subgroup
-  overall_estimate_rma <- rma.mv(yi = SMD,
-                   V = VCVM_SMD,
-                   random = ~1 | Strain / StudyId / ExperimentID_I, # nested levels
-                   test = "t", # use t- and F-tests for making inferences
-                   data = df2,
-                   rho = rho_value,
-                   dfs="contain", # improve degree of freedom estimation for t- and F-distributions
-                   control=list(optimizer="nlm"))
-
-  #overall_estimate_rma_predict <- predict(overall_estimate_rma)
-  
-  
-  k_subgroups <- df2 %>%
-    group_by(df2[[moderator]]) %>%
-    count() %>%
-    pull(n)
-  
-  
-  subgroup_analysis_plotdata <- data.frame(levels(df2[[moderator]]), k_subgroups, subgroup_analysis$beta, subgroup_analysis$se, subgroup_analysis$pval, subgroup_analysis$ci.lb, subgroup_analysis$ci.ub)
-  colnames(subgroup_analysis_plotdata) <- c(moderator, "k", "SMD", "se","p", "ci_l", "ci_u") #, "pi.lb", "pi.ub")
-  subgroup_analysis_plotdata$symbol <- 15
-  subgroup_analysis_plotdata$size <- (1/subgroup_analysis_plotdata$se)
-  subgroup_analysis_plotdata$summary <- FALSE
-  subgroup_analysis_plotdata$fontfaace <- "plain"
-  subgroup_analysis_plotdata$fontsize <- 3.88
-  subgroup_analysis_plotdata=rbind(subgroup_analysis_plotdata, c("Overall estimate",  overall_estimate_rma$k, overall_estimate_rma$beta, overall_estimate_rma$se, overall_estimate_rma$pval, overall_estimate_rma$ci.lb,overall_estimate_rma$ci.ub, 18,1,TRUE,"bold",5)) #overall_estimate_rma_predict$pi.lb, overall_estimate_rma_predict$pi.ub))
-
-  
-  
-  
-  rownames(subgroup_analysis_plotdata) <- 1:nrow(subgroup_analysis_plotdata)
-  subgroup_analysis_plotdata$k <- as.numeric(subgroup_analysis_plotdata$k)
-  subgroup_analysis_plotdata$SMD <- as.numeric(subgroup_analysis_plotdata$SMD)
-  subgroup_analysis_plotdata$se <- as.numeric(subgroup_analysis_plotdata$se)
-  subgroup_analysis_plotdata$ci_l <- as.numeric(subgroup_analysis_plotdata$ci_l)
-  subgroup_analysis_plotdata$ci_u <- as.numeric(subgroup_analysis_plotdata$ci_u)
-  subgroup_analysis_plotdata$p <- as.numeric(subgroup_analysis_plotdata$p)
-  subgroup_analysis_plotdata$symbol <- as.numeric(subgroup_analysis_plotdata$symbol)
-  subgroup_analysis_plotdata$size <- as.numeric(subgroup_analysis_plotdata$size)
-  subgroup_analysis_plotdata$fontsize <- as.numeric(subgroup_analysis_plotdata$fontsize)
-  
-  subgroup_analysis_plotdata$d1 <- (subgroup_analysis_plotdata$SMD - subgroup_analysis_plotdata$ci_l)/1.92
-  subgroup_analysis_plotdata$d2 <- subgroup_analysis_plotdata$ci_u - subgroup_analysis_plotdata$SMD
-  
-  return(subgroup_analysis_plotdata)
+    #  message("In this iteration of the review, there was insufficient data to perform subgroup analysis for this variable (data for one subgroup only)")
+    #  return(NULL)
+    #}
+    
+    
+    df2 <- df2 %>% mutate(effect_id = row_number()) # add effect_id column
+    
+    #calculate variance-covariance matrix of the sampling errors for dependent effect sizes
+    
+    VCVM_SMD <- vcalc(vi = SMDv,
+                      cluster = StudyId, 
+                      subgroup= ExperimentID_I,
+                      obs=effect_id,
+                      data = df2, 
+                      rho = rho_value) 
+    
+    # ML model on df2 with subgroup
+    subgroup_analysis <- rma.mv(
+      yi = SMD,
+      V = VCVM_SMD,
+      random = random_formula,
+      data = df2,
+      mods = as.formula(paste("~", moderator, "-1")),
+      method = 'REML',
+      test = "t",
+      dfs = "contain"
+    )
+    
+    #subgroup_analysis_predict <- predict(subgroup_analysis)
+    
+    ## ML model on df2 without subgroup
+    overall_estimate_rma <- rma.mv(yi = SMD,
+                                   V = VCVM_SMD,
+                                   random = random_formula, # nested levels
+                                   test = "t", # use t- and F-tests for making inferences
+                                   data = df2,
+                                   rho = rho_value,
+                                   dfs="contain", # improve degree of freedom estimation for t- and F-distributions
+                                   control=list(optimizer="nlminb"))
+    
+    #overall_estimate_rma_predict <- predict(overall_estimate_rma)
+    
+    
+    k_subgroups <- df2 %>%
+      group_by(df2[[moderator]]) %>%
+      count() %>%
+      pull(n)
+    
+    
+    subgroup_analysis_plotdata <- data.frame(levels(df2[[moderator]]), k_subgroups, subgroup_analysis$beta, subgroup_analysis$se, subgroup_analysis$pval, subgroup_analysis$ci.lb, subgroup_analysis$ci.ub)
+    colnames(subgroup_analysis_plotdata) <- c(moderator, "k", "SMD", "se","p", "ci_l", "ci_u") #, "pi.lb", "pi.ub")
+    subgroup_analysis_plotdata$symbol <- 15
+    subgroup_analysis_plotdata$size <- (1/subgroup_analysis_plotdata$se)
+    subgroup_analysis_plotdata$summary <- FALSE
+    subgroup_analysis_plotdata$fontfaace <- "plain"
+    subgroup_analysis_plotdata$fontsize <- 3.88
+    subgroup_analysis_plotdata=rbind(subgroup_analysis_plotdata, c("Overall estimate",  overall_estimate_rma$k, overall_estimate_rma$beta, overall_estimate_rma$se, overall_estimate_rma$pval, overall_estimate_rma$ci.lb,overall_estimate_rma$ci.ub, 18,1,TRUE,"bold",5)) #overall_estimate_rma_predict$pi.lb, overall_estimate_rma_predict$pi.ub))
+    
+    
+    
+    
+    rownames(subgroup_analysis_plotdata) <- 1:nrow(subgroup_analysis_plotdata)
+    subgroup_analysis_plotdata$k <- as.numeric(subgroup_analysis_plotdata$k)
+    subgroup_analysis_plotdata$SMD <- as.numeric(subgroup_analysis_plotdata$SMD)
+    subgroup_analysis_plotdata$se <- as.numeric(subgroup_analysis_plotdata$se)
+    subgroup_analysis_plotdata$ci_l <- as.numeric(subgroup_analysis_plotdata$ci_l)
+    subgroup_analysis_plotdata$ci_u <- as.numeric(subgroup_analysis_plotdata$ci_u)
+    subgroup_analysis_plotdata$p <- as.numeric(subgroup_analysis_plotdata$p)
+    subgroup_analysis_plotdata$symbol <- as.numeric(subgroup_analysis_plotdata$symbol)
+    subgroup_analysis_plotdata$size <- as.numeric(subgroup_analysis_plotdata$size)
+    subgroup_analysis_plotdata$fontsize <- as.numeric(subgroup_analysis_plotdata$fontsize)
+    
+    subgroup_analysis_plotdata$d1 <- (subgroup_analysis_plotdata$SMD - subgroup_analysis_plotdata$ci_l)/1.92
+    subgroup_analysis_plotdata$d2 <- subgroup_analysis_plotdata$ci_u - subgroup_analysis_plotdata$SMD
+    
+    return(list(plotdata = subgroup_analysis_plotdata, 
+                analysis = subgroup_analysis))
   }
 }
 
