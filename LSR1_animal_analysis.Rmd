@@ -824,7 +824,7 @@ df_S_SPT <- filter_experiment_outcome_type(df, "TvC", "Sucrose preference test")
 df_S_DA <- filter_experiment_outcome_type(df, "TvC", "Dopamine concentration")
 df_S_DO <- filter_experiment_outcome_type(df, "TvC", "DOPAC concentration")
 df_S_ratio <- filter_experiment_outcome_type(df, "TvC", "DA/DOPC ratio")
-df_s_DRB <- filter_experiment_outcome_type(df,"TvC", "Dopamine receptor biology")
+df_S_DRB <- filter_experiment_outcome_type(df,"TvC", "Dopamine receptor biology")
 ```
 
 `r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "TvC"))` comparisons) investigated the effects of Dopaminergic agents versus Control. The number of studies and individual effect sizes for each outcome were:
