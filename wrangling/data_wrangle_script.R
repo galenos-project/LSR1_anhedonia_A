@@ -11,7 +11,7 @@ source("wrangling/wrangling_functions.R", local = TRUE)
 LSR <- 'LSR1'
 
 # Import SyRF outcome data
-LSR1_SyRFOutcomes <- read_csv("data/Quantitative_data_-_2024_01_31_-_e98bc7cf-dfa7-47b9-a9fa-344406c46e1c_-_Investigators_Unblinded.csv")
+LSR1_SyRFOutcomes <- read_csv("data/Quantitative_data_-_2024_02_07_-_e98bc7cf-dfa7-47b9-a9fa-344406c46e1c_-_Investigators_Unblinded.csv")
 
 ###### Tidying and cleaning the data ######
 #clean ; from TiAb etc
@@ -317,6 +317,9 @@ colname15 <- "Animal strain?"
 condition <- data$StudyId == 'cc6534a5-d880-45a2-ab36-544a2e30d3c1'
 data[condition, colname15] <- 'WAG/Rij'
 
+colname15 <- "DiseaseModelLabel(s)[1]"
+condition <- data$StudyId == 'd51b4559-f349-4c76-a5db-e63698b10f46'
+data[condition, colname15] <- 'CMS'
 
 
 
@@ -877,7 +880,9 @@ df <- subset(df4, !df4$OutcomeError_I == 999)
 df <- df %>% 
   mutate_all(~replace(., . == 999, NA))
 
-
+# remove all instances of Imipramine
+diag <- subset(df, df$drugname1_I == 'imipramine')
+df <- df %>% filter(!df$GroupID_I %in% diag$GroupID_I)
 
 
 # SAVE FILE
