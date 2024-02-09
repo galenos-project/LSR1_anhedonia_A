@@ -1,57 +1,57 @@
-Study,Model,Strain,Comparison,Outcome,N
-"AMIRI, 2016",maternal separation,NMRI,"selegiline, 1 mg/kg",Sucrose preference test,12
-~,~,~,"selegiline, 3 mg/kg",~,24
-~,~,~,"selegiline, 5 mg/kg",~,12
-"BORGES, 2013",iuGC,Wistar (rat),"L-DOPA, 24 mg/kg",DOPAC concentration,20
-~,~,~,~,Dopamine concentration,20
-~,~,~,~,Sucrose preference test,14
-"BROCCO, 2006",CMS,Wistar (rat),"piribedil, 10 mg/kg",Sucrose preference test,96
-~,~,~,"piribedil, 2.5 mg/kg",~,96
-~,~,~,"piribedil, 40 mg/kg",~,96
-"CARRATAL, 2023",Tetrabenzine,CD-1 (mouse),"buproprion, 10 mg/kg",Sucrose preference test,132
-"EREN, 2007",CMS,Wistar (rat),"aripiprazole, 2.5 mg/kg",Sucrose preference test,80
-"EREN, 2014",CUMS,Wistar (rat),"aripiprazole, 2.5 mg/kg",Sucrose preference test,64
-"FATIMA, 2020",PNS,Wistar (rat),"ropinirole, 10 mg/kg",Dopamine receptor biology,24
-~,~,~,~,Sucrose preference test,12
-"JIANG, 2014",Defeat,C57BL/6J (mouse),"SKF83959, 0.5 mg/kg",Sucrose preference test,20
-~,~,~,"SKF83959, 1 mg/kg",~,100
-"KOO, 2018",MCAO,C57BL/6 (mouse),"aripiprazole, 1 mg/kg",Sucrose preference test,36
-"MUSCAT, 1992",CMS,Lister hooded (rat),"quinpirole, 200 ug/kg",Sucrose preference test,40
-"OSACKA, 2022",CMS,Sprague-dawley (rat),"aripiprazole, 10 mg/kg",Sucrose preference test,22
-"PAPP, 1993",CUMS,Lister hooded (rat),"quinpirole, 100 ug/kg",Sucrose preference test,96
-~,~,~,"quinpirole, 200 ug/kg",~,96
-~,~,~,"quinpirole, 400 ug/kg",~,96
-"QIAO, 2020",CUS,Sprague-dawley (rat),"dopamine, 3.83 ug",Sucrose preference test,24
-~,~,~,"quinpirole, 0.877 ug",~,24
-"RANA, 2014",CMS,Swiss albino,"L-DOPA, 200 mg/kg & simvastatin, 10 mg/kg",Sucrose preference test,60
-~,~,~,"bromocriptine, 2 mg/kg & simvastatin, 10 mg/kg",~,60
-~,~,~,"simvastatin, 10 mg/kg",~,60
-"RUSSO, 2013",WAG/Rij rat,WAG/Rij,"aripiprazole, 0.3 mg/kg",Sucrose preference test,20
-~,~,~,"aripiprazole, 1 mg/kg",~,20
-~,~,~,"aripiprazole, 3 mg/kg",~,20
-"TAN, 2015",TBI,Sprague-dawley (rat),"amantadine, 45 mg/kg",DOPAC concentration,112
-~,~,~,~,Dopamine concentration,112
-~,~,~,~,Sucrose preference test,56
-~,~,~,"amantadine, 135 mg/kg",DOPAC concentration,112
-~,~,~,~,Dopamine concentration,112
-~,~,~,~,Sucrose preference test,56
-"TOMAZ, 2020",LPS,Wistar (rat),"tranylcypromine, 10 mg/kg",Sucrose preference test,16
-"WANG, 2021",CUS,C57BL/6 (mouse),"cryptotanshinone, 20 mg/kg",Sucrose preference test,16
-"WEI, 2021",CMS,C57BL/6J (mouse),"pramipexole, 1 mg/kg",Sucrose preference test,12
-"WILLNER, 1994",CUMS,PVG Hooded,"pramipexole, 1 mg/kg",Sucrose preference test,88
-~,~,~,"pramipexole, 2 mg/kg",~,88
-"WU, 2014",CUMS,Sprague-dawley (rat),"SKF38393, 1.12 ug",Sucrose preference test,12
-"YAN, 2022",CUMS,Sprague-dawley (rat),"P. orientalis seed, 10 mg/kg",DA/DOPC ratio,60
-~,~,~,~,Dopamine concentration,60
-~,~,~,~,Sucrose preference test,20
-~,~,~,"P. orientalis seed, 33 mg/kg",DA/DOPC ratio,60
-~,~,~,~,Dopamine concentration,60
-~,~,~,~,Sucrose preference test,20
-~,~,~,"P. orientalis seed, 100 mg/kg",DA/DOPC ratio,60
-~,~,~,~,Dopamine concentration,60
-~,~,~,~,Sucrose preference test,20
-"YU, 2016",CUS,Wistar (rat),"amantadine, 25 mg/kg",Sucrose preference test,48
-"YUAN, 2011",CUMS,Sprague-dawley (rat),"SKF38393, 1.12 ug/kg",Sucrose preference test,16
-"ZHAO, 2018",CMS,Sprague-dawley (rat),"2_HBC, 10 mg/kg",Sucrose preference test,60
-~,~,~,"2_HBC, 2.5 mg/kg",~,60
-~,~,~,"buproprion, 2.5 mg/kg",~,60
+"","Study","Model","Strain","Comparison","Outcome","N"
+"1","AMIRI, 2016","maternal separation","NMRI","selegiline, 1 mg/kg","Sucrose preference test",12
+"2","AMIRI, 2016","maternal separation","NMRI","selegiline, 3 mg/kg","Sucrose preference test",24
+"3","AMIRI, 2016","maternal separation","NMRI","selegiline, 5 mg/kg","Sucrose preference test",12
+"4","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","L-DOPA, 24 mg/kg","DOPAC concentration",20
+"5","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","L-DOPA, 24 mg/kg","Dopamine concentration",20
+"6","BORGES, 2013","in utero glucocorticoid (iuGC)","Wistar (rat)","L-DOPA, 24 mg/kg","Sucrose preference test",14
+"7","BROCCO, 2006","CMS","Wistar (rat)","piribedil, 10 mg/kg","Sucrose preference test",96
+"8","BROCCO, 2006","CMS","Wistar (rat)","piribedil, 2.5 mg/kg","Sucrose preference test",96
+"9","BROCCO, 2006","CMS","Wistar (rat)","piribedil, 40 mg/kg","Sucrose preference test",96
+"10","CARRATAL, 2023","Tetrabenzine","CD-1 (mouse)","buproprion, 10 mg/kg","Sucrose preference test",132
+"11","EREN, 2007","CMS","Wistar (rat)","aripiprazole, 2.5 mg/kg","Sucrose preference test",80
+"12","EREN, 2014","CUMS","Wistar (rat)","aripiprazole, 2.5 mg/kg","Sucrose preference test",64
+"13","FATIMA, 2020","PNS","Wistar (rat)","ropinirole, 10 mg/kg","Dopamine receptor biology",24
+"14","FATIMA, 2020","PNS","Wistar (rat)","ropinirole, 10 mg/kg","Sucrose preference test",12
+"15","JIANG, 2014","Defeat","C57BL/6J (mouse)","SKF83959, 0.5 mg/kg","Sucrose preference test",20
+"16","JIANG, 2014","Defeat","C57BL/6J (mouse)","SKF83959, 1 mg/kg","Sucrose preference test",100
+"17","KOO, 2018","MCAO","C57BL/6 (mouse)","aripiprazole, 1 mg/kg","Sucrose preference test",36
+"18","MUSCAT, 1992","CMS","Lister hooded (rat)","quinpirole, 200 ug/kg","Sucrose preference test",40
+"19","OSACKA, 2022","CMS","Sprague-dawley (rat)","aripiprazole, 10 mg/kg","Sucrose preference test",22
+"20","PAPP, 1993","CUMS","Lister hooded (rat)","quinpirole, 100 ug/kg","Sucrose preference test",96
+"21","PAPP, 1993","CUMS","Lister hooded (rat)","quinpirole, 200 ug/kg","Sucrose preference test",96
+"22","PAPP, 1993","CUMS","Lister hooded (rat)","quinpirole, 400 ug/kg","Sucrose preference test",96
+"23","QIAO, 2020","CUS","Sprague-dawley (rat)","dopamine, 3.83 ug","Sucrose preference test",24
+"24","QIAO, 2020","CUS","Sprague-dawley (rat)","quinpirole, 0.877 ug","Sucrose preference test",24
+"25","RANA, 2014","CMS","Swiss albino","L-DOPA, 200 mg/kg & simvastatin, 10 mg/kg","Sucrose preference test",60
+"26","RANA, 2014","CMS","Swiss albino","bromocriptine, 2 mg/kg & simvastatin, 10 mg/kg","Sucrose preference test",60
+"27","RANA, 2014","CMS","Swiss albino","simvastatin, 10 mg/kg","Sucrose preference test",60
+"28","RUSSO, 2013","WAG/Rij rat","WAG/Rij","aripiprazole, 0.3 mg/kg","Sucrose preference test",20
+"29","RUSSO, 2013","WAG/Rij rat","WAG/Rij","aripiprazole, 1 mg/kg","Sucrose preference test",20
+"30","RUSSO, 2013","WAG/Rij rat","WAG/Rij","aripiprazole, 3 mg/kg","Sucrose preference test",20
+"31","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 135 mg/kg","DOPAC concentration",112
+"32","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 135 mg/kg","Dopamine concentration",112
+"33","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 135 mg/kg","Sucrose preference test",56
+"34","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 45 mg/kg","DOPAC concentration",112
+"35","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 45 mg/kg","Dopamine concentration",112
+"36","TAN, 2015","TBI","Sprague-dawley (rat)","amantadine, 45 mg/kg","Sucrose preference test",56
+"37","TOMAZ, 2020","LPS","Wistar (rat)","tranylcypromine, 10 mg/kg","Sucrose preference test",16
+"38","WANG, 2021","CUS","C57BL/6 (mouse)","cryptotanshinone, 20 mg/kg","Sucrose preference test",16
+"39","WEI, 2021","CMS","C57BL/6J (mouse)","pramipexole, 1 mg/kg","Sucrose preference test",12
+"40","WILLNER, 1994","CUMS","PVG Hooded","pramipexole, 1 mg/kg","Sucrose preference test",88
+"41","WILLNER, 1994","CUMS","PVG Hooded","pramipexole, 2 mg/kg","Sucrose preference test",88
+"42","WU, 2014","CUMS","Sprague-dawley (rat)","SKF38393, 1.12 ug","Sucrose preference test",12
+"43","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 10 mg/kg","DA/DOPC ratio",60
+"44","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 10 mg/kg","Dopamine concentration",60
+"45","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 10 mg/kg","Sucrose preference test",20
+"46","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 100 mg/kg","DA/DOPC ratio",60
+"47","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 100 mg/kg","Dopamine concentration",60
+"48","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 100 mg/kg","Sucrose preference test",20
+"49","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 33 mg/kg","DA/DOPC ratio",60
+"50","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 33 mg/kg","Dopamine concentration",60
+"51","YAN, 2022","CUMS","Sprague-dawley (rat)","P. orientalis seed, 33 mg/kg","Sucrose preference test",20
+"52","YU, 2016","CUS","Wistar (rat)","amantadine, 25 mg/kg","Sucrose preference test",48
+"53","YUAN, 2011","CUMS","Sprague-dawley (rat)","SKF38393, 1.12 ug/kg","Sucrose preference test",16
+"54","ZHAO, 2018","CMS","Sprague-dawley (rat)","2_HBC, 10 mg/kg","Sucrose preference test",60
+"55","ZHAO, 2018","CMS","Sprague-dawley (rat)","2_HBC, 2.5 mg/kg","Sucrose preference test",60
+"56","ZHAO, 2018","CMS","Sprague-dawley (rat)","buproprion, 2.5 mg/kg","Sucrose preference test",60
