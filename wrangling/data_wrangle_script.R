@@ -885,11 +885,17 @@ df <- df %>%
 diag <- subset(df, df$drugname1_I == 'imipramine')
 df <- df %>% subset(!df$Intervention %in% diag$Intervention)
 
+## remove all but latest SPT data
 df$test1 <- (df$StudyId_I == 'c5f599a4-839a-4c7a-80c9-f40ba1d46969' & !df$TimeInMinute_I == 5)
 df <-subset(df, df$test1 == FALSE)
 
 df$test2 <- (df$StudyId_I == '42693d44-0a22-45bd-ad4a-f6d60b276b82' & !df$TimeInMinute_I == 28)
 df <-subset(df, df$test2 == FALSE)
+
+df$test3 <- (df$StudyId_I == '08e83c8f-49d3-49dd-a895-20dbd253f719' & 
+               df$OutcomeId_I == 'e25210e9-08df-42d1-a56e-61a7620d0365' &
+               !df$TimeInMinute_I == 5)
+df <-subset(df, df$test3 == FALSE)
 
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
