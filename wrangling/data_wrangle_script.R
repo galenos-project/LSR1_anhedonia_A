@@ -935,6 +935,9 @@ df <-subset(df, df$test13 == FALSE)
 df$test14 <- (df$StudyId_I == 'afca2f86-9178-4cf9-add6-482feb6408c7' & !df$TimeInMinute_I == 4)
 df <-subset(df, df$test14 == FALSE)
 
+df$`DiseaseModelLabel(s)[1]_I` <- gsub('in utero glucocorticoid \\(iuGC\\)','iuGC', df$`DiseaseModelLabel(s)[1]_I`)
+
+
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
 write.csv(df, savefile_output, row.names = FALSE)
