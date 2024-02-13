@@ -897,6 +897,11 @@ df$test3 <- (df$StudyId_I == '08e83c8f-49d3-49dd-a895-20dbd253f719' &
                !df$TimeInMinute_I == 5)
 df <-subset(df, df$test3 == FALSE)
 
+df$test4 <- (df$StudyId_I == '2fb947ef-b55f-406f-b61a-c62f229f6ed0' & 
+               df$OutcomeId_I == 'a0610e14-5e84-467c-a7c7-3ad30431efa5' &
+               !df$TimeInMinute_I == 8)
+df <-subset(df, df$test4 == FALSE)
+
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
 write.csv(df, savefile_output, row.names = FALSE)
