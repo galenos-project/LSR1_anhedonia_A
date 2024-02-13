@@ -167,7 +167,7 @@ tab2m$N <- as.numeric(tab2m$N)
 
 original_data <- tab2m
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,19,20,23,24,25,26,27,28,31,32,33)
+rows_with_bold_lines <- c(1,4,5,6,7,8,10,11,12,13,14,15,16,18,20,23,24,25,27,30,31,32,33,34,35,38,39,40)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -217,7 +217,7 @@ tab2i$N <- as.numeric(tab2i$N)
 
 original_data <- tab2i
 # Rows to have bold lines beneath
-rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,22,24,27,30,36,37,38,39,41,42,51,52,53)
+rows_with_bold_lines <- c(3,6,9,10,11,12,14,16,17,18,19,20,23,25,27,30,33,39,40,41,42,44,45,54,55,56)
 
 # Generate HTML table with adjusted styles
 cat('<div style="text-align: center;">')
@@ -1131,19 +1131,19 @@ We examine the robustness of the findings for the primary outcome by performing 
 
 #### Imputed rho values of 0.2 and 0.8
 
-In the previous analyses for the effect of TAAR1 agonists on Sucrose preference, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
+In the previous analyses for the effect of dopaminergic agents on Sucrose preference, we imputed a $\rho$ value - the imputed within-study correlation between observed effect sizes - of 0.5. Here, we examine the effect of imputing $\rho$ values of 0.2 and 0.8.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.2 <- run_ML_SMD(df, "TvC", "Sucrose preference test", 0.2)
 ```
 
-When the $\rho$ value is assumed to be 0.2, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
+When the $\rho$ value is assumed to be 0.2, dopaminergic agents had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.2[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.2[["ci.lb"]]` to `r SMD_S_SPT_rho0.2[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.2)$pi.lb` to `r predict(SMD_S_SPT_rho0.2)$pi.ub`).
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_rho0.8 <- run_ML_SMD(df, "TvC", "Sucrose preference test", 0.8)
 ```
 
-When the $\rho$ value is assumed to be 0.8, the TAAR1 interventions had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
+When the $\rho$ value is assumed to be 0.8, dopaminergic agents had a pooled effect on Sucrose preference of **SMD = `r SMD_S_SPT_rho0.8[["beta"]]`** (95% CI: `r SMD_S_SPT_rho0.8[["ci.lb"]]` to `r SMD_S_SPT_rho0.8[["ci.ub"]]`) with a prediction interval of `r predict(SMD_S_SPT_rho0.8)$pi.lb` to `r predict(SMD_S_SPT_rho0.8)$pi.ub`).
 
 For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_SPT[["beta"]]` (95% CI: `r SMD_S_SPT[["ci.lb"]]` to `r SMD_S_SPT[["ci.ub"]]`).
 
