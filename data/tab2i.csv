@@ -1,0 +1,60 @@
+Study,Model,Strain,Comparison,Outcome,N
+"AMIRI, 2016",maternal separation,NMRI,"selegiline, 1 mg/kg",Sucrose preference test,12
+~,~,~,"selegiline, 3 mg/kg",Sucrose preference test,24
+~,~,~,"selegiline, 5 mg/kg",Sucrose preference test,12
+"BORGES, 2013",iuGC,Wistar (rat),"L-DOPA, 24 mg/kg",DOPAC concentration,20
+~,~,~,"L-DOPA, 24 mg/kg",Dopamine concentration,20
+~,~,~,"L-DOPA, 24 mg/kg",Sucrose preference test,14
+"BROCCO, 2006",CMS,Wistar (rat),"piribedil, 2.5 mg/kg",Sucrose preference test,16
+~,~,~,"piribedil, 10 mg/kg",Sucrose preference test,16
+~,~,~,"piribedil, 40 mg/kg",Sucrose preference test,16
+"CARRATALA, 2023",Tetrabenzine,CD-1 (mouse),"buproprion, 10 mg/kg",Sucrose preference test,132
+"EREN, 2007",CMS,Wistar (rat),"aripiprazole, 2.5 mg/kg",Sucrose preference test,16
+"EREN, 2014",CUMS,Wistar (rat),"aripiprazole, 2.5 mg/kg",Sucrose preference test,16
+"FATIMA, 2020",PNS,Wistar (rat),"ropinirole, 10 mg/kg",Dopamine receptor biology,24
+~,~,~,"ropinirole, 10 mg/kg",Sucrose preference test,12
+"JIANG, 2014",Defeat,C57BL/6J (mouse),"SKF83959, 0.5 mg/kg",Sucrose preference test,20
+~,~,~,"SKF83959, 1 mg/kg",Sucrose preference test,100
+"KOO, 2018",MCAO,C57BL/6 (mouse),"aripiprazole, 1 mg/kg",Sucrose preference test,36
+"KRUPINA, 1995",MPTP,Wistar (rat),"bromocriptine, 5 mg/kg",Sucrose preference test,12
+"MUSCAT, 1992",CMS,Lister hooded (rat),"quinpirole, 200 ug/kg",Sucrose preference test,20
+"OSACKA, 2022",CMS,Sprague-dawley (rat),"aripiprazole, 10 mg/kg",Sucrose preference test,22
+"PAPP, 1993",CUMS,Lister hooded (rat),"quinpirole, 100 ug/kg",Sucrose preference test,24
+~,~,~,"quinpirole, 200 ug/kg",Sucrose preference test,24
+~,~,~,"quinpirole, 400 ug/kg",Sucrose preference test,24
+"PAPP, 1996",CUMS,Wistar (rat),"D-amphetamine, 0.5 mg/kg",Sucrose preference test,20
+~,CUMS 2,Wistar (rat),"D-amphetamine, 1.5 mg/kg",Sucrose preference test,16
+"QIAO, 2020",CUS,Sprague-dawley (rat),"dopamine, 3.83 ug",Sucrose preference test,24
+~,~,~,"quinpirole, 0.877 ug",Sucrose preference test,24
+"RANA, 2014",CMS,Swiss albino,"bromocriptine, 2 mg/kg & simvastatin, 10 mg/kg",Sucrose preference test,12
+~,~,~,"L-DOPA, 200 mg/kg & simvastatin, 10 mg/kg",Sucrose preference test,12
+~,~,~,"simvastatin, 10 mg/kg",Sucrose preference test,12
+"RUSSO, 2013",WAG/Rij rat,WAG/Rij,"aripiprazole, 0.3 mg/kg",Sucrose preference test,20
+~,~,~,"aripiprazole, 1 mg/kg",Sucrose preference test,20
+~,~,~,"aripiprazole, 3 mg/kg",Sucrose preference test,20
+"TAN, 2015",TBI,Sprague-dawley (rat),"amantadine, 45 mg/kg",DOPAC concentration,14
+~,~,~,"amantadine, 45 mg/kg",Dopamine concentration,14
+~,~,~,"amantadine, 45 mg/kg",Sucrose preference test,14
+~,~,~,"amantadine, 135 mg/kg",DOPAC concentration,14
+~,~,~,"amantadine, 135 mg/kg",Dopamine concentration,14
+~,~,~,"amantadine, 135 mg/kg",Sucrose preference test,14
+"TOMAZ, 2020",LPS,Wistar (rat),"tranylcypromine, 10 mg/kg",Sucrose preference test,16
+"WANG, 2021",CUS,C57BL/6 (mouse),"cryptotanshinone, 20 mg/kg",Sucrose preference test,16
+"WEI, 2021",CMS,C57BL/6J (mouse),"pramipexole, 1 mg/kg",Sucrose preference test,12
+"WILLNER, 1994",CUMS,PVG Hooded,"pramipexole, 1 mg/kg",Sucrose preference test,88
+~,~,PVG Hooded,"pramipexole, 2 mg/kg",Sucrose preference test,88
+"WU, 2014",CUMS,Sprague-dawley (rat),"SKF38393, 1.12 ug",Sucrose preference test,12
+"YAN, 2022",CUMS,Sprague-dawley (rat),"P. orientalis seed, 10 mg/kg",DA/DOPC ratio,60
+~,~,~,"P. orientalis seed, 10 mg/kg",Dopamine concentration,60
+~,~,~,"P. orientalis seed, 10 mg/kg",Sucrose preference test,20
+~,~,~,"P. orientalis seed, 33 mg/kg",DA/DOPC ratio,60
+~,~,~,"P. orientalis seed, 33 mg/kg",Dopamine concentration,60
+~,~,~,"P. orientalis seed, 33 mg/kg",Sucrose preference test,20
+~,~,~,"P. orientalis seed, 100 mg/kg",DA/DOPC ratio,60
+~,~,~,"P. orientalis seed, 100 mg/kg",Dopamine concentration,60
+~,~,~,"P. orientalis seed, 100 mg/kg",Sucrose preference test,20
+"YU, 2016",CUS,Wistar (rat),"amantadine, 25 mg/kg",Sucrose preference test,12
+"YUAN, 2011",CUMS,Sprague-dawley (rat),"SKF38393, 1.12 ug/kg",Sucrose preference test,16
+"ZHAO, 2018",CMS,Sprague-dawley (rat),"2_HBC, 2.5 mg/kg",Sucrose preference test,20
+~,~,~,"2_HBC, 10 mg/kg",Sucrose preference test,20
+~,~,~,"buproprion, 2.5 mg/kg",Sucrose preference test,20
