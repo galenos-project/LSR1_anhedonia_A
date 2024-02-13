@@ -85,19 +85,24 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
   if(!is.null(model)){
   
   
-  lower_x <- floor((min(model[["yi"]])-mean(model[["vi"]])) - 1)
-  upper_x <- ceiling((max(model[["yi"]])+mean(model[["vi"]])) + 1)
+  lower_x <- floor(min(model[["yi"]]- model[["vi"]])) - 1
+  lower_x <- floor(lower_x / 5) * 5
+  upper_x <- ceiling(max(model[["yi"]] + model[["vi"]])) + 1
+  upper_x <- ceiling(upper_x / 5) * 5
+  arange <- upper_x - lower_x
+  xleft <- -(1.5*arange)+lower_x
+  xright <- upper_x + (0.5 * arange)
   summary_x <- model[["beta"]]
   model[["data"]][["SMD"]] <- round(model[["data"]][["SMD"]],2)
   
-  at_values <- seq(floor(lower_x / 5) * 5, ceiling(upper_x / 5) * 5, by = 2.5)
+  at_values <- seq(lower_x, upper_x, by = 2.5)
   
          forest_plot <- if(experiment_type == "TvC"){
                                forest(model,
-                                      xlim=c((lower_x-8), (upper_x+3)),
+                                      xlim=c(xleft, xright),
                                       ylim=c(-2, model$k+6), rows=c((model$k+2):3),
                                       mlab="SMD [95% C.I.]", 
-                                      alim=c((lower_x-4), (upper_x+2)),
+                                      alim=c((lower_x), (upper_x)),
                                       slab=paste(word(Authors_I, 1), Year, Strain),
                                       at = at_values,
                                       col = c("grey","grey"),
@@ -108,19 +113,19 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                                       order=StudyId,
                                       xlab = "",
                                       ilab = cbind(ARRIVEScore, Label),
-                                      ilab.xpos = c(-5.5, -3),
+                                      ilab.xpos = c((lower_x-(0.42*arange)),(lower_x)),
                                       lty = c("solid","solid","solid"),
                                       cex = 0.6, 
                                       cex.axis = 1.0, 
                                       cex.lab = 1.2,
                                       efac = c(1,1,2))
-           text(c(-5.5,-3), model$k+6, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+           text(c((lower_x-(0.42*arange)),(lower_x)), c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
          } else {
                                forest(model,
-                                      xlim=c(-30,10),
-                                      ylim=c(-2, model$k+4), rows=c((model$k+1):2),
+                                      xlim=c(xleft, xright),
+                                      ylim=c(-2, model$k+6), rows=c((model$k+2):3),
                                       mlab="SMD [95% C.I.]",
-                                      alim=c((lower_x-2), (upper_x+2.5)),
+                                      alim=c(lower_x, upper_x),
                                       slab=paste(word(Authors_I, 1), Year, Strain),
                                       at = at_values,
                                       col = c("grey","grey"),
@@ -131,13 +136,13 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                                       order=StudyId,
                                       xlab = "", 
                                       ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
-                                      ilab.xpos = c(-22, -12),
+                                      ilab.xpos = c((lower_x-(0.42*arange)),(lower_x)),
                                       cex = 0.6, 
                                       cex.axis = 1.0, 
                                       cex.lab = 1.2,
                                       lty = c("solid","solid","solid"),
                                       efac = c(1,1,3))
-           text(c(-22,-12), model$k+3, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+           text(c((lower_x-(0.42*arange)),(lower_x)), model$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
          }
          
 cixlower <- model[["ci.lb"]]
@@ -1080,8 +1085,8 @@ forest_metafor_NMD <- function(model, outcome){
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
   mtext("Favours control", side = 1, line = 3, at = (-120), cex = 1.2, col = "red", font = 1)
-  mtext("Favours TAAR1 agonist", side = 1, line = 3, at = (120), cex = 1.2, col = "darkgreen", font = 1)
-  title(paste0("TAAR1 agonist effect on ", outcome, " in psychosis (NMD)"))
+  mtext("Favours dopaminergic agent", side = 1, line = 3, at = (120), cex = 1.2, col = "darkgreen", font = 1)
+  title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
   
 }
 
