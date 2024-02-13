@@ -926,6 +926,14 @@ df <-subset(df, df$test10 == FALSE)
 df$test11 <- (df$StudyId_I == '7afdb425-b6de-4e15-b02b-16b5e62007ca' & !df$TimeInMinute_I == 8)
 df <-subset(df, df$test11 == FALSE)
 
+df$test12 <- (df$StudyId_I == '944c6614-089b-4f41-bf57-ab08e5afb4c0' & !df$TimeInMinute_I == 14)
+df <-subset(df, df$test12 == FALSE)
+
+df$test13 <- (df$StudyId_I == '57186a77-f3dd-4dbb-9911-f90ceedfed91' & !df$TimeInMinute_I == 21)
+df <-subset(df, df$test13 == FALSE)
+
+df$test14 <- (df$StudyId_I == 'afca2f86-9178-4cf9-add6-482feb6408c7' & !df$TimeInMinute_I == 4)
+df <-subset(df, df$test14 == FALSE)
 
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
