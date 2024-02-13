@@ -152,16 +152,16 @@ cixhigher <- model[["ci.ub"]]
   #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
   
   if (experiment_type == "TvC") {
-    mtext("Favours control", side = 1, line = 3, at = -4, cex = 1.1, col = "red", font = 1)
-    mtext("Favours intervention", side = 1, line = 3, at = 4, cex = 1.1, col = "darkgreen", font = 1)
+    mtext("Favours control", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
+    mtext("Favours intervention", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
     title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
     
   } else if (experiment_type == "CvS") {
-    mtext("Model increases\nanhedonia", side = 1, line = 3, at = -4, cex = 1.1, col = "red", font = 1)
+    mtext("Model increases\nanhedonia", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
 
-    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = 4, cex = 1.1, col = "darkgreen", font = 1)
+    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
 
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
