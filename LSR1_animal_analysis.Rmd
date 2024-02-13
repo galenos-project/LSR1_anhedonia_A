@@ -208,7 +208,7 @@ cat('</div>')
 
 iuGC - intra-uterine glucocorticoid: CMS - chronic mild stress: CUMS - chronic unpredictable mild stress: CUS - chronic unpredicatble stress: PNS - prenatal stress: Defeat - social defeat stress: TBI - traumatic brain injury: LPS - intraperitoneal lipopolysaccharide: MCAO - middle cerebral artery occlusion: WAG/Rij = genetic model of absence epilepsy with co-morbid depression
 
-**Table 2** below gives a summary of the included studies for the effect of doapminergic interventions. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, it will be counted twice.While some authors considered imipramine to have dopaminergic effects, we considered, given that this was a minor contribution to its pharmacological repertoire, that these studies should not be included in this iteration of the review.
+**Table 2** below gives a summary of the included studies for the effect of dopaminergic interventions. N represents an aggregate of animals contributing to outcomes reported from control and treatment groups, and if the same control group has contributed to more than one experiment, it will be counted twice.While some authors considered imipramine to have dopaminergic effects, we considered, given that this was a minor contribution to its pharmacological repertoire, that these studies should not be included in this iteration of the review.
 
 ```{r results="asis", echo = FALSE, warning=FALSE, message=FALSE}
 
@@ -931,13 +931,18 @@ output_text0 <- paste0("Aripiprazole: There were ", diag3, " comparisons from ",
 
 ```
 
-The estimate for $\beta$ was `r SMD_S_SPT_aripiprazole_dose$beta[2]` (95% CI `r SMD_S_SPT_aripiprazole_dose$ci_lb[2]` tp `r SMD_S_SPT_aripiprazole_dose$ci_ub[2]`, p = `r  round(SMD_S_SPT_aripiprazole_dose$pval[2],3)`).
 
-|            Level            |                                                                          Number of categories for that level included in this analysis                                                                          |                                                                                              Attributable variance                                                                                              |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+###parked for not due to low numbers###
+#The estimate for $\beta$ was `r SMD_S_SPT_aripiprazole_dose$beta[2]` (95% CI `r #SMD_S_SPT_aripiprazole_dose$ci_lb[2]` tp `r SMD_S_SPT_aripiprazole_dose$ci_ub[2]`, p = `r  #round(SMD_S_SPT_aripiprazole_dose$pval[2],3)`).
+#
+#|            Level            |                                                                          Number of #categories for that level included in this analysis                                                                  #        |                                                                                              Attributable #variance                                                                                              |
+#|:----------------------:|:----------------------:|:----------------------:|
+#|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_aripiprazole_dose$s.names, #SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain')]], 0)`                #        |                         `r ifelse('Strain' %in% SMD_S_SPT_aripiprazole_dose$s.names, #SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain')]], NA)`                   #      |
+#|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_aripiprazole_dose$s.names, #SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId')]], 0)`         #       |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_aripiprazole_dose$s.names, #SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names == 'Strain/StudyId')]], NA)`           #      |
+#| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_aripiprazole_dose$s.names, #SMD_S_SPT_aripiprazole_dose$s.nlevels[[which(SMD_S_SPT_aripiprazole_dose$s.names == #'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% #SMD_S_SPT_aripiprazole_dose$s.names, SMD_S_SPT_aripiprazole_dose$sigma2[[which(SMD_S_SPT_aripiprazole_dose$s.names #== 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+
+```
 
 **Quinpirole**
 
@@ -963,13 +968,16 @@ output_text0 <- paste0("Quinpirole: There were ", diag3, " comparisons from ", d
 
 ```
 
-The estimate for $\beta$ was `r SMD_S_SPT_quinpirole_dose$beta[2]` (95% CI `r SMD_S_SPT_quinpirole_dose$ci_lb[2]` tp `r SMD_S_SPT_quinpirole_dose$ci_ub[2]`, p = `r  round(SMD_S_SPT_quinpirole_dose$pval[2],3)`).
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
+###parked for not due to low numbers###
+#The estimate for $\beta$ was `r SMD_S_SPT_quinpirole_dose$beta[2]` (95% CI `r SMD_S_SPT_quinpirole_dose$ci_lb[2]` tp #`r SMD_S_SPT_quinpirole_dose$ci_ub[2]`, p = `r  round(SMD_S_SPT_quinpirole_dose$pval[2],3)`).
 
-|            Level            |                                                                       Number of categories for that level included in this analysis                                                                       |                                                                                           Attributable variance                                                                                           |
-|:----------------------:|:----------------------:|:----------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], NA)`                 |
-| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
+#|            Level            |                                                                       Number of #categories for that level included in this analysis                                                                  #     |                                                                                           Attributable #variance                                                                                           |
+#|:----------------------:|:----------------------:|:----------------------:|
+#|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], 0)`                     #   |                         `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], NA)`                       #  |
+#|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], 0)`             #   |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], NA)`               #  |
+#| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], #0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], #'NA')` |
+```
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
 
