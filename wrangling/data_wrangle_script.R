@@ -902,6 +902,31 @@ df$test4 <- (df$StudyId_I == '2fb947ef-b55f-406f-b61a-c62f229f6ed0' &
                !df$TimeInMinute_I == 8)
 df <-subset(df, df$test4 == FALSE)
 
+df$test5 <- (df$StudyId_I == 'a43a604e-1a22-4078-bf0d-6a2451216d5d' & !df$TimeInMinute_I == 20)
+df <-subset(df, df$test5 == FALSE)
+
+df$Authors_I <- gsub('Carratal<c3><a1>-Ros C and Mart<c3><ad>nez-Verd<c3><ba> A and Olivares-Garc<c3><ad>a R and Salamone JD and Correa M',
+                    'Carratala-Ros C and Martinez-Verdo A and Olivares-Garcia R and Salamone JD and Correa M', df$Authors_I)
+
+df$test6 <- (df$StudyId_I == 'c7bcbb44-e2eb-4410-a70b-781a444c0195' & !df$TimeInMinute_I == 4)
+df <-subset(df, df$test6 == FALSE)
+
+df$test7 <- (df$StudyId_I == '9ce9afbd-f89d-4f4f-8d42-354cab83947e' & !df$OutcomeLabel_I == 'Sucrose Consumption Test 4 week')
+df <-subset(df, df$test7 == FALSE)
+
+df$test8 <- (df$StudyId_I == '42797051-fac6-4cf4-9faa-1c1a0f3a351e5' & !df$TimeInMinute_I == 11)
+df <-subset(df, df$test8 == FALSE)
+
+df$test9 <- (df$StudyId_I == 'd51b4559-f349-4c76-a5db-e63698b10f46' & !df$TimeInMinute_I == 6.5)
+df <-subset(df, df$test9 == FALSE)
+
+df$test10 <- (df$StudyId_I == 'b9431d3c-aff1-4b31-a3a3-b2dfef5f67fe' & !df$TimeInMinute_I == 5)
+df <-subset(df, df$test10 == FALSE)
+
+df$test11 <- (df$StudyId_I == '7afdb425-b6de-4e15-b02b-16b5e62007ca' & !df$TimeInMinute_I == 8)
+df <-subset(df, df$test11 == FALSE)
+
+
 # SAVE FILE
 savefile_output <- paste0(LSR,'_','clean_data_',Sys.Date(),'.csv')
 write.csv(df, savefile_output, row.names = FALSE)
