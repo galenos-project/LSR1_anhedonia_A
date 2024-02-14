@@ -461,6 +461,49 @@ forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, title
   lop<- 1 - ((poly1$SMD - poly1$ci_l)/(cf *2))
   dfp <- data.frame(x = c(poly1$SMD, poly1$ci_u, poly1$SMD, poly1$ci_l), y = c(lop, 1, upp, 1))
 
+  if(moderator == 'TreatmentDurationCategory'){
+      dord <- c('Overall estimate', 'More than 4 weeks', 'Between 1-4 weeks','Less than 1 week')
+        
+      p_mid <- model %>%
+      ggplot(aes(y = factor(moderator, levels = dord))) +
+      theme_classic() +
+      geom_point(aes(x = SMD), shape = model$symbol, size = model$size) +
+      geom_linerange(aes(xmin = ci_l, xmax = ci_u)) +
+      labs(x = "SMD Effect size") +
+      coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
+      geom_vline(xintercept = 0, linetype = "solid") +
+      geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
+      annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
+      annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
+      geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
+      theme(axis.line.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.text.y = element_blank(),
+            axis.title.y = element_blank())
+
+    p_left <-
+      model %>%
+      ggplot(aes(y = factor(moderator, levels = dord)))  +
+      geom_text(aes(x = 0, label = moderator), hjust = 0, size = model$fontsize) +
+      geom_text(aes(x = r1, label = k), hjust = 1, size = model$fontsize) +
+      theme_void() +
+      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span1))
+    
+    p_right <-
+      model %>%
+      ggplot() +
+      geom_text(aes(x = span3, y = factor(moderator, levels = dord), label = estimate_lab), size = model$fontsize, hjust = 1) +
+      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span3)) +
+      theme_void()
+    
+    layout <- c(
+      area(t = 0, l = 0, b = 30, r = r1),
+      area(t = 1, l = l2, b = 30, r = r2),
+      area(t = 0, l = l3, b = 30, r = r3)
+    )
+ 
+    p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
+  } else {
     p_mid <- model %>%
       ggplot(aes(y = fct_rev(moderator))) +
       theme_classic() +
@@ -477,7 +520,7 @@ forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, title
             axis.ticks.y = element_blank(),
             axis.text.y = element_blank(),
             axis.title.y = element_blank())
-
+    
     p_left <-
       model %>%
       ggplot(aes(y = fct_rev(moderator))) +
@@ -498,9 +541,10 @@ forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, title
       area(t = 1, l = l2, b = 30, r = r2),
       area(t = 0, l = l3, b = 30, r = r3)
     )
- 
+    
     p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
-  }
+    
+  }}
 
 
 
