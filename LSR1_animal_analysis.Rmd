@@ -1311,4 +1311,3 @@ dfiper <- (dfisn/dfin)*100
 grateful::cite_packages(output = "paragraph", pkgs = "Session", out.dir = ".")
 ```
 
-SMD_S_cog_CatDisInd[SMD_S_cog_CatDisInd\$CategoryDiseaseInduction == "Genetic"][["k"]]
