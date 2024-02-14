@@ -896,7 +896,7 @@ The p-value for the association between the intervention and outcome reported wa
 
 #### **Dose of intervention**
 
-In this iteration of the review, the dopaminergic agents tested against control for their effect on Sucrose preference were: **`r drugs <- df %>% filter(SortLabel == "TvC") %>% filter(outcome_type == "Sucrose preference test") %>% group_by(DrugName) %>% summarise(count = n()) %>% arrange(desc(count)) %>% pull(DrugName); if (length(drugs) > 1) {paste(paste(head(drugs, -1), collapse = ", "), "and", tail(drugs, 1))} else {drugs}`**. Meta-regression using the administered dose as an explanatory variable was conducted for each drug where this had been reported in 10 or more experiments from 3 or more publications. Where there are sufficient data, the dashed lines in the plot represents the 95% confidence interval of the regression line and the dotted lines represent the 95% prediction interval. Raw data are plotted with point size adjusted according to effect size precision.
+In this iteration of the review, the dopaminergic agents tested against control for their effect on Sucrose preference were: **`r drugs <- df %>% filter(SortLabel == "TvC") %>% filter(outcome_type == "Sucrose preference test") %>% group_by(DrugName) %>% summarise(count = n()) %>% arrange(desc(count)) %>% pull(DrugName); if (length(drugs) > 1) {paste(paste(head(drugs, -1), collapse = ", "), "and", tail(drugs, 1))} else {drugs}`**. Meta-regression using the administered dose as an explanatory variable was conducted for each drug where this had been reported in 10 or more experiments from 3 or more publications. No agent met these criteria.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 drug_list <- df %>% filter(SortLabel == "TvC") %>% filter(outcome_type == "Sucrose preference test") %>% group_by(DrugName)
@@ -907,7 +907,7 @@ for(nom in drug_list){
 }
 ```
 
-**Aripiprazole**
+
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_aripiprazole_dose <- metaregression_analysis_by_drug(df, "TvC", "Sucrose preference test", "aripiprazole", "DoseOfIntervention_mgkg", 0.5)
@@ -943,7 +943,7 @@ output_text0 <- paste0("Aripiprazole: There were ", diag3, " comparisons from ",
 
 ```
 
-**Quinpirole**
+
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_quinpirole_dose <- metaregression_analysis_by_drug(df, "TvC", "Sucrose preference test", "quinpirole", "DoseOfIntervention_mgkg", 0.5)
