@@ -738,6 +738,8 @@ df <-  df %>%
     TRUE ~ "Other"
   )) 
 
+
+
 ## Add drug characteristics - Info taken from Taar1_drugs_spiros_18.12.23.xlsx
 #df <- df %>% 
 #  mutate(pE50 = case_when(DrugName == "LK000764" ~ 8.40, 
@@ -853,6 +855,18 @@ df <- df %>%
 
 
 df$CatDisInd <- df$`Type of depression/anhedonia model[1]_I`
+
+df <-  df %>%
+  mutate(CatDisInd = case_when(
+    CatDisInd == "Surgical models (e.g. olfactory bulbectomy)" ~ "Surgical",
+    CatDisInd == "Chronic unpredictable mild stress (CMS) or restraint stress" ~ "Behavioural: CUMS",
+    CatDisInd == "Pharmacological post-weaning (e.g. cytokine or cortisol injection)" ~ "Pharmacological: post weaning",
+    CatDisInd == "Behavioural early life stress (e.g. maternal separation)" ~ "Behavioural: Early",
+    CatDisInd == "Pharmacological early life stress (e.g. maternal immune challenge)" ~ "Pharmacological: Early",
+    CatDisInd == "Social stress or social defeat stress (SDS)" ~ "Behavioural: Social",
+    CatDisInd == "Genetic model of depression (e.g. transgenic models, Flinder's Sensitive Line (FSL))" ~ "Genetic",
+    TRUE ~ "Other"
+  ))
    
 # remove studies with 999 as N or SD
 df4 <- subset(df, !df$NumberOfAnimals_I == 999)
