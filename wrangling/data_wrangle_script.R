@@ -321,6 +321,14 @@ colname15 <- "DiseaseModelLabel(s)[1]"
 condition <- data$StudyId == 'd51b4559-f349-4c76-a5db-e63698b10f46'
 data[condition, colname15] <- 'CMS'
 
+colname16 <- "OutcomeResult"
+condition <- data$StudyId == 'a43a604e-1a22-4078-bf0d-6a2451216d5d' & data$OutcomeResult == 6.61
+data[condition, colname16] <- 41.9
+
+colname17 <- "OutcomeError"
+condition <- data$StudyId == 'a43a604e-1a22-4078-bf0d-6a2451216d5d' & data$OutcomeError == 2.38
+data[condition, colname17] <- 9.8
+
 
 
 
