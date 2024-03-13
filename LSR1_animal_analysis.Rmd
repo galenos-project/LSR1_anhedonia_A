@@ -704,6 +704,8 @@ forest_metafor(SMD_S_SPT, "TvC", "Sucrose preference test")
 
 Dopaminergic agents had a pooled effect on Sucrose preference of SMD = `r round(SMD_S_SPT[['beta']], 3)` (95% CI: `r round(SMD_S_SPT[['ci.lb']], 3)` to `r round(SMD_S_SPT[['ci.ub']], 3)` with a prediction interval of `r round(predict(SMD_S_SPT)$pi.lb, 3)` to `r round(predict(SMD_S_SPT)$pi.ub, 3)`.
 
+`r SMD_S_SPT[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$data$Strain))` different animal strains.
+
 |            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
 |:---------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT$s.names, SMD_S_SPT$s.nlevels[[which(SMD_S_SPT$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT$s.names, SMD_S_SPT$sigma2[[which(SMD_S_SPT$s.names == 'Strain')]], NA)`                         |
