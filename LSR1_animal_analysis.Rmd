@@ -665,7 +665,7 @@ df_S_DRB <- filter_experiment_outcome_type(df,"TvC", "Dopamine receptor biology"
 
 \* This outcomes was identified in the study protocol as primary outcomes of interest.
 
-## 3.1 Outcome 1: Dopamine
+## 3.1 Outcome 1: Sucrose preference
 
 ### 3.1.1 Risk of bias
 
