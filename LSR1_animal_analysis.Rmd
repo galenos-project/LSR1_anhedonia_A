@@ -1187,7 +1187,7 @@ Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')
 
 ### 3.2.1 Risk of bias
 
-Figure 3.2.1a shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 3.2.1b shows the corresponding traffic light plot.
+Figure 3.2.1a shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrtaions in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 3.2.1b shows the corresponding traffic light plot.
 
 **Figure 3.2.1**
 
@@ -1197,7 +1197,7 @@ SyRCLE_RoB_traffic(df, "TvC", "Dopamine concentration")
 
 ### 3.2.2 Reporting completeness
 
-Figure 3.2.2a shows the reporting completeness summary for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 3.2.2b shows the corresponding traffic light plot.
+Figure 3.2.2a shows the reporting completeness summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrations in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 3.2.2b shows the corresponding traffic light plot.
 
 **Figure 3.2.2**
 
