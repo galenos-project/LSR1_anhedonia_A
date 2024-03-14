@@ -306,7 +306,7 @@ For some experimental contrasts, more than one outcome of the same category - fo
 
 
 
-# 3 Dopaminergic agent v Control
+# 2 Dopaminergic agent v Control
 
 ```{r # Split df  for interventions by experiment and outcome type into dataframes to simply inline code below, eval = TRUE, echo = FALSE}
 df_S <- filter(df, SortLabel == "TvC")
@@ -331,38 +331,38 @@ df_S_DRB <- filter_experiment_outcome_type(df,"TvC", "Dopamine receptor biology"
 
 \* This outcomes was identified in the study protocol as primary outcomes of interest.
 
-## 3.1 Outcome 1: Sucrose preference
+## 2.1 Outcome 1: Sucrose preference
 
-### 3.1.1 Risk of bias
+### 2.1.1 Risk of bias
 
-Figure 3.1.1 shows the risk of bias traffic light plot for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+Figure 2.1.1 shows the risk of bias traffic light plot for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
 
-**Figure 3.1.1**
+**Figure 2.1.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=8}
 SyRCLE_RoB_traffic(df, "TvC", "Sucrose preference test")
 ```
 
-### 3.1.2 Reporting completeness
+### 2.1.2 Reporting completeness
 
-Figure 3.1.2 shows the reporting completeness traffic light plot for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+Figure 2.1.2 shows the reporting completeness traffic light plot for studies investigating the effect of administering a dopaminergic agent on Sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
 
-**Figure 3.1.2**
+**Figure 2.1.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height =10}
 
 ARRIVE_traffic(df, "TvC", "Sucrose preference test")
 ```
 
-### 3.1.3 Meta-analysis
+### 2.1.3 Meta-analysis
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT <- run_ML_SMD(df, "TvC", "Sucrose preference test", 0.5)
 ```
 
-The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 3.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.2. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
-**Figure 3.1.3**
+**Figure 2.1.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
 forest_metafor(SMD_S_SPT, "TvC", "Sucrose preference test")
@@ -378,7 +378,7 @@ Dopaminergic agents had a pooled effect on Sucrose preference of SMD = `r round(
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT$s.names, SMD_S_SPT$s.nlevels[[which(SMD_S_SPT$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT$s.names, SMD_S_SPT$sigma2[[which(SMD_S_SPT$s.names == 'Strain/StudyId')]], NA)`                 |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$s.names, SMD_S_SPT$s.nlevels[[which(SMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$s.names, SMD_S_SPT$sigma2[[which(SMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
-### 3.1.4 Subgroup analyses and meta-regressions
+### 2.1.4 Subgroup analyses and meta-regressions
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 options(scipen=100, digits=3)
@@ -412,9 +412,9 @@ The significance (p value) reported is that for a test of whether the moderators
 
 #### **Sex**
 
-Figure 3.1.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.1**
+**Figure 2.1.4.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex <- subgroup_analysis(df, "TvC", "Sucrose preference test", "Sex", 0.5)
@@ -438,9 +438,9 @@ The p-value for the association between the sex of animal groups used and outcom
 
 #### **Category of disease induction**
 
-Figure 3.1.4.2 displays the estimates for the pooled SMD's when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.2 displays the estimates for the pooled SMD's when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.2**
+**Figure 2.1.4.2**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.width=20, fig.height=4}
 SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "TvC", "Sucrose preference test", "CatDisInd", 0.5)
@@ -464,9 +464,9 @@ The p-value for the association between whether genetic or pharmacological model
 
 #### **Route of intervention administration**
 
-Figure 3.1.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by the route of intervention administration. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by route of intervention administration, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by the route of intervention administration. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by route of intervention administration, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.3**
+**Figure 2.1.4.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.width=9, fig.height=2}
 SMD_S_SPT_AdminRoute <- subgroup_analysis(df, "TvC", "Sucrose preference test", "InterventionAdministrationRoute", 0.5)
@@ -490,9 +490,9 @@ The p-value for the association between the route of intervention administration
 
 #### **Prophylactic or therapeutic intervention**
 
-Figure 3.1.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether the intervention was administered prophylactically or therapeutically. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by whether the intervention was administered prophylactically or therapeutically, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether the intervention was administered prophylactically or therapeutically. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by whether the intervention was administered prophylactically or therapeutically, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.4**
+**Figure 2.1.4.4**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.width=9, fig.height=3}
 SMD_S_SPT_ProphThera <- subgroup_analysis(df, "TvC", "Sucrose preference test", "ProphylacticOrTherapeutic", 0.5)
@@ -538,9 +538,9 @@ The p-value for the association between whether the intervention was administere
 
 #### **The intervention administered**
 
-Figure 3.1.4.5 displays the estimates for the pooled SMD's when comparisons are stratified by the intervention administered. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by the intervention administered, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.5 displays the estimates for the pooled SMD's when comparisons are stratified by the intervention administered. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by the intervention administered, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.5**
+**Figure 2.1.4.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_Drug <- subgroup_analysis(df, "TvC", "Sucrose preference test", "DrugName", 0.5)
@@ -635,22 +635,12 @@ output_text0 <- paste0("Quinpirole: There were ", diag3, " comparisons from ", d
 
 ```
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
-###parked for not due to low numbers###
-#The estimate for $\beta$ was `r SMD_S_SPT_quinpirole_dose$beta[2]` (95% CI `r SMD_S_SPT_quinpirole_dose$ci_lb[2]` tp #`r SMD_S_SPT_quinpirole_dose$ci_ub[2]`, p = `r  round(SMD_S_SPT_quinpirole_dose$pval[2],3)`).
-
-#|            Level            |                                                                       Number of #categories for that level included in this analysis                                                                  #     |                                                                                           Attributable #variance                                                                                           |
-#|:----------------------:|:----------------------:|:----------------------:|
-#|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], 0)`                     #   |                         `r ifelse('Strain' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain')]], NA)`                       #  |
-#|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], 0)`             #   |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId')]], NA)`               #  |
-#| Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$s.nlevels[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], #0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_quinpirole_dose$s.names, #SMD_S_SPT_quinpirole_dose$sigma2[[which(SMD_S_SPT_quinpirole_dose$s.names == 'Strain/StudyId/ExperimentID_I')]], #'NA')` |
-```
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
 
-Figure 3.1.4.10 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.10 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.10**
+**Figure 2.1.4.10**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "TvC", "Sucrose preference test", "RoBScore", 0.5)
@@ -674,9 +664,9 @@ The p-value for the association between SyRCLE Risk of Bias reporting and outcom
 
 #### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
 
-Figure 3.1.4.11 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.11 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.11**
+**Figure 2.1.4.11**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Sucrose preference test", "RoBTF", 0.5)
@@ -707,7 +697,7 @@ SMD_S_SPT_ARR2 <- metaregression_analysis(df, "TvC", "Sucrose preference test", 
 
 ```
 
-**Figure 3.1.4.13**
+**Figure 2.1.4.13**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
 SMD_S_SPT_ARR2$regression_plot
@@ -786,7 +776,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 |          Reporting completeness          |                 \-                  |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
 |                    \-                    |         *per unit increase*         | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
 
-### 3.1.5 Sensitivity Analyses
+### 2.1.5 Sensitivity Analyses
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 options(scipen = 100, digits = 2)
@@ -816,13 +806,13 @@ For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_S
 
 For Sucrose preference, an NMD was calculable for `r df_S_SPT %>% filter(NMD_possible == "TRUE") %>% nrow()` out of `r nrow(df_S_SPT)` comparisons, i.e. `r ((df_S_SPT %>% filter(NMD_possible == "TRUE") %>% nrow())/(nrow(df_S_SPT)))*100` % of comparisons.
 
-The effect of administering a dopaminergic agent on Sucrose preference in animals using NMD as the effect size is shown in Figure 3.1.5. The pooled estimate for NMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of administering a dopaminergic agent on Sucrose preference in animals using NMD as the effect size is shown in Figure 2.1.5. The pooled estimate for NMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 NMD_S_SPT <- run_ML_NMD(df, "TvC", "Sucrose preference test", 0.5)
 ```
 
-**Figure 3.1.5**
+**Figure 2.1.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
 forest_metafor_NMD(NMD_S_SPT, "Sucrose preference test")
@@ -838,7 +828,7 @@ Dopaminergic interventions had a pooled effect on Sucrose preference of NMD = `r
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], NA)`                 |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
-### 3.1.6 Reporting bias/small-study effects
+### 2.1.6 Reporting bias/small-study effects
 
 Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance 10.7554/eLife.24260). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
 
@@ -849,30 +839,30 @@ run_sse_plot_SMD_L(df, 'TvC', 'Sucrose preference test')
 
 Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["k"]]` studies of dopaminergic agents v Control where Sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["pval"]][2]))`) in the context of a baseline estimate of effect of `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["beta"]][1]` (95% CI: `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["ci.lb"]][1]` to `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["ci.ub"]][1]`; p = `r ifelse(run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')[["pval"]][1]))`).
 
-## 3.2 Outcome 2: Dopamine concentration
+## 2.2 Outcome 2: Dopamine concentration
 
-### 3.2.1 Risk of bias
+### 2.2.1 Risk of bias
 
-Figure 3.2.1a shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrtaions in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 3.2.1b shows the corresponding traffic light plot.
+Figure 2.2.1 shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrations in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. 
 
-**Figure 3.2.1**
+**Figure 2.2.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "TvC", "Dopamine concentration")
 ```
 
-### 3.2.2 Reporting completeness
+### 2.2.2 Reporting completeness
 
-Figure 3.2.2a shows the reporting completeness summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrations in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. Figure 3.2.2b shows the corresponding traffic light plot.
+Figure 2.2.2 shows the reporting completeness summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrations in animals. The reporting completeness assessment was performed using the ARRIVE guidelines. 
 
-**Figure 3.2.2**
+**Figure 2.2.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 
 ARRIVE_traffic(df, "TvC", "Dopamine concentration")
 ```
 
-### 3.2.3 Meta-analysis
+### 2.2.3 Meta-analysis
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_DA <- run_SMD(df, "TvC", "Dopamine concentration")
@@ -884,16 +874,16 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 forest_metafor(SMD_S_DA, 'CvS', 'Dopamine concentration')
 ```
 
-## 3.3 Outcome 3: DOPAC concentration
+## 2.3 Outcome 2: DOPAC concentration
 
 This was only reported in 2 studies, so no further analysis will be performed.
 
-## 3.4 Outcome 4: Dopamine / DOPAC ratio
+## 2.4 Outcome 4: Dopamine / DOPAC ratio
 
 This was only reported in 1 study, so no further analysis will be performed.
 
 
-# 2 Effects of model induction
+# 3 Effects of model induction
 
 ```{r # Split df by experiment and outcome type into dataframes to simply inline code below - TAAR1 Agonist v Control, eval = TRUE, echo = FALSE}
 df_S <- filter(df, SortLabel == "CvS")
@@ -918,37 +908,37 @@ df_S_ratio <- filter_experiment_outcome_type(df, "CvS", "DA/DOPC ratio")
 
 \* This outcome was identified in the study protocol as the primary outcome of interest.
 
-## 2.1 Outcome 1: Sucrose preference
+## 3.1 Outcome 1: Sucrose preference
 
-### 2.1.1 Risk of bias
+### 3.1.1 Risk of bias
 
-Figure 2.1.1 shows the risk of bias summary for studies investigating the effect of modelling depression on sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+Figure 3.1.1 shows the risk of bias summary for studies investigating the effect of modelling depression on sucrose preference in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
 
-**Figure 2.1.1**
+**Figure 3.1.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 SyRCLE_RoB_traffic(df, "CvS", "Sucrose preference test")
 ```
 
-### 2.1.2 Reporting completeness
+### 3.1.2 Reporting completeness
 
-Figure 2.1.2 shows the reporting completeness summary for studies investigating the effect of modelling depression on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+Figure 3.1.2 shows the reporting completeness summary for studies investigating the effect of modelling depression on sucrose preference in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
 
-**Figure 2.1.2**
+**Figure 3.1.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 10}
 ARRIVE_traffic(df, "CvS", "Sucrose preference test")
 ```
 
-### 2.1.3 Meta-analysis
+### 3.1.3 Meta-analysis
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.5)
 ```
 
-The effect of modelling depression on sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of modelling depression on sucrose preference in animals using SMD as the effect size is shown in Figure 3.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
 
-**Figure 2.1.3**
+**Figure 3.1.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
 forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference test")
@@ -966,7 +956,7 @@ The following table structure is used throughout this report and is used to show
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT$s.names, SMD_S_SPT$s.nlevels[[which(SMD_S_SPT$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT$s.names, SMD_S_SPT$sigma2[[which(SMD_S_SPT$s.names == 'Strain/StudyId')]], NA)`                 |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$s.names, SMD_S_SPT$s.nlevels[[which(SMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$s.names, SMD_S_SPT$sigma2[[which(SMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
-### 2.1.4 Subgroup analyses and meta-regressions
+### 3.1.4 Subgroup analyses and meta-regressions
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 options(scipen=100, digits=3)
@@ -984,9 +974,9 @@ The significance (p value) reported is that for a test of whether the moderators
 
 #### **Sex**
 
-Figure 2.1.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
+Figure 3.1.4.1 displays the estimates for the pooled SMD's when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.1**
+**Figure 3.1.4.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex <- subgroup_analysis(df, "CvS", "Sucrose preference test", "Sex", 0.5)
@@ -1010,9 +1000,9 @@ The p-value for the association between the sex of animal groups used and outcom
 
 #### **Category of disease induction**
 
-Figure 2.1.4.2 displays the estimates for the pooled SMD's when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
+Figure 3.1.4.2 displays the estimates for the pooled SMD's when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.2**
+**Figure 3.1.4.2**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.width=20, fig.height=4}
 SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "CvS", "Sucrose preference test", "CatDisInd", 0.5)
@@ -1036,9 +1026,9 @@ The p-value for the association between the depression model used and the outcom
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
 
-Figure 2.1.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 3.1.4.3 displays the estimates for the pooled SMD's when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.3**
+**Figure 3.1.4.3**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBScore", 0.5)
@@ -1062,9 +1052,9 @@ The p-value for the association between SyRCLE Risk of Bias reporting and outcom
 
 #### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
 
-Figure 2.1.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 3.1.4.4 displays the estimates for the pooled SMD's when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.4**
+**Figure 3.1.4.4**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBTF", 0.5)
@@ -1095,7 +1085,7 @@ SMD_S_SPT_ARR2 <- metaregression_analysis(df, "CvS", "Sucrose preference test", 
 
 ```
 
-**Figure 2.1.4.5**
+**Figure 3.1.4.5**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
 SMD_S_SPT_ARR2$regression_plot
@@ -1142,7 +1132,7 @@ The table below shows which of the covariates, if any, explain some of the heter
 |       Reporting completeness        |                  \-                   |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
 |                 \-                  |          *per unit increase*          | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
 
-### 2.1.5 Sensitivity Analyses
+### 3.1.5 Sensitivity Analyses
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 options(scipen = 100, digits = 2)
@@ -1172,7 +1162,7 @@ For reference the pooled effect size when rho is assumed to be 0.5 is `r SMD_S_S
 
 NMD analysis is not applicable to the analysis of the effects of disease modelling.
 
-### 2.1.6 Reporting bias/small-study effects
+### 3.1.6 Reporting bias/small-study effects
 
 Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance 10.7554/eLife.24260). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
 
@@ -1183,29 +1173,29 @@ run_sse_plot_SMD_L(df, 'CvS', 'Sucrose preference test')
 
 Egger regression based on `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["k"]]` studies of modelling of depression where sucrose preference was measured showed a coefficient for a small study effect of `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["beta"]][2]` (95% CI: `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.lb"]][2]` to `r run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["ci.ub"]][2]`; p = `r ifelse(run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2] < 0.001, "<0.001", sprintf("%.3f", run_sse_SMD_L(df, 'CvS', 'Sucrose preference test')[["pval"]][2]))`).
 
-## 2.2 Outcome 2: Dopamine concentrations
+## 3.2 Outcome 2: Dopamine concentrations
 
-### 2.2.1 Risk of bias
+### 3.2.1 Risk of bias
 
-Figure 2.2.1 shows the risk of bias traffic light plot for studies investigating the effect of modelling depression on dopamine concentrations in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
+Figure 3.2.1 shows the risk of bias traffic light plot for studies investigating the effect of modelling depression on dopamine concentrations in animals. The risk of bias assessment was performed using the SyRCLE RoB tool.
 
-**Figure 2.2.1**
+**Figure 3.2.1**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 SyRCLE_RoB_traffic(df, "CvS", "Dopamine concentration")
 ```
 
-### 2.2.2 Reporting completeness
+### 3.2.2 Reporting completeness
 
-Figure 2.2.2 shows the traffic light plot for reporting completeness summary for studies investigating the effect of the modelling of depression on dopamine concentration in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
+Figure 3.2.2 shows the traffic light plot for reporting completeness summary for studies investigating the effect of the modelling of depression on dopamine concentration in animals. The reporting completeness assessment was performed using the ARRIVE guidelines.
 
-**Figure 2.2.2**
+**Figure 3.2.2**
 
 ```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
 ARRIVE_traffic(df, "CvS", "Dopamine concentration")
 ```
 
-### 2.2.3 Meta-analysis
+### 3.2.3 Meta-analysis
 
 ```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
 SMD_S_DA <- run_SMD(df, 'CvS', 'Dopamine concentration')
@@ -1217,17 +1207,18 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 forest_metafor(SMD_S_DA, 'CvS', 'Dopamine concentration')
 ```
 
-## 2.3 Outcome 3: DOPAC concentration
+## 3.3 Outcome 3: DOPAC concentration
 
 This was only reported in 2 studies, so no further analysis will be performed.
 
-## 2.4 Outcome 4: Dopamine / DOPAC ratio
+## 3.4 Outcome 4: Dopamine / DOPAC ratio
 
 This was only reported in 1 study, so no further analysis will be performed.
 
-## 2.5 Outcome 5: Dopamine receptor biology
+## 3.5 Outcome 5: Dopamine receptor biology
 
 This was only reported in 1 study, so no further analysis will be performed.
+
 # 4. Observed relationships between different outcomes measures in the same cohorts of animals
 
 We selected cohorts where at least one outcome was presented for at least two outcome types. Where there were two or more of the same outcome type within a cohort we calculated a standardised mean difference effect size for that outcome in that cohort, along with its standard error. Where there was a single effect size within a cohort we took the standard error of that effect size.
