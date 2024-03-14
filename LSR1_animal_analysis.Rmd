@@ -317,7 +317,9 @@ df_S_ratio <- filter_experiment_outcome_type(df, "TvC", "DA/DOPC ratio")
 df_S_DRB <- filter_experiment_outcome_type(df,"TvC", "Dopamine receptor biology")
 ```
 
-`r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "TvC"))` comparisons) investigated the effects of Dopaminergic agents versus Control. The number of studies and individual effect sizes for each outcome were:
+These experiments test the effect of dopaminergic agents on outcome in animals which have been exposed to a 'modelling intervention' intended to recapitulate some features of human depression. Modelling interventions comprise behavioural (47 experiments), genetic (3), pharmacological (9) and surgical (5) approaches. Outcomes include 'apical' endpoints (sucrose preference test), and also endpoints which might be considered intermediate, and may give insights to the mechanisms through which apical effects occur. These include concentrations of dopamine and DOPAC (an active metabolite of dopamine) and the ratio between these; and observed changes in dopamine receptor biology.
+
+`r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "TvC"))` comparisons) investigated the effects of dopaminergic agents versus Control. The number of studies and individual effect sizes for each outcome were:
 
 -   **Sucrose preference\*:** `r length(table(df_S_SPT$StudyId))` studies and `r nrow(df_S_SPT)` comparisons in `r {strains <- unique(df_S_SPT$Strain); if (length(strains) > 1) paste(length(strains), "strains") else paste(length(strains), "strain")}`
 
@@ -893,6 +895,9 @@ df_S_DO <- filter_experiment_outcome_type(df, "CvS", "DOPAC concentration")
 df_S_DR <- filter_experiment_outcome_type(df, "CvS", "Dopamine receptor biology")
 df_S_ratio <- filter_experiment_outcome_type(df, "CvS", "DA/DOPC ratio")
 ```
+
+
+To provide context for the effects of dopaminergic agents described above, we also present findings from expriments where no therapeutic intervention was given, which have simply reported the effects on apical (sucrose preference test) and other (dopamine, DOPAC, Da/DOPAC ratio, dopamine receptor biology) of model induction. Modelling interventions comprise behavioural (31 experiments), pharmacological (9) and surgical (4) approaches.
 
 `r length(table(df_S$StudyId))` studies (`r nrow(df%>%filter(SortLabel == "CvS"))` comparisons) investigated the effects of model induction. The number of studies and individual effect sizes for each outcome were:
 
