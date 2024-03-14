@@ -1,0 +1,51 @@
+"","OutcomeType","OutcomeLabel_I","Type of outcome","n"
+"1","DA/DOPC ratio","DA/DOPC ratio in dorsal raphe nucleus","Dopamine-related non behavioural outcome",4
+"2","DA/DOPC ratio","DA/DOPC ratio in hippocampus","Dopamine-related non behavioural outcome",4
+"3","DA/DOPC ratio","DA/DOPC ratio in prefrontal cortex","Dopamine-related non behavioural outcome",4
+"4","DOPAC concentration","DOPAC concentration (Amygdala)","Dopamine-related non behavioural outcome",2
+"5","DOPAC concentration","DOPAC concentration (NAcc)","Dopamine-related non behavioural outcome",2
+"6","DOPAC concentration","DOPAC concentration (striatum)","Dopamine-related non behavioural outcome",24
+"7","Dopamine concentration","DA in dorsal raphe nucleus","Dopamine-related non behavioural outcome",4
+"8","Dopamine concentration","DA in hippocampus","Dopamine-related non behavioural outcome",4
+"9","Dopamine concentration","DA in prefrontal cortex","Dopamine-related non behavioural outcome",4
+"10","Dopamine concentration","Dopamine concentration (Amygdala)","Dopamine-related non behavioural outcome",2
+"11","Dopamine concentration","Dopamine concentration (NAcc)","Dopamine-related non behavioural outcome",2
+"12","Dopamine concentration","Dopamine concentration (striatum)","Dopamine-related non behavioural outcome",24
+"13","Dopamine concentration","Dopamine concentration NAc","Dopamine-related non behavioural outcome",1
+"14","Dopamine concentration","dopamine release 100 Hz CPu","Dopamine-related non behavioural outcome",2
+"15","Dopamine concentration","dopamine release 100Hz NAC","Dopamine-related non behavioural outcome",2
+"16","Dopamine concentration","dopamine release 50 Hz CPu","Dopamine-related non behavioural outcome",2
+"17","Dopamine concentration","dopamine release 50Hz NAC","Dopamine-related non behavioural outcome",2
+"18","Dopamine concentration","dopamine release CPu fig 4","Dopamine-related non behavioural outcome",8
+"19","Dopamine concentration","dopamine release NAc fig 4","Dopamine-related non behavioural outcome",8
+"20","Dopamine concentration","dopamine uptake in vivo CPu","Dopamine-related non behavioural outcome",2
+"21","Dopamine concentration","dopamine uptake in vivo NAc","Dopamine-related non behavioural outcome",2
+"22","Dopamine receptor biology","D1 receptors limbic forebrain Bmax binding","Dopamine-related non behavioural outcome",2
+"23","Dopamine receptor biology","D1 receptors limbic forebrain Kd","Dopamine-related non behavioural outcome",2
+"24","Dopamine receptor biology","D1 receptors striatum Bmax binding","Dopamine-related non behavioural outcome",2
+"25","Dopamine receptor biology","D1 receptors striatum Kd","Dopamine-related non behavioural outcome",2
+"26","Dopamine receptor biology","D2 receptors limbic forebrain Bmax binding","Dopamine-related non behavioural outcome",2
+"27","Dopamine receptor biology","D2 receptors limbic forebrain Kd","Dopamine-related non behavioural outcome",2
+"28","Dopamine receptor biology","D2 receptors striatum Bmax binding","Dopamine-related non behavioural outcome",2
+"29","Dopamine receptor biology","D2 receptors striatum Kd","Dopamine-related non behavioural outcome",2
+"30","Dopamine receptor biology","DRD2 mRNA expression (PFC)","Dopamine-related non behavioural outcome",2
+"31","Dopamine receptor biology","DRD2 mRNA expression (hippocampus)","Dopamine-related non behavioural outcome",2
+"32","Dopamine receptor biology","relative band intensity of D2R NAc","Dopamine-related non behavioural outcome",1
+"33","Sucrose preference test","Sucrose Consumption Test 1 week","Sucrose/saccharin intake or preference test",2
+"34","Sucrose preference test","Sucrose Consumption Test 2 week","Sucrose/saccharin intake or preference test",2
+"35","Sucrose preference test","Sucrose Consumption Test 3 week","Sucrose/saccharin intake or preference test",2
+"36","Sucrose preference test","Sucrose Consumption Test 4 week","Sucrose/saccharin intake or preference test",2
+"37","Sucrose preference test","Sucrose Preference (offspring)","Sucrose/saccharin intake or preference test",2
+"38","Sucrose preference test","Sucrose consumption","Sucrose/saccharin intake or preference test",8
+"39","Sucrose preference test","Sucrose intake","Sucrose/saccharin intake or preference test",100
+"40","Sucrose preference test","Sucrose intake 10% solution (mL)","Sucrose/saccharin intake or preference test",4
+"41","Sucrose preference test","Sucrose intake 5% solution (mL)","Sucrose/saccharin intake or preference test",4
+"42","Sucrose preference test","Sucrose preference","Sucrose/saccharin intake or preference test",52
+"43","Sucrose preference test","Sucrose preference index","Sucrose/saccharin intake or preference test",4
+"44","Sucrose preference test","Sucrose preference test","Sucrose/saccharin intake or preference test",18
+"45","Sucrose preference test","excess sucrose over water intake (fig 4)","Sucrose/saccharin intake or preference test",5
+"46","Sucrose preference test","sucrose consumption","Sucrose/saccharin intake or preference test",2
+"47","Sucrose preference test","sucrose consumption %","Sucrose/saccharin intake or preference test",2
+"48","Sucrose preference test","sucrose intake","Sucrose/saccharin intake or preference test",108
+"49","Sucrose preference test","sucrose intake (fig 4)","Sucrose/saccharin intake or preference test",5
+"50","Sucrose preference test","sucrose preference","Sucrose/saccharin intake or preference test",18
