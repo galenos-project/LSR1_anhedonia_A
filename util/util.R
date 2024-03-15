@@ -1635,6 +1635,95 @@ run_SMD <- function(df, experiment, outcome) {
   return(SMD_ML)
 }
 
+forest_metafor_uni <- function(model, experiment_type, outcome_title) {
+  if(!is.null(model)){
+    
+    
+    lower_x <- floor(min(model[["yi"]]- model[["vi"]])) - 1
+    lower_x <- floor(lower_x / 5) * 5
+    upper_x <- ceiling(max(model[["yi"]] + model[["vi"]])) + 1
+    upper_x <- ceiling(upper_x / 5) * 5
+    arange <- upper_x - lower_x
+    xleft <- -(1.5*arange)+lower_x
+    xright <- upper_x + (0.5 * arange)
+    summary_x <- model[["beta"]]
+    model[["data"]][["SMD"]] <- round(model[["data"]][["SMD"]],2)
+    
+    at_values <- seq(lower_x, upper_x, by = 2.5)
+    
+    forest_plot <- if(experiment_type == "TvC"){
+      forest(model,
+             xlim=c(xleft, xright),
+             ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+             mlab="SMD [95% C.I.]", 
+             alim=c((lower_x), (upper_x)),
+             slab=paste(word(Authors_I, 1), Year, Strain),
+             at = at_values,
+             col = c("grey","grey"),
+             addfit = TRUE,
+             addpred = TRUE,
+             annotate = TRUE,
+             header = "Study and Strain",
+             order=StudyId,
+             xlab = "",
+             ilab = cbind(ARRIVEScore, Label),
+             ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
+             lty = c("solid","solid","solid"),
+             cex = 0.75, 
+             cex.axis = 1.0, 
+             cex.lab = 1.2,
+             efac = c(1,1,2))
+      text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+    } else {
+      forest(model,
+             xlim=c(xleft, xright),
+             ylim=c(-2, model$k+6), rows=c((model$k+2):3),
+             mlab="SMD [95% C.I.]",
+             alim=c(lower_x, upper_x),
+             slab=paste(word(Authors_I, 1), Year, Strain),
+             at = at_values,
+             col = c("grey","grey"),
+             addfit = TRUE,
+             addpred = TRUE,
+             annotate = TRUE,
+             header = "Study and Strain",
+             order=StudyId,
+             xlab = "", 
+             ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
+             ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
+             cex = 0.75, 
+             cex.axis = 1.0, 
+             cex.lab = 1.2,
+             lty = c("solid","solid","solid"),
+             efac = c(1,1,3))
+      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+    }
+    
+    cixlower <- model[["ci.lb"]]
+    cixhigher <- model[["ci.ub"]]
+    
+    
+    #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
+    
+    if (experiment_type == "TvC") {
+      mtext("Favours control", side = 1, line = 3, at = 1.8*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+      mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
+      #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
+      title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
+      
+    } else if (experiment_type == "CvS") {
+      mtext("Model increases\nanhedonia", side = 1, line = 3, at = 1.5*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+      
+      mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      
+      #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
+      #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
+      title(paste0("Effect of depression modelling on ", outcome_title, " (SMD)"))
+      
+    } 
+  }}
+
 drug_summary <- function(drug, outcome){
   diag1 <- df %>%
     filter(SortLabel == "TvC") %>%
