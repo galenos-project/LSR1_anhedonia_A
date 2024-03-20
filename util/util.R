@@ -142,7 +142,7 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                                       cex.lab = 1.2,
                                       lty = c("solid","solid","solid"),
                                       efac = c(1,1,3))
-           text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+           text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
          }
          
 cixlower <- model$SMD_ML[["ci.lb"]]
@@ -152,16 +152,16 @@ cixhigher <- model$SMD_ML[["ci.ub"]]
   #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
   
   if (experiment_type == "TvC") {
-    mtext("Favours control", side = 1, line = 3, at = 1.8*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
-    mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+    mtext("Favours control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0.5)
+    mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1, adj = 1)
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
     title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
     
   } else if (experiment_type == "CvS") {
-    mtext("Model increases\nanhedonia", side = 1, line = 3, at = 1.5*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+    mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
 
-    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1, col = "darkgreen", font = 1, adj = 1)
 
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
@@ -386,15 +386,14 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
     meta.all$lower.predict <- model_main$pred_interval$pi.lb
     meta.all$upper.predict <- model_main$pred_interval$pi.ub
     
-    
+#title <- paste0("Effect on ", outcome, " by ", moderator)  
+        
     if (moderator == "ARRIVEScoreCat") {
       
       # forest() call without sortvar
       forest(meta.all,
-                  xlab="SMD",
-                  smlab=outcome,
-                  just="right",
-                  addrow=F,
+                  smlab = "",
+                  addrow=T,
                   prediction = T,
                   overall=T,
                   overall.hetstat =F,
@@ -403,15 +402,17 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   col.by="black",
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
-                  leftlabs = c(moderator, "Number of experiments")
+                  leftlabs = c("", "Number of \nexperiments"),
+                  label.right = "Favours intervention", 
+                  col.label.right = "darkgreen",
+                  label.left = "Favours control",
+                  col.label.left = "red"
       )
     } else {
       # forest() call with sortvar=seTE
       forest(meta.all,
-                  xlab="SMD",
-                  smlab=outcome,
-                  just="right",
-                  addrow=F,
+                  smlab = "",
+                  addrow=T,
                   overall=T,
                   prediction = T,
                   overall.hetstat =F,
@@ -421,8 +422,12 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   col.by="black",
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
-                  leftlabs = c(moderator, "Number of experiments")
-      )
+                  leftlabs = c("", "Number of \nexperiments"),
+                  label.right = "Favours intervention",
+                  col.label.right = "darkgreen",
+                  label.left = "Favours control",
+                  col.label.left = "red"
+        )
     }
   }}
 
@@ -433,7 +438,7 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
 #     if(titletype == "CvS"){
 #       title <- paste0("Effect of modelling depression on ",outcome, " by ", moderator_text)  }
 #     if(titletype == "TvC"){
-#         title <- paste0("Effect of dopaminergic intervention on ",outcome, " by ", moderator_text)  }
+#       title <- paste0("Effect of dopaminergic intervention on ",outcome, " by ", moderator_text)  }
 #         
 #     
 #     model <- modelsumm
@@ -1137,7 +1142,7 @@ forest_metafor_NMD <- function(model, outcome){
 
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
-  mtext("Favours\n control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1)
+  mtext("Favours\n control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
   mtext("Favours dopaminergic\n agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1, col = "darkgreen", font = 1)
   title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
   
@@ -1696,7 +1701,7 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
              cex.lab = 1.2,
              lty = c("solid","solid","solid"),
              efac = c(1,1,3))
-      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
     }
     
     cixlower <- model[["ci.lb"]]
@@ -1706,14 +1711,14 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
     #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
     
     if (experiment_type == "TvC") {
-      mtext("Favours control", side = 1, line = 3, at = 1.8*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
-      mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      mtext("Favours control", side = 1, line = 3, at = 1.2*lower_x, cex = 1, col = "red", font = 1)
+      mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1)
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
       title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
       
     } else if (experiment_type == "CvS") {
-      mtext("Model increases\nanhedonia", side = 1, line = 3, at = 1.5*lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+      mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
       
       mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
       
