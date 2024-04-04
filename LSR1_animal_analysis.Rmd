@@ -1348,7 +1348,7 @@ dfiper <- (dfisn/dfin)*100
 `r closs*100`% of `r ctot` animals in Control cohorts and `r tloss*100`% of `r ttot` animals in Intervention cohorts 'dropped out' between allocation to group and outcome measurement. Given that `r dfisn` of `r dfin` interventions (`r dfiper`%) were administered as a single dose, treatment emergent adverse effects likely to lead to withdrawal of an animal from the study would be unusual, and technical failure or attrition is more likely. This analysis is based on full reporting of animals excluded from analyses, and it may be that group sizes were specified 'after the event', or that there was unreported replacement of animals excluded during the experiment, so these data should be interpreted with caution.
 
 # 6. Summary of the evidence
-## 7.1 Dopaminergic agents versus control
+## 6.1 Dopaminergic agents versus control
 
 ```{r echo = FALSE}
 SoE_TvC <- read_xlsx("data/soe_tables_20240404.xlsx", "TvC")
@@ -1358,7 +1358,9 @@ knitr::kable(SoE_TvC) %>%
 
 ```
 
-## 7.2 Effect of inducing model, without treatment
+## 6.2 Effect of inducing model, without treatment
+
+To provide context for the effects of dopaminergic drugs in these models, we also present a summary of the effects of model induction. 
 
 ```{r echo = FALSE}
 SoE_TvA <- read_xlsx("data/soe_tables_20240404.xlsx", "CvS")
@@ -1368,13 +1370,9 @@ knitr::kable(SoE_TvA) %>%
 
 ```
 
-Rationale for conclusions for indirectness: **[1] TAARI 1 agonists v control, outcome 'Locomotor activity': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. However, for models using DAT knock out, the homologous human gene is associated with schizophrenia in some populations, indirect DAT inhibitors can cause psychosis in humans, and the effect of indirect DAT inhibitors is reported to be mediated through TAAR1 agonism. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
+Rationale for conclusions for indirectness: **[1] Effect of dopaminergic agents on sucrose preference: Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents, and beacuse anhedonia (evaluated using the sucrose preference test) was not identified in the JLA depression Priority Setting Partnership 'Top 10'. However, anhedonia is a well recognised feature of human disease.There were a range of models used including pharmacological, behavioural and 'surgical' (modelling stroke or traumatic brain injury) which are each related to the causation or triggering of depression in humans, and some of these models recapitulate the change in hippocampal volume observed in human depression. Known antidepressants have been reported to increase sucrose preference in animal models of depression, and the depressive phenotype of the WAG/RiJ rat is responsive to antidepressant medication.
 
-**[2] TAARI 1 agonists v control, outcome 'Cognitive outcomes': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. However, for models using DAT knock out, the homologous human gene is associated with schizophrenia in some populations, indirect DAT inhibitors can cause psychosis in humans, and the effect of indirect DAT inhibitors is reported to be mediated through TAAR1 agonism. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
-
-**[3] TAARI 1 agonists v conventional antipsychotic drugs, outcome 'Locomotor activity': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
-
-**[4] TAARI 1 agonists v conventional antipsychotic drugs, outcome 'Cognitive outcomes': Moderate risk of indirectness** Only one publication contributes to this outcome, using the MK801- induced cognitive dysfunction model in the ICR mouse.
+**[2] Effect of dopaminergic agents on dopamine concentrations: Moderate risk of indirectness** In addition to the concerns under [1] above, the concentration of dopamine is not a clinical endpoint, so is therefore less direct.
 
 ## Evaluation of indirectness of evidence (based on criteria in document "Assessing the certainty of evidence in animal studies") for the studies included in the review
 
@@ -1389,6 +1387,9 @@ knitr::kable(SoE_Indir) %>%
 ```
 
 The description of the criteria is available at <https://doi.org/10.17605/OSF.IO/TDMAU>
+
+## Evaluation of the concordance between different outcome measures
+For both the induction of the disease model and the effects of dopaminergic interventions, there was some agreement between the effect sizes measured using these different outcomes when applied to the same cohort of animals. The data are however too sparse to allow firm conclusions at the level of outcome measure pairs.
 
 # 7. Software used
 
