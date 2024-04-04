@@ -460,7 +460,7 @@ SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "C
 
 The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`.
 
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
 |:-----------------:|:-------------------------:|:-------------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -488,10 +488,8 @@ SMD_S_SPT_AdminRoute_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "
 
 The p-value for the association between the route of intervention administration and outcome reported was `r round(SMD_S_SPT_AdminRoute_noI$QMp,3)`.
 
-|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
-
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
 |:-----------------:|:-------------------------:|:-------------------------:|
-
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
@@ -518,8 +516,7 @@ SMD_S_SPT_ProphThera_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "
 
 The p-value for the association between whether the intervention was administered prophylactically or therapeutically and outcome reported was `r round(SMD_S_SPT_ProphThera_noI$QMp,3)`.
 
-
-|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
+|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
 |:-----------------:|:-------------------------:|:-------------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], NA)`                         |
 |       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
@@ -1351,6 +1348,47 @@ dfiper <- (dfisn/dfin)*100
 `r closs*100`% of `r ctot` animals in Control cohorts and `r tloss*100`% of `r ttot` animals in Intervention cohorts 'dropped out' between allocation to group and outcome measurement. Given that `r dfisn` of `r dfin` interventions (`r dfiper`%) were administered as a single dose, treatment emergent adverse effects likely to lead to withdrawal of an animal from the study would be unusual, and technical failure or attrition is more likely. This analysis is based on full reporting of animals excluded from analyses, and it may be that group sizes were specified 'after the event', or that there was unreported replacement of animals excluded during the experiment, so these data should be interpreted with caution.
 
 # 6. Summary of the evidence
+## 7.1 Dopaminergic agents versus control
+
+```{r echo = FALSE}
+SoE_TvC <- read_xlsx("data/soe_tables_20240404.xlsx", "TvC")
+
+knitr::kable(SoE_TvC) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+## 7.2 Effect of inducing model, without treatment
+
+```{r echo = FALSE}
+SoE_TvA <- read_xlsx("data/soe_tables_20240404.xlsx", "CvS")
+
+knitr::kable(SoE_TvA) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+Rationale for conclusions for indirectness: **[1] TAARI 1 agonists v control, outcome 'Locomotor activity': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. However, for models using DAT knock out, the homologous human gene is associated with schizophrenia in some populations, indirect DAT inhibitors can cause psychosis in humans, and the effect of indirect DAT inhibitors is reported to be mediated through TAAR1 agonism. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
+
+**[2] TAARI 1 agonists v control, outcome 'Cognitive outcomes': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. However, for models using DAT knock out, the homologous human gene is associated with schizophrenia in some populations, indirect DAT inhibitors can cause psychosis in humans, and the effect of indirect DAT inhibitors is reported to be mediated through TAAR1 agonism. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
+
+**[3] TAARI 1 agonists v conventional antipsychotic drugs, outcome 'Locomotor activity': Moderate risk of indirectness** We had concerns for indirectness because all experiments were in rodents; no models manipulated early environmental factors; and no models assessed outcomes identified by the JLA schizophrenia Priority Setting Partnership 'Top 10'. For the pharmacological models used to induce locomotor activity the same agents used in animal models induce psychosis and exacerbate symptoms in humans and induce EEG changes in humans and animals which are responsive to treatment in animals. Psychostimulant models induce mesolimbic dopamine dysregulation seen in humans, and the PCP model is associated with reduced brain volume, also seen in human disease.
+
+**[4] TAARI 1 agonists v conventional antipsychotic drugs, outcome 'Cognitive outcomes': Moderate risk of indirectness** Only one publication contributes to this outcome, using the MK801- induced cognitive dysfunction model in the ICR mouse.
+
+## Evaluation of indirectness of evidence (based on criteria in document "Assessing the certainty of evidence in animal studies") for the studies included in the review
+
+The framework for the evaluation of indirectness is based on eight dimensions, based on the work of Belzung and Lemoine, and comprising **(i) Homological validity** - what is the extent of homology between the model organism and humans relevant to the condition studied; **(ii) Ontopathogenic validity** - Does the model include prenatal or early life exposures inducing transition from initial organism to vulnerable organism; **(iii) Triggering validity** - are any triggering factors used in the modelling -- or their homologues -known to induce psychosis or relapse in humans?; **(iv) Mechanistic validity** - whether the neurobiological or cognitive mechanisms which operate in human disease can be observed in the animal model; **(v) Induction validity** - Does the induction of the disease model induce changes in biomarkers (see below) which are known to be altered in human disease?; **(vi) Remission validity** - What is the effect of other drugs known to be effective in humans in the particular animal model / outcome measure pair? ; **(vii) Biomarker validity** - are changes in disease markers (eg neurotransmitter levels, structural brain imaging) seen in human disease also seen in this animal model?; and **(viii) Ethological validity** - what is the 'behavioural distance' between the model phenotype in animals and the symptoms and signs of human disease at which treatment is targeted?
+
+```{r echo = FALSE}
+SoE_Indir <- read_xlsx("data/soe_tables_20240404.xlsx", "Indir") ### ? where is this##
+
+knitr::kable(SoE_Indir) %>%
+  kable_styling(bootstrap_options = "bordered")
+
+```
+
+The description of the criteria is available at <https://doi.org/10.17605/OSF.IO/TDMAU>
 
 # 7. Software used
 
