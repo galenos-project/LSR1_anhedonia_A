@@ -77,7 +77,7 @@ run_ML_SMD <- function(df, experiment, outcome, rho_value) {
   
   print(pred_interval)
   
-  return(SMD_ML)
+  return(list(SMD_ML = SMD_ML, pred_interval = pred_interval))
 }
 
 
@@ -85,22 +85,22 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
   if(!is.null(model)){
   
   
-  lower_x <- floor(min(model[["yi"]]- model[["vi"]])) - 1
+  lower_x <- floor(min(model$SMD_ML[["yi"]]- model$SMD_ML[["vi"]])) - 1
   lower_x <- floor(lower_x / 5) * 5
-  upper_x <- ceiling(max(model[["yi"]] + model[["vi"]])) + 1
+  upper_x <- ceiling(max(model$SMD_ML[["yi"]] + model$SMD_ML[["vi"]])) + 1
   upper_x <- ceiling(upper_x / 5) * 5
   arange <- upper_x - lower_x
   xleft <- -(1.5*arange)+lower_x
   xright <- upper_x + (0.5 * arange)
-  summary_x <- model[["beta"]]
-  model[["data"]][["SMD"]] <- round(model[["data"]][["SMD"]],2)
+  summary_x <- model$SMD_ML[["beta"]]
+  model$SMD_ML[["data"]][["SMD"]] <- round(model$SMD_ML[["data"]][["SMD"]],2)
   
   at_values <- seq(lower_x, upper_x, by = 2.5)
   
          forest_plot <- if(experiment_type == "TvC"){
-                               forest(model,
+                               forest(model$SMD_ML,
                                       xlim=c(xleft, xright),
-                                      ylim=c(-2, model$k+6), rows=c((model$k+2):3),
+                                      ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
                                       mlab="SMD [95% C.I.]", 
                                       alim=c((lower_x), (upper_x)),
                                       slab=paste(word(Authors_I, 1), Year, Strain),
@@ -115,15 +115,15 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                                       ilab = cbind(ARRIVEScore, Label),
                                       ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
                                       lty = c("solid","solid","solid"),
-                                      cex = 0.6, 
+                                      cex = 0.75, 
                                       cex.axis = 1.0, 
                                       cex.lab = 1.2,
                                       efac = c(1,1,2))
-           text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), c("Reporting\n completeness", "Drug"), cex=0.75, font=2, adj = 0)
+           text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
          } else {
-                               forest(model,
+                               forest(model$SMD_ML,
                                       xlim=c(xleft, xright),
-                                      ylim=c(-2, model$k+6), rows=c((model$k+2):3),
+                                      ylim=c(-2, model$SMD_ML$k+6), rows=c((model$SMD_ML$k+2):3),
                                       mlab="SMD [95% C.I.]",
                                       alim=c(lower_x, upper_x),
                                       slab=paste(word(Authors_I, 1), Year, Strain),
@@ -137,35 +137,35 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                                       xlab = "", 
                                       ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
                                       ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
-                                      cex = 0.6, 
+                                      cex = 0.75, 
                                       cex.axis = 1.0, 
                                       cex.lab = 1.2,
                                       lty = c("solid","solid","solid"),
                                       efac = c(1,1,3))
-           text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+6, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+           text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
          }
          
-cixlower <- model[["ci.lb"]]
-cixhigher <- model[["ci.ub"]]
+cixlower <- model$SMD_ML[["ci.lb"]]
+cixhigher <- model$SMD_ML[["ci.ub"]]
 
 
   #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
   
   if (experiment_type == "TvC") {
-    mtext("Favours control", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
-    mtext("Favours intervention", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+    mtext("Favours control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0.5)
+    mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1, adj = 1)
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
     title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
     
   } else if (experiment_type == "CvS") {
-    mtext("Model increases\nanhedonia", side = 1, line = 3, at = (1.5*lower_x), cex = 1.1, col = "red", font = 1, adj = 0)
+    mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
 
-    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.5*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1, col = "darkgreen", font = 1, adj = 1)
 
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
-    title(paste0("Effect of depression modelling on\n ", outcome_title, " (SMD)"))
+    title(paste0("Effect of depression modelling on ", outcome_title, " (SMD)"))
     
   } 
 }}
@@ -279,7 +279,7 @@ subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_value
   }
 }
 
-plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_value) {
+plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, model_sub, model_main) {
   
   # Ensure the moderator is a character string for later conversion to symbol
   moderator <- as.character(moderator)
@@ -309,86 +309,92 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_
     #filter(SMD>-6) %>% 
     #filter(SMD<6) # delete missing values and some weirdly large values, like -15 and 16
     
-    df2 <- df2 %>% mutate(effect_id = row_number()) # add effect_id column
+    # df2 <- df2 %>% mutate(effect_id = row_number()) # add effect_id column
+    # 
+    # #calculate variance-covariance matrix of the sampling errors for dependent effect sizes
+    # 
+    # VCVM_SMD <- vcalc(vi = SMDv,
+    #                   cluster = StudyId, 
+    #                   subgroup= ExperimentID_I,
+    #                   obs=effect_id,
+    #                   data = df2, 
+    #                   rho = rho_value) 
+    # 
+    # # ML model on df2 with subgroup
+    # subgroup_analysis <- rma.mv(
+    #   yi = SMD,
+    #   V = VCVM_SMD,
+    #   random = ~1 | Strain / StudyId / ExperimentID_I,
+    #   data = df2,
+    #   mods = as.formula(paste("~", moderator, "-1")),
+    #   method = 'REML',
+    #   test = "t",
+    #   dfs = "contain"
+    # )
+    # 
+    # #subgroup_analysis_predict <- predict(subgroup_analysis)
+    # 
+    # ## ML model on df2 without subgroup
+    # overall_estimate_rma <- rma.mv(yi = SMD,
+    #                                V = VCVM_SMD,
+    #                                random = ~1 | Strain / StudyId / ExperimentID_I, # nested levels
+    #                                test = "t", # use t- and F-tests for making inferences
+    #                                data = df2,
+    #                                dfs="contain", # improve degree of freedom estimation for t- and F-distributions
+    #                                control=list(optimizer="nlm"))
+    # 
+    # #overall_estimate_rma_predict <- predict(overall_estimate_rma)
+    # 
+    # k_subgroups <- df2 %>%
+    #   group_by(df2[[moderator]]) %>%
+    #   count() %>%
+    #   pull(n)
+    # 
+    # 
+    # subgroup_analysis_plotdata <- data.frame(levels(df2[[moderator]]), k_subgroups, subgroup_analysis$beta, subgroup_analysis$se) #subgroup_analysis_predict$pi.lb, subgroup_analysis_predict$pi.ub)
+    # colnames(subgroup_analysis_plotdata) <- c(moderator, "k", "SMD", "se") #, "pi.lb", "pi.ub")
+    # subgroup_analysis_plotdata=rbind(subgroup_analysis_plotdata, c("Overall estimate",  overall_estimate_rma$k, overall_estimate_rma$beta, overall_estimate_rma$se)) #overall_estimate_rma_predict$pi.lb, overall_estimate_rma_predict$pi.ub))
+    # 
+    # rownames(subgroup_analysis_plotdata) <- 1:nrow(subgroup_analysis_plotdata)
+    # subgroup_analysis_plotdata$k <- as.numeric(subgroup_analysis_plotdata$k)
+    # subgroup_analysis_plotdata$SMD <- as.numeric(subgroup_analysis_plotdata$SMD)
+    # subgroup_analysis_plotdata$se <- as.numeric(subgroup_analysis_plotdata$se)
+    # #subgroup_analysis_plotdata$ci_l <- as.numeric(subgroup_analysis_plotdata$ci_l)
+    # #subgroup_analysis_plotdata$ci_u <- as.numeric(subgroup_analysis_plotdata$ci_u)
     
-    #calculate variance-covariance matrix of the sampling errors for dependent effect sizes
-    
-    VCVM_SMD <- vcalc(vi = SMDv,
-                      cluster = StudyId, 
-                      subgroup= ExperimentID_I,
-                      obs=effect_id,
-                      data = df2, 
-                      rho = rho_value) 
-    
-    # ML model on df2 with subgroup
-    subgroup_analysis <- rma.mv(
-      yi = SMD,
-      V = VCVM_SMD,
-      random = ~1 | Strain / StudyId / ExperimentID_I,
-      data = df2,
-      mods = as.formula(paste("~", moderator, "-1")),
-      method = 'REML',
-      test = "t",
-      dfs = "contain"
-    )
-    
-    #subgroup_analysis_predict <- predict(subgroup_analysis)
-    
-    ## ML model on df2 without subgroup
-    overall_estimate_rma <- rma.mv(yi = SMD,
-                                   V = VCVM_SMD,
-                                   random = ~1 | Strain / StudyId / ExperimentID_I, # nested levels
-                                   test = "t", # use t- and F-tests for making inferences
-                                   data = df2,
-                                   dfs="contain", # improve degree of freedom estimation for t- and F-distributions
-                                   control=list(optimizer="nlm"))
-    
-    #overall_estimate_rma_predict <- predict(overall_estimate_rma)
-    
-    k_subgroups <- df2 %>%
-      group_by(df2[[moderator]]) %>%
-      count() %>%
-      pull(n)
-    
-    
-    subgroup_analysis_plotdata <- data.frame(levels(df2[[moderator]]), k_subgroups, subgroup_analysis$beta, subgroup_analysis$se) #subgroup_analysis_predict$pi.lb, subgroup_analysis_predict$pi.ub)
-    colnames(subgroup_analysis_plotdata) <- c(moderator, "k", "SMD", "se") #, "pi.lb", "pi.ub")
-    subgroup_analysis_plotdata=rbind(subgroup_analysis_plotdata, c("Overall estimate",  overall_estimate_rma$k, overall_estimate_rma$beta, overall_estimate_rma$se)) #overall_estimate_rma_predict$pi.lb, overall_estimate_rma_predict$pi.ub))
-    
-    rownames(subgroup_analysis_plotdata) <- 1:nrow(subgroup_analysis_plotdata)
-    subgroup_analysis_plotdata$k <- as.numeric(subgroup_analysis_plotdata$k)
-    subgroup_analysis_plotdata$SMD <- as.numeric(subgroup_analysis_plotdata$SMD)
-    subgroup_analysis_plotdata$se <- as.numeric(subgroup_analysis_plotdata$se)
-    
-    overall_estimate_index <-dim(subgroup_analysis_plotdata)[1]
+    overall_estimate_index <-dim(model_sub$plotdata)[1]
     
     if (moderator == "ARRIVEScoreCat") {
-      sorted_data <- subgroup_analysis_plotdata[-overall_estimate_index, ]
+      sorted_data <- model_sub$plotdata[-overall_estimate_index, ]
       sorted_data <- sorted_data[order(sorted_data[[moderator]]), ]
     } else {
-      sorted_data <- subgroup_analysis_plotdata[-overall_estimate_index, ]
+      sorted_data <- model_sub$plotdata[-overall_estimate_index, ]
     }
     
     options(digits=3)
     
-    meta.all = metagen(TE = sorted_data$SMD, 
-                       seTE = sorted_data$se, 
+    meta.all = metagen(TE = SMD, 
+                       seTE = se, 
                        studlab = sorted_data[[moderator]], 
                        data = sorted_data, 
                        sm = "SMD", 
                        common = F)
-    meta.all$TE.random <- subgroup_analysis_plotdata$SMD[overall_estimate_index]
-    meta.all$seTE.random <- subgroup_analysis_plotdata$se[overall_estimate_index]
+    meta.all$TE.random <- model_sub$plotdata$SMD[overall_estimate_index]
+    meta.all$seTE.random <- model_sub$plotdata$se[overall_estimate_index]
+    meta.all$lower.random <- model_sub$plotdata$ci_l[overall_estimate_index]
+    meta.all$upper.random <- model_sub$plotdata$ci_u[overall_estimate_index]
+    meta.all$lower.predict <- model_main$pred_interval$pi.lb
+    meta.all$upper.predict <- model_main$pred_interval$pi.ub
     
-    
+#title <- paste0("Effect on ", outcome, " by ", moderator)  
+        
     if (moderator == "ARRIVEScoreCat") {
       
       # forest() call without sortvar
-      x <- forest(meta.all,
-                  xlab="SMD",
-                  smlab=outcome,
-                  just="right",
-                  addrow=F,
+      forest(meta.all,
+                  smlab = "",
+                  addrow=T,
+                  prediction = T,
                   overall=T,
                   overall.hetstat =F,
                   print.pval.Q=F,
@@ -396,16 +402,19 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_
                   col.by="black",
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
-                  leftlabs = c(moderator, "Number of experiments")
+                  leftlabs = c("", "Number of \nexperiments"),
+                  label.right = "Favours intervention", 
+                  col.label.right = "darkgreen",
+                  label.left = "Favours control",
+                  col.label.left = "red"
       )
     } else {
       # forest() call with sortvar=seTE
-      x <- forest(meta.all,
-                  xlab="SMD",
-                  smlab=outcome,
-                  just="right",
-                  addrow=F,
+      forest(meta.all,
+                  smlab = "",
+                  addrow=T,
                   overall=T,
+                  prediction = T,
                   overall.hetstat =F,
                   print.pval.Q=F,
                   col.square="black",
@@ -413,138 +422,137 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, rho_
                   col.by="black",
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
-                  leftlabs = c(moderator, "Number of experiments")
-      )
+                  leftlabs = c("", "Number of \nexperiments"),
+                  label.right = "Favours intervention",
+                  col.label.right = "darkgreen",
+                  label.left = "Favours control",
+                  col.label.left = "red"
+        )
     }
-    
-    
-    return(list(
-      subgroup_analysis = subgroup_analysis,
-      subgroup_rma_summary = subgroup_analysis_plotdata))
   }}
 
 
-forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, titletype) {
-   # this uses GGplot2 to draw a forest plot for the subgroup analyses, and returns the plot 
-  
-    if(titletype == "CvS"){
-      title <- paste0("Effect of modelling depression on ",outcome, " by ", moderator_text)  }
-    if(titletype == "TvC"){
-        title <- paste0("Effect of dopaminergic intervention on ",outcome, " by ", moderator_text)  }
-        
-    
-    model <- modelsumm
-    colnames(model) <- c('moderator','k','SMD','se','p','ci_l','ci_u','symbol','size','summary','fontfaace','fontsize','d1','d2')
-    model$order <- as.numeric(rownames(model))
-    model$estimate_lab = paste0(round(model$SMD,2), " (", round(model$ci_l,2), "-", round(model$ci_u,2),")")
-    model <- model %>%
-      arrange(order) %>%
-      mutate(moderator = factor(model[["moderator"]], levels = unique(model[["moderator"]])))
-  lnth <- nrow(model)+1
-  
-  axis_min <- min(floor(min(model$ci_l, model$ci_u)),-2)
-  axis_max <- max(ceiling(max(model$ci_l, model$ci_u)),1)
-  span2 <- 1 + (axis_max - axis_min)
-  span1 <- span2 * 0.8
-  span3 <- span2 * 0.5
-  r1 <- span1
-  l2 <- span1 + 1
-  r2 <- span1 + span2 + 1
-  l3 <- span1 + span2 + 2
-  r3 <- span1 + span2 + span3 + 2
-  
-  cf <- span2/lnth
-  
-
-  poly1 <- subset(model, model$moderator == "Overall estimate")
-  upp <- 1 + ((poly1$SMD - poly1$ci_l)/(cf *2))
-  lop<- 1 - ((poly1$SMD - poly1$ci_l)/(cf *2))
-  dfp <- data.frame(x = c(poly1$SMD, poly1$ci_u, poly1$SMD, poly1$ci_l), y = c(lop, 1, upp, 1))
-
-  if(moderator == 'TreatmentDurationCategory'){
-      dord <- c('Overall estimate', 'More than 4 weeks', 'Between 1-4 weeks','Less than 1 week')
-        
-      p_mid <- model %>%
-      ggplot(aes(y = factor(moderator, levels = dord))) +
-      theme_classic() +
-      geom_point(aes(x = SMD), shape = model$symbol, size = model$size) +
-      geom_linerange(aes(xmin = ci_l, xmax = ci_u)) +
-      labs(x = "SMD Effect size") +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
-      geom_vline(xintercept = 0, linetype = "solid") +
-      geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
-      annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
-      annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
-      geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
-      theme(axis.line.y = element_blank(),
-            axis.ticks.y = element_blank(),
-            axis.text.y = element_blank(),
-            axis.title.y = element_blank())
-
-    p_left <-
-      model %>%
-      ggplot(aes(y = factor(moderator, levels = dord)))  +
-      geom_text(aes(x = 0, label = moderator), hjust = 0, size = model$fontsize) +
-      geom_text(aes(x = r1, label = k), hjust = 1, size = model$fontsize) +
-      theme_void() +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span1))
-    
-    p_right <-
-      model %>%
-      ggplot() +
-      geom_text(aes(x = span3, y = factor(moderator, levels = dord), label = estimate_lab), size = model$fontsize, hjust = 1) +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span3)) +
-      theme_void()
-    
-    layout <- c(
-      area(t = 0, l = 0, b = 30, r = r1),
-      area(t = 1, l = l2, b = 30, r = r2),
-      area(t = 0, l = l3, b = 30, r = r3)
-    )
- 
-    p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
-  } else {
-    p_mid <- model %>%
-      ggplot(aes(y = fct_rev(moderator))) +
-      theme_classic() +
-      geom_point(aes(x = SMD), shape = model$symbol, size = model$size) +
-      geom_linerange(aes(xmin = ci_l, xmax = ci_u)) +
-      labs(x = "SMD Effect size") +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
-      geom_vline(xintercept = 0, linetype = "solid") +
-      geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
-      annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
-      annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
-      geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
-      theme(axis.line.y = element_blank(),
-            axis.ticks.y = element_blank(),
-            axis.text.y = element_blank(),
-            axis.title.y = element_blank())
-    
-    p_left <-
-      model %>%
-      ggplot(aes(y = fct_rev(moderator))) +
-      geom_text(aes(x = 0, label = moderator), hjust = 0, size = model$fontsize) +
-      geom_text(aes(x = r1, label = k), hjust = 1, size = model$fontsize) +
-      theme_void() +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span1))
-    
-    p_right <-
-      model %>%
-      ggplot() +
-      geom_text(aes(x = span3, y = fct_rev(moderator), label = estimate_lab),size = model$fontsize, hjust = 1) +
-      coord_cartesian(ylim = c(0, lnth), xlim = c(0, span3)) +
-      theme_void()
-    
-    layout <- c(
-      area(t = 0, l = 0, b = 30, r = r1),
-      area(t = 1, l = l2, b = 30, r = r2),
-      area(t = 0, l = l3, b = 30, r = r3)
-    )
-    
-    p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
-    
-  }}
+# forest_subgroup <- function(modelsumm, moderator, outcome, moderator_text, titletype) {
+#    # this uses GGplot2 to draw a forest plot for the subgroup analyses, and returns the plot 
+#   
+#     if(titletype == "CvS"){
+#       title <- paste0("Effect of modelling depression on ",outcome, " by ", moderator_text)  }
+#     if(titletype == "TvC"){
+#       title <- paste0("Effect of dopaminergic intervention on ",outcome, " by ", moderator_text)  }
+#         
+#     
+#     model <- modelsumm
+#     colnames(model) <- c('moderator','k','SMD','se','p','ci_l','ci_u','symbol','size','summary','fontfaace','fontsize','d1','d2')
+#     model$order <- as.numeric(rownames(model))
+#     model$estimate_lab = paste0(round(model$SMD,2), " (", round(model$ci_l,2), "; ", round(model$ci_u,2),")")
+#     model <- model %>%
+#       arrange(order) %>%
+#       mutate(moderator = factor(model[["moderator"]], levels = unique(model[["moderator"]])))
+#   lnth <- nrow(model)+1
+#   
+#   axis_min <- min(floor(min(model$ci_l, model$ci_u)),-2)
+#   axis_max <- max(ceiling(max(model$ci_l, model$ci_u)),1)
+#   span2 <- 1 + (axis_max - axis_min)
+#   span1 <- span2 * 0.8
+#   span3 <- span2 * 0.5
+#   r1 <- span1
+#   l2 <- span1 + 1
+#   r2 <- span1 + span2 + 1
+#   l3 <- span1 + span2 + 2
+#   r3 <- span1 + span2 + span3 + 2
+#   
+#   cf <- span2/lnth
+#   
+# 
+#   poly1 <- subset(model, model$moderator == "Overall estimate")
+#   upp <- 1 + ((poly1$SMD - poly1$ci_l)/(cf *2))
+#   lop<- 1 - ((poly1$SMD - poly1$ci_l)/(cf *2))
+#   dfp <- data.frame(x = c(poly1$SMD, poly1$ci_u, poly1$SMD, poly1$ci_l), y = c(lop, 1, upp, 1))
+# 
+#   if(moderator == 'TreatmentDurationCategory'){
+#       dord <- c('Overall estimate', 'More than 4 weeks', 'Between 1-4 weeks','Less than 1 week')
+#         
+#       p_mid <- model %>%
+#       ggplot(aes(y = factor(moderator, levels = dord))) +
+#       theme_classic() +
+#       geom_point(aes(x = SMD), shape = model$symbol, size = model$size) +
+#       geom_linerange(aes(xmin = ci_l, xmax = ci_u)) +
+#       labs(x = "SMD Effect size") +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
+#       geom_vline(xintercept = 0, linetype = "solid") +
+#       geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
+#       annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
+#       annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
+#       geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
+#       theme(axis.line.y = element_blank(),
+#             axis.ticks.y = element_blank(),
+#             axis.text.y = element_blank(),
+#             axis.title.y = element_blank())
+# 
+#     p_left <-
+#       model %>%
+#       ggplot(aes(y = factor(moderator, levels = dord)))  +
+#       geom_text(aes(x = 0, label = moderator), hjust = 0, size = model$fontsize) +
+#       geom_text(aes(x = r1, label = k), hjust = 1, size = model$fontsize) +
+#       theme_void() +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(0, span1))
+#     
+#     p_right <-
+#       model %>%
+#       ggplot() +
+#       geom_text(aes(x = span3, y = factor(moderator, levels = dord), label = estimate_lab), size = model$fontsize, hjust = 1) +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(0, span3)) +
+#       theme_void()
+#     
+#     layout <- c(
+#       area(t = 0, l = 0, b = 30, r = r1),
+#       area(t = 1, l = l2, b = 30, r = r2),
+#       area(t = 0, l = l3, b = 30, r = r3)
+#     )
+#  
+#     p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
+#   } else {
+#     p_mid <- model %>%
+#       ggplot(aes(y = fct_rev(moderator))) +
+#       theme_classic() +
+#       geom_point(aes(x = SMD), shape = model$symbol, size = model$size) +
+#       geom_linerange(aes(xmin = ci_l, xmax = ci_u)) +
+#       labs(x = "SMD Effect size") +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(axis_min-1, axis_max+1)) +
+#       geom_vline(xintercept = 0, linetype = "solid") +
+#       geom_vline(xintercept = poly1$SMD, linetype = "dashed") +
+#       annotate("text", x = axis_min-1, y = lnth, label = "Favours\ncontrol", hjust = 0) +
+#       annotate("text", x = axis_max+1, y = lnth, label = "Favours\nintervention", hjust = 1) +
+#       geom_polygon(data = dfp, aes(x = x, y = y), fill = "grey") +
+#       theme(axis.line.y = element_blank(),
+#             axis.ticks.y = element_blank(),
+#             axis.text.y = element_blank(),
+#             axis.title.y = element_blank())
+#     
+#     p_left <-
+#       model %>%
+#       ggplot(aes(y = fct_rev(moderator))) +
+#       geom_text(aes(x = 0, label = moderator), hjust = 0, size = model$fontsize) +
+#       geom_text(aes(x = r1, label = k), hjust = 1, size = model$fontsize) +
+#       theme_void() +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(0, span1))
+#     
+#     p_right <-
+#       model %>%
+#       ggplot() +
+#       geom_text(aes(x = span3, y = fct_rev(moderator), label = estimate_lab),size = model$fontsize, hjust = 1) +
+#       coord_cartesian(ylim = c(0, lnth), xlim = c(0, span3)) +
+#       theme_void()
+#     
+#     layout <- c(
+#       area(t = 0, l = 0, b = 30, r = r1),
+#       area(t = 1, l = l2, b = 30, r = r2),
+#       area(t = 0, l = l3, b = 30, r = r3)
+#     )
+#     
+#     p_left + p_mid + p_right + plot_layout(design = layout) + plot_annotation(title = title, theme = theme(plot.title = element_text(hjust = 0.5)))
+#     
+#   }}
 
 
 
@@ -1116,8 +1124,8 @@ forest_metafor_NMD <- function(model, outcome){
                                mlab="NMD [95% CI]",
                                alim=c(lower_x-30, upper_x+20),
                                slab=paste(word(Authors_I, 1), Year, Strain),
-                               at = seq(-60,140,20),
-                               col = c("grey","grey"),
+                               at = seq(-500,500,100),
+                               col = c("darkgrey","darkgrey"),
                                addfit = TRUE,
                                addpred = TRUE,
                                annotate = TRUE,
@@ -1126,16 +1134,16 @@ forest_metafor_NMD <- function(model, outcome){
                                xlab = "",
                                ilab = cbind(ARRIVEScore, Label),
                                ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
-                               cex = 0.6, 
+                               cex = 0.75, 
                                cex.axis = 1.0, 
-                               cex.lab = 1.2,
+                               cex.lab = 1,
                                efac = c(1,1,2))
          text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
 
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
-  mtext("Favours control", side = 1, line = 3, at = (1.2*lower_x), cex = 1.2, col = "red", font = 1)
-  mtext("Favours dopaminergic agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1.2, col = "darkgreen", font = 1)
+  mtext("Favours\n control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
+  mtext("Favours dopaminergic\n agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1, col = "darkgreen", font = 1)
   title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
   
 }
@@ -1389,7 +1397,7 @@ run_sse_plot_SMD_L <- function(df, type, outcome, rho_value = 0.5) {
                     control=list(optimizer="nlm")
   )
   
-  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N) associated with SMD estimate", ylab = "SMD estimate", legend.pos = "none")
+  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N)", ylab = "SMD estimate", legend.pos = "none")
   return(plot)
 }
 
@@ -1425,7 +1433,7 @@ run_sse_plot_SMD_C <- function(df, rho_value = 0.5) {
                     control=list(optimizer="nlm")
   )
   
-  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N) associated with SMD estimate", ylab = "SMD estimate", legend.pos = "none")
+  plot <- bubble_plot(SMD_sse, mod = "SMDN", group = "StudyId", xlab = "1/SQRT(N)", ylab = "SMD estimate", legend.pos = "none")
   return(plot)
 }
 
@@ -1631,6 +1639,95 @@ run_SMD <- function(df, experiment, outcome) {
   
   return(SMD_ML)
 }
+
+forest_metafor_uni <- function(model, experiment_type, outcome_title) {
+  if(!is.null(model)){
+    
+    
+    lower_x <- floor(min(model[["yi"]]- model[["vi"]])) - 1
+    lower_x <- floor(lower_x / 5) * 5
+    upper_x <- ceiling(max(model[["yi"]] + model[["vi"]])) + 1
+    upper_x <- ceiling(upper_x / 5) * 5
+    arange <- upper_x - lower_x
+    xleft <- -(1.5*arange)+lower_x
+    xright <- upper_x + (0.5 * arange)
+    summary_x <- model[["beta"]]
+    model[["data"]][["SMD"]] <- round(model[["data"]][["SMD"]],2)
+    
+    at_values <- seq(lower_x, upper_x, by = 2.5)
+    
+    forest_plot <- if(experiment_type == "TvC"){
+      forest(model,
+             xlim=c(xleft, xright),
+             ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+             mlab="SMD [95% C.I.]", 
+             alim=c((lower_x), (upper_x)),
+             slab=paste(word(Authors_I, 1), Year, Strain),
+             at = at_values,
+             col = c("grey","grey"),
+             addfit = TRUE,
+             addpred = TRUE,
+             annotate = TRUE,
+             header = "Study and Strain",
+             order=StudyId,
+             xlab = "",
+             ilab = cbind(ARRIVEScore, Label),
+             ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
+             lty = c("solid","solid","solid"),
+             cex = 0.75, 
+             cex.axis = 1.0, 
+             cex.lab = 1.2,
+             efac = c(1,1,2))
+      text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+    } else {
+      forest(model,
+             xlim=c(xleft, xright),
+             ylim=c(-2, model$k+6), rows=c((model$k+2):3),
+             mlab="SMD [95% C.I.]",
+             alim=c(lower_x, upper_x),
+             slab=paste(word(Authors_I, 1), Year, Strain),
+             at = at_values,
+             col = c("grey","grey"),
+             addfit = TRUE,
+             addpred = TRUE,
+             annotate = TRUE,
+             header = "Study and Strain",
+             order=StudyId,
+             xlab = "", 
+             ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
+             ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
+             cex = 0.75, 
+             cex.axis = 1.0, 
+             cex.lab = 1.2,
+             lty = c("solid","solid","solid"),
+             efac = c(1,1,3))
+      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+    }
+    
+    cixlower <- model[["ci.lb"]]
+    cixhigher <- model[["ci.ub"]]
+    
+    
+    #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
+    
+    if (experiment_type == "TvC") {
+      mtext("Favours control", side = 1, line = 3, at = 1.2*lower_x, cex = 1, col = "red", font = 1)
+      mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1)
+      #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
+      #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
+      title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
+      
+    } else if (experiment_type == "CvS") {
+      mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+      
+      mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      
+      #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
+      #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
+      title(paste0("Effect of depression modelling on ", outcome_title, " (SMD)"))
+      
+    } 
+  }}
 
 drug_summary <- function(drug, outcome){
   diag1 <- df %>%
