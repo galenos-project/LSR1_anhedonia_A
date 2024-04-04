@@ -394,7 +394,7 @@ The covariates of interest for subgroup analyses and meta-regressions were:
 
 -   **Sex**
 
--   **Method of disease induction**
+-   **Category of disease induction**
 
 -   **Route of intervention administration**
 
@@ -403,12 +403,6 @@ The covariates of interest for subgroup analyses and meta-regressions were:
 -   **Duration of treatment period**
 
 -   **The intervention administered**
-
--   **The efficacy of the drug (i.e. whether the drug is a partial or full agonist)**
-
--   **The selectivity of the drug**
-
--   **Potency of the intervention**
 
 -   **Dose of intervention**
 
