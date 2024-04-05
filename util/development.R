@@ -113,20 +113,34 @@ for (j in 2:5) {
             geom_errorbar(aes(x = resi[, 1], y = resi[, 3], xmin = resi[, 1] - resi[, 2], xmax = resi[, 1] + resi[, 2], width = 0.2), na.rm = TRUE) +
             geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
                         aes(x = resi[, 1], y = resi[, 3], weight = 1/sqrt((resi[, 4]^2) + (resi[,2]^2))), 
-                        color = "black", linetype = "dashed") +
+                        color = "black", linetype = "dashed")
+          fitobject <- ggplot_build(p)$data[[2]]
+          ub_i <- max(fitobject$y) + max(fitobject$se.fit)
+          lb_i <- min(fitobject$y) - max(fitobject$se.fit)
+
+          p <- p + 
             geom_point(aes(x = resm[, 1], y = resm[, 3], color = resm[,6], size = resm[, 5]), na.rm = TRUE) +  # Use resm[, 5] as the size
             geom_errorbar(aes(x = resm[, 1], y = resm[, 3], ymin = resm[, 3] - resm[, 4], ymax = resm[, 3] + resm[, 4], width = 0.2), na.rm = TRUE) +
             geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
             geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
-                        aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed") +
+                        aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed")
+          fitobject <- ggplot_build(p)$data[[2]]
+          ub_m <- max(fitobject$y) + max(fitobject$se.fit)
+          lb_m <- min(fitobject$y) - max(fitobject$se.fit)
+          ub1 <- max(ub_m, ub_i)
+          lb1 <- max(lb_m, lb_i)
+          ub_used <- max(ub1, 8)
+          lb_used <- min(lb1, -8)
+            
+          p <- p +
             labs(x = labelx, y = labely, title = labelr) +
-            coord_cartesian(clip = "off") +
+            coord_cartesian(clip = "off", ylim = c(lower = lb_used, upper = ub_used)) +
             scale_size_continuous(name = 'Number of comparisons', breaks = seq(1, max(resi[, 5]), by = 1)) +  
             scale_color_manual(name = 'Experiment type', 
                                values = c("CvS" = "red", "TvC" = "green"),
                                labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
             expand_limits(y = 0) +
-            expand_limits(x = 0)
+            expand_limits(x = 0) 
           
           ggsave(paste0("plot_", j, "_", k, ".png"), p, width = 8, height = 6)
         } else {
@@ -140,12 +154,21 @@ for (j in 2:5) {
               geom_errorbar(aes(x = resi[, 1], y = resi[, 3], xmin = resi[, 1] - resi[, 2], xmax = resi[, 1] + resi[, 2], width = 0.2), na.rm = TRUE) +
               geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
                           aes(x = resi[, 1], y = resi[, 3], weight = 1/sqrt((resi[, 4]^2) + (resi[,2]^2))), 
-                          color = "black", linetype = "dashed") +
+                          color = "black", linetype = "dashed")
+            fitobject <- ggplot_build(p)$data[[2]]
+            ub_i <- max(fitobject$y) + max(fitobject$se.fit)
+            lb_i <- min(fitobject$y) - max(fitobject$se.fit)
+            ub_used <- max(ub_i, 8)
+            lb_used <- min(lb_i, -8)
+            
+            p <- p + 
               geom_point(aes(x = resm[, 1], y = resm[, 3], color = resm[,6], size = resm[, 5]), na.rm = TRUE) +  # Use resm[, 5] as the size
               geom_errorbar(aes(x = resm[, 1], y = resm[, 3], ymin = resm[, 3] - resm[, 4], ymax = resm[, 3] + resm[, 4], width = 0.2), na.rm = TRUE) +
               geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
               labs(x = labelx, y = labely, title = labelr) +
-              coord_cartesian(clip = "off") +
+              scale_x_continuous(expand = c(0, 0)) +
+              scale_y_continuous(expand = c(0, 0)) +
+              coord_cartesian(clip = "off", ylim = c(lower = lb_used, upper = ub_used)) +
               scale_size_continuous(name = 'Number of comparisons', breaks = seq(1, max(resi[, 5]), by = 1)) +  
               scale_color_manual(name = 'Experiment type', 
                                  values = c("CvS" = "red", "TvC" = "green"),
@@ -169,15 +192,24 @@ for (j in 2:5) {
                 geom_errorbar(aes(x = resm[, 1], y = resm[, 3], ymin = resm[, 3] - resm[, 4], ymax = resm[, 3] + resm[, 4], width = 0.2), na.rm = TRUE) +
                 geom_errorbar(aes(x = resm[, 1], y = resm[, 3], xmin = resm[, 1] - resm[, 2], xmax = resm[, 1] + resm[, 2], width = 0.2), na.rm = TRUE) +
                 geom_smooth(method = "lm", se = TRUE, formula = y ~ x, 
-                            aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed") +
+                            aes(x = resm[, 1], y = resm[, 3], weight = 1/resm[, 4]^2), color = "black", linetype = "dashed")
+              fitobject <- ggplot_build(p)$data[[2]]
+              ub_i <- max(fitobject$y) + max(fitobject$se.fit)
+              lb_i <- min(fitobject$y) - max(fitobject$se.fit)
+              ub_used <- max(ub_i, 8)
+              lb_used <- min(lb_i, -8)
+              
+              p <- p + 
                 labs(x = labelx, y = labely, title = labelr) +
-                coord_cartesian(clip = "off") +
+                scale_x_continuous(expand = c(0, 0)) +
+                scale_y_continuous(expand = c(0, 0)) +
+                coord_cartesian(clip = "off", ylim = c(lower = lb_used, upper = ub_used)) +
                 scale_size_continuous(name = 'Number of comparisons', breaks = seq(1, max(resi[, 5]), by = 1)) +  
                 scale_color_manual(name = 'Experiment type', 
                                    values = c("CvS" = "red", "TvC" = "green"),
                                    labels = c('Model', 'Intervention')) +  # Set colors for SortLabel values
                 expand_limits(y = 0) +
-                expand_limits(x = 0)
+                expand_limits(x = 0) 
             }}
           
         }
