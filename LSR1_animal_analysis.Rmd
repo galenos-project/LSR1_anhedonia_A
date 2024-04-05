@@ -1278,29 +1278,17 @@ Then, for each pair of outcome measures we plotted the effect sizes for each coh
 
 ![](plot_2_3.png)
 
-## 4.2 Relationship between change in Sucrose preference test and change in measured DOPAC concentrations
-
-![](plot_2_4.png)
-
-## 4.3 Relationship between change in Sucrose preference test and change in measured dopamine / DOPAC ratio
+## 4.2 Relationship between change in Sucrose preference test and change in measured dopamine / DOPAC ratio
 
 ![](plot_2_5.png)
 
-## 4.4 Relationship between change in Sucrose preference test and change in dopamine receptor biology
-
-![](plot_2_6.png)
-
-## 4.5 Relationship between change in dopamine concentrations and change in DOPAC concentrations
+## 4.3 Relationship between change in dopamine concentrations and change in DOPAC concentrations
 
 ![](plot_3_4.png)
 
-## 4.6 Relationship between change in dopamine concentrations and change in dopamine / DOPAC ratio
+## 4.4 Relationship between change in dopamine concentrations and change in dopamine / DOPAC ratio
 
 ![Alt Text](plot_3_5.png)
-
-## 4.7 Relationship between change in dopamine concentrations and change in dopamine receptor biology
-
-![](plot_3_6.png)
 
 # 5. Attrition bias and adverse effects of treatment
 
