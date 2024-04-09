@@ -123,7 +123,7 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
          } else {
                                forest(model$SMD_ML,
                                       xlim=c(xleft, xright),
-                                      ylim=c(-2, model$SMD_ML$k+6), rows=c((model$SMD_ML$k+2):3),
+                                      ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
                                       mlab="SMD [95% C.I.]",
                                       alim=c(lower_x, upper_x),
                                       slab=paste(word(Authors_I, 1), Year, Strain),
@@ -152,16 +152,16 @@ cixhigher <- model$SMD_ML[["ci.ub"]]
   #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
   
   if (experiment_type == "TvC") {
-    mtext("Favours control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0.5)
-    mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1, adj = 1)
+    mtext("Favours control", side = 1, line = 2, at = lower_x, cex = 1, font = 1, adj = 0.5)
+    mtext("Favours intervention", side = 1, line = 2, at = upper_x, cex = 1, font = 1, adj = 1)
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
     title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
     
   } else if (experiment_type == "CvS") {
-    mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
+    mtext(paste0("Model increases \n", outcome_title), side = 1, line = 2.6, at = lower_x, cex = 0.9, font = 1, adj = 0)
 
-    mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1, col = "darkgreen", font = 1, adj = 1)
+    mtext(paste0("Model reduces \n", outcome_title), side = 1, line = 2.6, at = (1.2*upper_x), cex = 0.9, font = 1, adj = 1)
 
     #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
     #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
@@ -404,9 +404,7 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   leftcols = c(moderator, "k"),
                   leftlabs = c("", "Number of \nexperiments"),
                   label.right = "Favours intervention", 
-                  col.label.right = "darkgreen",
-                  label.left = "Favours control",
-                  col.label.left = "red"
+                  label.left = "Favours control"
       )
     } else {
       # forest() call with sortvar=seTE
@@ -424,9 +422,7 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   leftcols = c(moderator, "k"),
                   leftlabs = c("", "Number of \nexperiments"),
                   label.right = "Favours intervention",
-                  col.label.right = "darkgreen",
                   label.left = "Favours control",
-                  col.label.left = "red"
         )
     }
   }}
@@ -978,7 +974,7 @@ ARRIVE_traffic <- function(df, experiment_type, outcome) {
                         'All species specified','Animal sex specified','Age, weight or developmental stage specified','Timing and frequency of proceedures described',
                         'Any acclimitisation described','Data with variance, or Effect size and CI','Ethical approval with approval number',
                         'Ethical approval with or without approval number','Conflicts of interest statement','Funding sources','Description of any role of funder')
-  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6, overall = FALSE)
+  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6, overall = FALSE, x_title = "")
   
   return(Rep_TL)
 }
@@ -1142,8 +1138,8 @@ forest_metafor_NMD <- function(model, outcome){
 
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
-  mtext("Favours\n control", side = 1, line = 3, at = lower_x, cex = 1, col = "red", font = 1, adj = 0)
-  mtext("Favours dopaminergic\n agent", side = 1, line = 3, at = (1.2*upper_x), cex = 1, col = "darkgreen", font = 1)
+  mtext("Favours\n control", side = 1, line = 2.6, at = lower_x, cex = 1, font = 1, adj = 0)
+  mtext("Favours\n dopaminergic agent", side = 1, line = 2.6, at = upper_x, cex = 1, font = 1)
   title(paste0("Dopaminergic agents effect on ", outcome, " in psychosis (NMD)"))
   
 }
@@ -1682,7 +1678,7 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
     } else {
       forest(model,
              xlim=c(xleft, xright),
-             ylim=c(-2, model$k+6), rows=c((model$k+2):3),
+             ylim=c(-2, model$k+5), rows=c((model$k+2):3),
              mlab="SMD [95% C.I.]",
              alim=c(lower_x, upper_x),
              slab=paste(word(Authors_I, 1), Year, Strain),
@@ -1711,16 +1707,16 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
     #mtext(outcome_title, side = 1, line = 3, cex = 1.2, font = 2)
     
     if (experiment_type == "TvC") {
-      mtext("Favours control", side = 1, line = 3, at = 1.2*lower_x, cex = 1, col = "red", font = 1)
-      mtext("Favours intervention", side = 1, line = 3, at = upper_x, cex = 1, col = "darkgreen", font = 1)
+      mtext("Favours control", side = 1, line = 2, at = 1.2*lower_x, cex = 1, font = 1)
+      mtext("Favours intervention", side = 1, line = 2, at = upper_x, cex = 1, font = 1)
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
       title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
       
     } else if (experiment_type == "CvS") {
-      mtext("Model increases\nanhedonia", side = 1, line = 3, at = lower_x, cex = 1.1, col = "red", font = 1, adj = 0)
+      mtext(paste0("Model increases \n", outcome_title), side = 1, line = 2.6, at = lower_x, cex = 0.9, font = 1)
       
-      mtext("Model reduces\nanhedonia", side = 1, line = 3, at = (1.7*upper_x), cex = 1.1, col = "darkgreen", font = 1, adj = 1)
+      mtext(paste0("Model reduces \n", outcome_title), side = 1, line = 2.6, at = (1.2*upper_x), cex = 0.9, font = 1)
       
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
