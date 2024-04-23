@@ -407,7 +407,7 @@ The significance (p-value) reported is that for a test of whether the moderators
 
 Figure 2.1.4.1 displays the estimates for the pooled SMDs when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.1**
+**Figure 2.1.4.1 - Effect of dopaminergic agent on Sucrose Preference by Sex**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex <- subgroup_analysis(df, "TvC", "Sucrose preference test", "Sex", 0.5)
@@ -434,7 +434,7 @@ The p-value for the association between the sex of animal groups used and outcom
 
 Figure 2.1.4.2 displays the estimates for the pooled SMDs when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.2**
+**Figure 2.1.4.2 - Effect of dopaminergic agent on Sucrose Preference by category of disease induction**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "TvC", "Sucrose preference test", "CatDisInd", 0.5)
@@ -461,7 +461,7 @@ The p-value for the association between whether genetic or pharmacological model
 
 Figure 2.1.4.3 displays the estimates for the pooled SMDs when comparisons are stratified by the route of intervention administration. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by route of intervention administration, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.3**
+**Figure 2.1.4.3 - Effect of dopaminergic agent on Sucrose Preference by Route of intervention administration**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_AdminRoute <- subgroup_analysis(df, "TvC", "Sucrose preference test", "InterventionAdministrationRoute", 0.5)
@@ -488,7 +488,7 @@ The p-value for the association between the route of intervention administration
 
 Figure 2.1.4.4 displays the estimates for the pooled SMDs when comparisons are stratified by whether the intervention was administered prophylactically or therapeutically. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by whether the intervention was administered prophylactically or therapeutically, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.4**
+**Figure 2.1.4.4 - Effect of dopaminergic agent on Sucrose Preference by prophylactic or therapeutic intervention**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_ProphThera <- subgroup_analysis(df, "TvC", "Sucrose preference test", "ProphylacticOrTherapeutic", 0.5)
@@ -513,6 +513,10 @@ The p-value for the association between whether the intervention was administere
 
 #### **Duration of treatment period**
 
+Figure 2.1.4.5 displays the estimates for the pooled SMDs when comparisons are stratified by the duration of treatment. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by duration of treatment, is displayed as a diamond shape at the bottom of the plot.
+
+**Figure 2.1.4.5 - Effect of dopaminergic agent on Sucrose Preference by duration of intervention**
+
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', fig.width=9, fig.height=3}
 SMD_S_SPT_DurRx <- subgroup_analysis(df, "TvC", "Sucrose preference test", "TreatmentDurationCategory", 0.5)
 ```
@@ -525,7 +529,7 @@ plot_subgroup_analysis(df, "TvC", "Sucrose preference test", "TreatmentDurationC
 SMD_S_SPT_DurRx_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "TreatmentDurationCategory", 0.5)
 ```
 
-The p-value for the association between whether the intervention was administered prophylactically or therapeutically and outcome reported was `r round(SMD_S_SPT_DurRx_noI$QMp,3)`.
+The p-value for the association between the duration of treatment and outcome reported was `r round(SMD_S_SPT_DurRx_noI$QMp,3)`.
 
 |            Level            |                                                                     Number of categories for that level included in this analysis                                                                      |                                                                                         Attributable variance                                                                                          |
 |:-----------------:|:-------------------------:|:-------------------------:|
@@ -535,9 +539,9 @@ The p-value for the association between whether the intervention was administere
 
 #### **The intervention administered**
 
-Figure 2.1.4.5 displays the estimates for the pooled SMDs when comparisons are stratified by the intervention administered. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by the intervention administered, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.6 displays the estimates for the pooled SMDs when comparisons are stratified by the intervention administered. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by the intervention administered, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.5**
+**Figure 2.1.4.6 - Effect of dopaminergic agent on Sucrose Preference by intervention administered**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_Drug <- subgroup_analysis(df, "TvC", "Sucrose preference test", "DrugName", 0.5)
@@ -551,7 +555,7 @@ plot_subgroup_analysis(df, "TvC", "Sucrose preference test", "DrugName", SMD_S_S
 SMD_S_SPT_Drug_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "DrugName", 0.5)
 ```
 
-The p-value for the association between the intervention and outcome reported was `r round(SMD_S_SPT_Drug_noI$QMp,3)`.
+The p-value for the association between the intervention administered and outcome reported was `r round(SMD_S_SPT_Drug_noI$QMp,3)`.
 
 |            Level            |                                                                    Number of categories for that level included in this analysis                                                                    |                                                                                        Attributable variance                                                                                        |
 |:-----------------:|:-------------------------:|:-------------------------:|
@@ -646,9 +650,9 @@ output_text0 <- paste0("Quinpirole: There were ", diag3, " comparisons from ", d
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
 
-Figure 2.1.4.6 displays the estimates for the pooled SMDs when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.7 displays the estimates for the pooled SMDs when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.6**
+**Figure 2.1.4.7 - Effect of dopaminergic agent on Sucrose Preference by SyRCLE RoB criteria met**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "TvC", "Sucrose preference test", "RoBScore", 0.5)
@@ -672,9 +676,9 @@ The p-value for the association between SyRCLE Risk of Bias reporting and outcom
 
 #### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
 
-Figure 2.1.4.7 displays the estimates for the pooled SMDs when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
+Figure 2.1.4.8 displays the estimates for the pooled SMDs when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 2.1.4.7**
+**Figure 2.1.4.8 - effect of dopaminergic agent on Sucrose Preference by low SyRCLE RoB reporting**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide', out.width = "100%"}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "TvC", "Sucrose preference test", "RoBTF", 0.5)
@@ -705,7 +709,7 @@ SMD_S_SPT_ARR2 <- metaregression_analysis(df, "TvC", "Sucrose preference test", 
 
 ```
 
-**Figure 2.1.4.13**
+**Figure 2.1.4.9**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE,}
 SMD_S_SPT_ARR2$regression_plot
@@ -985,7 +989,7 @@ The significance (p-value) reported is that for a test of whether the moderators
 
 Figure 3.1.4.1 displays the estimates for the pooled SMDs when comparisons are stratified by sex of the animal. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by sex, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.1**
+**Figure 3.1.4.1 - Effect of modelling depression on sucrose preference by sex**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_sex <- subgroup_analysis(df, "CvS", "Sucrose preference test", "Sex", 0.5)
@@ -1012,7 +1016,7 @@ The p-value for the association between the sex of animal groups used and outcom
 
 Figure 3.1.4.2 displays the estimates for the pooled SMDs when comparisons are stratified by the category of disease induction. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by category of disease induction, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.2**
+**Figure 3.1.4.2 - Effect of modelling depression on sucrose preference by category of disease induction**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_CatDisInd <- subgroup_analysis(df, "CvS", "Sucrose preference test", "CatDisInd", 0.5)
@@ -1039,7 +1043,7 @@ The p-value for the association between the depression model used and the outcom
 
 Figure 3.1.4.3 displays the estimates for the pooled SMDs when comparisons are stratified by how many of the SyRCLE risk of bias assessment criteria (of which there are 10) that the experiment met. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.3**
+**Figure 3.1.4.3 - Effect of modelling depression on sucrose preference by SyRCLE RoB criteria met**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoB <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBScore", 0.5)
@@ -1066,7 +1070,7 @@ The p-value for the association between SyRCLE Risk of Bias reporting and outcom
 
 Figure 3.1.4.4 displays the estimates for the pooled SMDs when comparisons are stratified by whether of not any of the SyRCLE Risk of bias domains were rated as low risk of bias. Whiskers indicate the 95% confidence interval of each estimate. The overall pooled SMD, not stratified by SyRCLE Risk of Bias, is displayed as a diamond shape at the bottom of the plot.
 
-**Figure 3.1.4.4**
+**Figure 3.1.4.4 - Effect of modelling depression on sucrose preference by low SyRCLE RoB**
 
 ```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, results='hide'}
 SMD_S_SPT_SyRCLERoBTF <- subgroup_analysis(df, "CvS", "Sucrose preference test", "RoBTF", 0.5)

@@ -97,52 +97,52 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
   
   at_values <- seq(lower_x, upper_x, by = 2.5)
   
-         forest_plot <- if(experiment_type == "TvC"){
-                               forest(model$SMD_ML,
-                                      xlim=c(xleft, xright),
-                                      ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
-                                      mlab="SMD [95% C.I.]", 
-                                      alim=c((lower_x), (upper_x)),
-                                      slab=paste(word(Authors_I, 1), Year, Strain),
-                                      at = at_values,
-                                      col = c("grey","grey"),
-                                      addfit = TRUE,
-                                      addpred = TRUE,
-                                      annotate = TRUE,
-                                      header = "Study and Strain",
-                                      order=StudyId,
-                                      xlab = "",
-                                      ilab = cbind(ARRIVEScore, Label),
-                                      ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
-                                      lty = c("solid","solid","solid"),
-                                      cex = 0.75, 
-                                      cex.axis = 1.0, 
-                                      cex.lab = 1.2,
-                                      efac = c(1,1,2))
-           text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
-         } else {
-                               forest(model$SMD_ML,
-                                      xlim=c(xleft, xright),
-                                      ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
-                                      mlab="SMD [95% C.I.]",
-                                      alim=c(lower_x, upper_x),
-                                      slab=paste(word(Authors_I, 1), Year, Strain),
-                                      at = at_values,
-                                      col = c("grey","grey"),
-                                      addfit = TRUE,
-                                      addpred = TRUE,
-                                      annotate = TRUE,
-                                      header = "Study and Strain",
-                                      order=StudyId,
-                                      xlab = "", 
-                                      ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
-                                      ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
-                                      cex = 0.75, 
-                                      cex.axis = 1.0, 
-                                      cex.lab = 1.2,
-                                      lty = c("solid","solid","solid"),
-                                      efac = c(1,1,3))
-           text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+  forest_plot <- if(experiment_type == "TvC"){
+                     forest(model$SMD_ML,
+                            xlim=c(xleft, xright),
+                            ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
+                            mlab="SMD [95% C.I.]", 
+                            alim=c((lower_x), (upper_x)),
+                            slab=paste(word(Authors_I, 1), Year, Strain),
+                            at = at_values,
+                            col = c("grey","grey"),
+                            addfit = TRUE,
+                            addpred = TRUE,
+                            annotate = TRUE,
+                            header = "Study and Strain",
+                            order=StudyId,
+                            xlab = "",
+                            ilab = cbind(ARRIVEScore, Label),
+                            ilab.xpos = c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))),
+                            lty = c("solid","solid","solid"),
+                            cex = 0.75, 
+                            cex.axis = 1.0, 
+                            cex.lab = 1.2,
+                            efac = c(1,1,2))
+    text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+  } else {
+                     forest(model$SMD_ML,
+                            xlim=c(xleft, xright),
+                            ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
+                            mlab="SMD [95% C.I.]",
+                            alim=c(lower_x, upper_x),
+                            slab=paste(word(Authors_I, 1), Year, Strain),
+                            at = at_values,
+                            col = c("grey","grey"),
+                            addfit = TRUE,
+                            addpred = TRUE,
+                            annotate = TRUE,
+                            header = "Study and Strain",
+                            order=StudyId,
+                            xlab = "", 
+                            ilab = cbind(ARRIVEScore, `DiseaseModelLabel(s)[1]_I`),
+                            ilab.xpos = c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))),
+                            cex = 0.75, 
+                            cex.axis = 1.0, 
+                            cex.lab = 1.2,
+                            lty = c("solid","solid","solid"),
+                            efac = c(1,1,3))
+    text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
          }
          
 cixlower <- model$SMD_ML[["ci.lb"]]
@@ -386,8 +386,6 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
     meta.all$lower.predict <- model_main$pred_interval$pi.lb
     meta.all$upper.predict <- model_main$pred_interval$pi.ub
     
-#title <- paste0("Effect on ", outcome, " by ", moderator)  
-        
     if (moderator == "ARRIVEScoreCat") {
       
       # forest() call without sortvar
@@ -423,7 +421,7 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   leftlabs = c("", "Number of \nexperiments"),
                   label.right = "Favours intervention",
                   label.left = "Favours control",
-        )
+      )
     }
   }}
 
