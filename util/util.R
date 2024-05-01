@@ -1712,9 +1712,9 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
       title(paste0("Effect of dopaminergic drugs on ", outcome_title, " in models of depression (SMD)"))
       
     } else if (experiment_type == "CvS") {
-      mtext(paste0("Model increases \n", outcome_title), side = 1, line = 2.6, at = lower_x, cex = 0.9, font = 1)
+      mtext(paste0("Model reduces \n", outcome_title), side = 1, line = 2.6, at = lower_x, cex = 0.9, font = 1)
       
-      mtext(paste0("Model reduces \n", outcome_title), side = 1, line = 2.6, at = (1.2*upper_x), cex = 0.9, font = 1)
+      mtext(paste0("Model increases \n", outcome_title), side = 1, line = 2.6, at = (1.2*upper_x), cex = 0.9, font = 1)
       
       #addpoly(model, row = 0.25, cex = 0.4, col = "darkred", mlab = "SMD", annotate = FALSE, xvals = c(cixlower, cixhigher))    
       #mtext(paste0("SMD: ", round(model$beta, 2), " (", round(model$ci.lb, 2), " to ", round(model$ci.ub, 2), ")"), side = 3, line = -1, cex = 1, font = 2)
