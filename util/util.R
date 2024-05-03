@@ -401,8 +401,9 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
                   leftlabs = c("", "Number of \nexperiments"),
-                  label.right = "Favours intervention", 
-                  label.left = "Favours control"
+                  label.right = ifelse(experiment_type == "TvC", "Favours intervention",paste0("Model increases \n", outcome)), 
+                  label.left = ifelse(experiment_type == "TvC", "Favours control", paste0("Model reduces \n", outcome)),
+                  fs.lr = 10
       )
     } else {
       # forest() call with sortvar=seTE
@@ -419,8 +420,9 @@ plot_subgroup_analysis <- function(df, experiment_type, outcome, moderator, mode
                   fill.equi="aliceblue",
                   leftcols = c(moderator, "k"),
                   leftlabs = c("", "Number of \nexperiments"),
-                  label.right = "Favours intervention",
-                  label.left = "Favours control",
+             label.right = ifelse(experiment_type == "TvC", "Favours intervention",paste0("Model increases \n", outcome)), 
+             label.left = ifelse(experiment_type == "TvC", "Favours control", paste0("Model reduces \n", outcome)),
+                  fs.lr = 10
       )
     }
   }}
