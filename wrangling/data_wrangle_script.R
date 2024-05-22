@@ -41,6 +41,12 @@ LSR1_reconciled <- LSR1_SyRFOutcomes %>%
          InterventionID = `TreatmentId(s)`,
          OutcomeResult = OutcomeAverage)
 
+LSR1_reconciled <- LSR1_reconciled %>%
+  filter(!StudyId == "08e83c8f-49d3-49dd-a895-20dbd253f719")
+
+LSR1_reconciled <- LSR1_reconciled %>%
+  filter(!StudyId == "2fb947ef-b55f-406f-b61a-c62f229f6ed0")
+
 ## first pass for removing duplicate reconciliations
 recent_reconciledID <- LSR1_reconciled %>%
   arrange(desc(DateTimeDataEntered)) %>%
