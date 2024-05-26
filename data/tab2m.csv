@@ -15,16 +15,12 @@ Study,Model,Strain,Outcome,N
 "MUSCAT, 1992",CMS,Lister hooded (rat),Sucrose preference test,20
 "OSACKA, 2022",CMS,Sprague-dawley (rat),Sucrose preference test,21
 "PAPP, 1993",CUMS,Lister hooded (rat),Sucrose preference test,32
-"PAPP, 1994",CMS,Wistar (rat),Dopamine receptor biology,160
-~,~,~,Sucrose preference test,20
 "PAPP, 1996",CUMS,Wistar (rat),Sucrose preference test,20
 ~,CUMS 2,~,~,16
 "QIAO, 2020",CUS,Sprague-dawley (rat),Dopamine concentration,24
 ~,~,~,Dopamine receptor biology,24
 ~,~,~,Sucrose preference test,24
 "RANA, 2014",CMS,Swiss albino,Sucrose preference test,12
-"STAMFORD, 1991",CUMS,Lister hooded (rat),Dopamine concentration,72
-~,~,~,Sucrose preference test,18
 "TAN, 2015",TBI,Sprague-dawley (rat),DOPAC concentration,15
 ~,~,~,Dopamine concentration,15
 ~,~,~,Sucrose preference test,15
