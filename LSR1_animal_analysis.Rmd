@@ -359,7 +359,7 @@ ARRIVE_traffic(df, "TvC", "Sucrose preference test")
 SMD_S_SPT <- run_ML_SMD(df, "TvC", "Sucrose preference test", 0.5)
 ```
 
-The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval of the pooled estimate.
+The effect of administering a dopaminergic agent on Sucrose preference in animals using SMD as the effect size is shown in Figure 2.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Grey lines indicate the prediction interval of the pooled estimate.
 
 **Figure 2.1.3**
 
@@ -955,7 +955,7 @@ ARRIVE_traffic(df, "CvS", "Sucrose preference test")
 SMD_S_SPT <- run_ML_SMD(df, "CvS", "Sucrose preference test", 0.5)
 ```
 
-The effect of modelling depression on sucrose preference in animals using SMD as the effect size is shown in Figure 3.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Dotted lines indicate the prediction interval (PrI) of the pooled estimate.
+The effect of modelling depression on sucrose preference in animals using SMD as the effect size is shown in Figure 3.1.3. The pooled estimate for SMD across all individual comparisons is displayed as a diamond shape at the bottom of the plot. Grey lines indicate the prediction interval (PrI) of the pooled estimate.
 
 **Figure 3.1.3**
 
@@ -966,8 +966,6 @@ forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference")
 Depression modelling had a pooled effect on sucrose preference of SMD = `r round(SMD_S_SPT$SMD_ML[['beta']], 3)` (95% CI: `r round(SMD_S_SPT$SMD_ML[['ci.lb']], 3)` to `r round(SMD_S_SPT$SMD_ML[['ci.ub']], 3)`; 95% PrI: `r round(SMD_S_SPT$pred_interval$pi.lb, 3)` to `r round(SMD_S_SPT$pred_interval$pi.ub, 3)`).
 
 `r SMD_S_SPT$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$SMD_ML$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$SMD_ML$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$SMD_ML$data$Strain))` different animal strains.
-
-
 
 |            Level            |                                                         Number of categories for that level included in this analysis                                                          |                                                                             Attributable variance                                                                              |
 |:-----------------:|:-------------------------:|:-------------------------:|
