@@ -371,6 +371,8 @@ Dopaminergic agents had a pooled effect on Sucrose preference of SMD = `r round(
 
 `r SMD_S_SPT$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$SMD_ML$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$SMD_ML$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$SMD_ML$data$Strain))` different animal strains.
 
+The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
+
 |            Level            |                                                         Number of categories for that level included in this analysis                                                          |                                                                             Attributable variance                                                                              |
 |:-----------------:|:-------------------------:|:-------------------------:|
 |           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], NA)`                         |
@@ -855,7 +857,7 @@ Egger regression based on `r run_sse_SMD_L(df, 'TvC', 'Sucrose preference test')
 
 ### 2.2.1 Risk of bias
 
-Figure 2.2.1a shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrtaions in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 2.2.1b shows the corresponding traffic light plot.
+Figure 2.2.1a shows the risk of bias summary for studies investigating the effect of administering a dopaminergic agent on dopamine concentrations in animals. The risk of bias assessment was performed using the SyRCLE's RoB tool. Figure 2.2.1b shows the corresponding traffic light plot.
 
 **Figure 2.2.1**
 
@@ -885,6 +887,10 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 ```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
 forest_metafor_uni(SMD_S_DA, 'TvC', 'Dopamine concentration')
 ```
+
+Dopaminergic agents had a pooled effect on dopamine concentration of SMD = `r round(SMD_S_DA[['beta']], 3)` (95% CI: `r round(SMD_S_DA[['ci.lb']], 3)` to `r round(SMD_S_DA[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_DA)[['pi.lb']], 3)` to `r round(predict(SMD_S_DA)$pi.ub, 3)`).
+
+`r SMD_S_DA[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_DA$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_DA$data$StudyId))` publications and involving `r length(unique(SMD_S_DA$data$Strain))` different animal strains.
 
 ## 2.3 Outcome 3: DOPAC concentration
 
@@ -961,7 +967,7 @@ Depression modelling had a pooled effect on sucrose preference of SMD = `r round
 
 `r SMD_S_SPT$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$SMD_ML$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$SMD_ML$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$SMD_ML$data$Strain))` different animal strains.
 
-The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
+
 
 |            Level            |                                                         Number of categories for that level included in this analysis                                                          |                                                                             Attributable variance                                                                              |
 |:-----------------:|:-------------------------:|:-------------------------:|
@@ -1221,6 +1227,10 @@ Multilevel analysis is only performed if there are 5 levels or more for at least
 ```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
 forest_metafor_uni(SMD_S_DA, 'CvS', 'Dopamine concentration')
 ```
+
+Dopaminergic agents had a pooled effect on dopamine concentration of SMD = `r round(SMD_S_DA[['beta']], 3)` (95% CI: `r round(SMD_S_DA[['ci.lb']], 3)` to `r round(SMD_S_DA[['ci.ub']], 3)`; 95% PrI: `r round(predict(SMD_S_DA)[['pi.lb']], 3)` to `r round(predict(SMD_S_DA)$pi.ub, 3)`).
+
+`r SMD_S_DA[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_DA$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_DA$data$StudyId))` publications and involving `r length(unique(SMD_S_DA$data$Strain))` different animal strains.
 
 ## 3.3 Outcome 3: DOPAC concentration
 
