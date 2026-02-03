@@ -363,7 +363,7 @@ The effect of administering a dopaminergic agent on Sucrose preference in animal
 
 **Figure 2.1.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=15}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=18}
 forest_metafor(SMD_S_SPT, "TvC", "Sucrose preference test")
 ```
 
@@ -373,10 +373,10 @@ Dopaminergic agents had a pooled effect on Sucrose preference of SMD = `r round(
 
 The following table structure is used throughout this report and is used to show the different levels contributing to that analysis, the number of unique categories in those levels, and the variance contributed by that level of analysis. Because levels are only included in the analysis where there are five or more unique categories, for some analyses the number of categories is 0, and the variance attributed to those levels in not applicable. Because the model is hierarchical, where for instance there are **Studies** which include different **Strains**, the number of categories for **Study x Strain** will exceed the number of Studies (by which we mean unique publications) referred to in the text.
 
-|            Level            |                                                         Number of categories for that level included in this analysis                                                          |                                                                             Attributable variance                                                                              |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:-------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 ### 2.1.4 Subgroup analyses and meta-regressions
@@ -426,10 +426,10 @@ SMD_S_SPT_sex_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "Sex", 0
 
 The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`.
 
-|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Category of disease induction**
@@ -453,10 +453,10 @@ SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "C
 
 The p-value for the association between whether genetic or pharmacological models were used and outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`.
 
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Route of intervention administration**
@@ -480,10 +480,10 @@ SMD_S_SPT_AdminRoute_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "
 
 The p-value for the association between the route of intervention administration and outcome reported was `r round(SMD_S_SPT_AdminRoute_noI$QMp,3)`.
 
-|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$s.nlevels[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_AdminRoute$analysis$s.names, SMD_S_SPT_AdminRoute$analysis$sigma2[[which(SMD_S_SPT_AdminRoute$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Prophylactic or therapeutic intervention**
@@ -507,10 +507,10 @@ SMD_S_SPT_ProphThera_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "
 
 The p-value for the association between whether the intervention was administered prophylactically or therapeutically and outcome reported was `r round(SMD_S_SPT_ProphThera_noI$QMp,3)`.
 
-|            Level            |                                                                             Number of categories for that level included in this analysis                                                                             |                                                                                                 Attributable variance                                                                                                 |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$s.nlevels[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ProphThera$analysis$s.names, SMD_S_SPT_ProphThera$analysis$sigma2[[which(SMD_S_SPT_ProphThera$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Duration of treatment period**
@@ -533,10 +533,10 @@ SMD_S_SPT_DurRx_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "Treat
 
 The p-value for the association between the duration of treatment and outcome reported was `r round(SMD_S_SPT_DurRx_noI$QMp,3)`.
 
-|            Level            |                                                                     Number of categories for that level included in this analysis                                                                      |                                                                                         Attributable variance                                                                                          |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$s.nlevels[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$sigma2[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$s.nlevels[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$sigma2[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$s.nlevels[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$sigma2[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$s.nlevels[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$sigma2[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$s.nlevels[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_DurRx$analysis$s.names, SMD_S_SPT_DurRx$analysis$sigma2[[which(SMD_S_SPT_DurRx$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **The intervention administered**
@@ -559,10 +559,10 @@ SMD_S_SPT_Drug_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "DrugNa
 
 The p-value for the association between the intervention administered and outcome reported was `r round(SMD_S_SPT_Drug_noI$QMp,3)`.
 
-|            Level            |                                                                    Number of categories for that level included in this analysis                                                                    |                                                                                        Attributable variance                                                                                        |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$s.nlevels[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$sigma2[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$s.nlevels[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$sigma2[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$s.nlevels[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$sigma2[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$s.nlevels[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$sigma2[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$s.nlevels[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_Drug$analysis$s.names, SMD_S_SPT_Drug$analysis$sigma2[[which(SMD_S_SPT_Drug$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Dose of intervention**
@@ -670,10 +670,10 @@ SMD_S_SPT_SyRCLERoB_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", "R
 
 The p-value for the association between SyRCLE Risk of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`.
 
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
@@ -696,10 +696,10 @@ SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "TvC", "Sucrose preference test", 
 
 The p-value for the association between low SyRCLE Risk of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`.
 
-|            Level            |                                                                              Number of categories for that level included in this analysis                                                                               |                                                                                                  Attributable variance                                                                                                   |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **ARRIVE reporting guidelines performance**
@@ -719,10 +719,10 @@ SMD_S_SPT_ARR2$regression_plot
 
 The estimate for $\beta$ was `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` (p = `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`).
 
-|            Level            |                                                                                         Number of categories for that level included in this analysis                                                                                         |                                                                                                             Attributable variance                                                                                                             |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### Heterogeneity explained by covariates (Dopaminergic agents and Sucrose preference)
@@ -739,58 +739,58 @@ SMD_S_SPT_SyRCLERoBI <- subgroup_SMDI(df, "TvC", "Sucrose preference test", "RoB
 
 The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect sizes of the effect of dopaminergic agents on Sucrose preference. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The SMD represent the point estimate and 95% CIs of the effect in each category.
 
-|                Moderator                 |              Category               |                        SMD                        |                                                  95% CI                                                  |                       Marginal R^2^ %                       |
-|:----------------:|:----------------:|:----------------:|:------------------------:|:----------------------:|
-|    Overall effect (unadjusted model)     |                 \-                  |           `r SMD_S_SPT$SMD_ML$beta[1]`            |                         `r SMD_S_SPT$SMD_ML$ci.lb` to `r SMD_S_SPT$SMD_ML$ci.ub`                         |                             \-                              |
-|                   Sex                    |                 \-                  |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`%         |
-|                    \-                    |              *Female*               |            `r SMD_S_SPT_sexI$beta[1]`             |                        `r SMD_S_SPT_sexI$ci.lb[1]` to `r SMD_S_SPT_sexI$ci.ub[1]`                        |                             \-                              |
-|                    \-                    |               *Male*                |            `r SMD_S_SPT_sexI$beta[2]`             |                        `r SMD_S_SPT_sexI$ci.lb[2]` to `r SMD_S_SPT_sexI$ci.ub[2]`                        |                             \-                              |
-|                    \-                    |           *Not reported*            |            `r SMD_S_SPT_sexI$beta[3]`             |                        `r SMD_S_SPT_sexI$ci.lb[3]` to `r SMD_S_SPT_sexI$ci.ub[3]`                        |                             \-                              |
-|   Category of disease model induction    |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`%      |
-|                    \-                    |   *Behavioural early life stress*   |         `r SMD_S_SPT_CatDisIndI$beta[2]`          |                `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisInd_noI$ci.ub[2]`                 |                             \-                              |
-|                    \-                    | *Chronic unpredictable mild stress* |         `r SMD_S_SPT_CatDisIndI$beta[1]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[1]` to `r SMD_S_SPT_CatDisIndI$ci.ub[1]`                  |                             \-                              |
-|                    \-                    |          *Genetic models*           |         `r SMD_S_SPT_CatDisIndI$beta[4]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[4]` to `r SMD_S_SPT_CatDisIndI$ci.ub[4]`                  |                             \-                              |
-|                    \-                    | *Pharmacological early life stress* |         `r SMD_S_SPT_CatDisIndI$beta[5]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[5]` to `r SMD_S_SPT_CatDisIndI$ci.ub[5]`                  |                             \-                              |
-|                    \-                    |   *Pharmacological post weaning*    |         `r SMD_S_SPT_CatDisIndI$beta[6]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[6]` to `r SMD_S_SPT_CatDisIndI$ci.ub[6]`                  |                             \-                              |
-|                    \-                    |  *Social or social defeat stress*   |         `r SMD_S_SPT_CatDisIndI$beta[3]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[3]` to `r SMD_S_SPT_CatDisIndI$ci.ub[3]`                  |                             \-                              |
-|                    \-                    |          *Surgical models*          |         `r SMD_S_SPT_CatDisIndI$beta[7]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[7]` to `r SMD_S_SPT_CatDisIndI$ci.ub[7]`                  |                             \-                              |
-|           Administration route           |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_AdminRouteI)[1]*100),1)`%     |
-|                    \-                    |          *Intraperitoneal*          |         `r SMD_S_SPT_AdminRouteI$beta[1]`         |                 `r SMD_S_SPT_AdminRouteI$ci.lb[1]` to `r SMD_S_SPT_AdminRouteI$ci.ub[1]`                 |                             \-                              |
-|                    \-                    |               *Oral*                |         `r SMD_S_SPT_AdminRouteI$beta[2]`         |                 `r SMD_S_SPT_AdminRouteI$ci.lb[2]` to `r SMD_S_SPT_AdminRouteI$ci.ub[2]`                 |                             \-                              |
-|                    \-                    |               *Other*               |         `r SMD_S_SPT_AdminRouteI$beta[3]`         |                 `r SMD_S_SPT_AdminRouteI$ci.lb[3]` to `r SMD_S_SPT_AdminRouteI$ci.ub[3]`                 |                             \-                              |
-|                    \-                    |           *Subcutaneous*            |         `r SMD_S_SPT_AdminRouteI$beta[4]`         |                 `r SMD_S_SPT_AdminRouteI$ci.lb[4]` to `r SMD_S_SPT_AdminRouteI$ci.ub[4]`                 |                             \-                              |
-| Prophylactic or therapeutic intervention |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_ProphTheraI)[1]*100),1)`%     |
-|                    \-                    |           *Prophylactic*            |         `r SMD_S_SPT_ProphTheraI$beta[1]`         |                 `r SMD_S_SPT_ProphTheraI$ci.lb[1]` to `r SMD_S_SPT_ProphTheraI$ci.ub[1]`                 |                             \-                              |
-|                    \-                    |            *Therapeutic*            |         `r SMD_S_SPT_ProphTheraI$beta[2]`         |                 `r SMD_S_SPT_ProphTheraI$ci.lb[2]` to `r SMD_S_SPT_ProphTheraI$ci.ub[2]`                 |                             \-                              |
-|       Duration of treatment period       |                 \-                  |                        \-                         |                                                    \-                                                    |       `r round((r2_ml(SMD_S_SPT_DurRxI)[1]*100),1)`%        |
-|                    \-                    |           *1 to 4 weeks*            |           `r SMD_S_SPT_DurRxI$beta[1]`            |                      `r SMD_S_SPT_DurRxI$ci.lb[1]` to `r SMD_S_SPT_DurRxI$ci.ub[1]`                      |                             \-                              |
-|                    \-                    |         *less than 1 week*          |           `r SMD_S_SPT_DurRxI$beta[2]`            |                      `r SMD_S_SPT_DurRxI$ci.lb[2]` to `r SMD_S_SPT_DurRxI$ci.ub[2]`                      |                             \-                              |
-|                    \-                    |          *4 weeks or more*          |           `r SMD_S_SPT_DurRxI$beta[3]`            |                      `r SMD_S_SPT_DurRxI$ci.lb[3]` to `r SMD_S_SPT_DurRxI$ci.ub[3]`                      |                             \-                              |
-|        Intervention administered         |                 \-                  |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_SPT_DrugI)[1]*100),1)`%        |
-|                    \-                    |               *2-HBC*               |            `r SMD_S_SPT_DrugI$beta[1]`            |                       `r SMD_S_SPT_DrugI$ci.lb[1]` to `r SMD_S_SPT_DrugI$ci.ub[1]`                       |                             \-                              |
-|                    \-                    |            *amantadine*             |            `r SMD_S_SPT_DrugI$beta[2]`            |                       `r SMD_S_SPT_DrugI$ci.lb[2]` to `r SMD_S_SPT_DrugI$ci.ub[2]`                       |                             \-                              |
-|                    \-                    |           *aripiprazole*            |            `r SMD_S_SPT_DrugI$beta[3]`            |               `r SMD_S_SPT_Drug$analysis$ci.lb[3]` to `r SMD_S_SPT_Drug$analysis$ci.ub[3]`               |                             \-                              |
-|                    \-                    |           *bromocriptine*           |            `r SMD_S_SPT_DrugI$beta[4]`            |                       `r SMD_S_SPT_DrugI$ci.lb[4]` to `r SMD_S_SPT_DrugI$ci.ub[4]`                       |                             \-                              |
-|                    \-                    |            *buproprion*             |            `r SMD_S_SPT_DrugI$beta[5]`            |                       `r SMD_S_SPT_DrugI$ci.lb[5]` to `r SMD_S_SPT_DrugI$ci.ub[5]`                       |                             \-                              |
-|                    \-                    |         *cyrptotanshinone*          |            `r SMD_S_SPT_DrugI$beta[6]`            |                       `r SMD_S_SPT_DrugI$ci.lb[6]` to `r SMD_S_SPT_DrugI$ci.ub[6]`                       |                             \-                              |
-|                    \-                    |            D-amphetamine            |            `r SMD_S_SPT_DrugI$beta[7]`            |                       `r SMD_S_SPT_DrugI$ci.lb[7]` to `r SMD_S_SPT_DrugI$ci.ub[7]`                       |                             \-                              |
-|                    \-                    |             *dopamine*              |            `r SMD_S_SPT_DrugI$beta[8]`            |                       `r SMD_S_SPT_DrugI$ci.lb[8]` to `r SMD_S_SPT_DrugI$ci.ub[8]`                       |                             \-                              |
-|                    \-                    |              *L-DOPA*               |            `r SMD_S_SPT_DrugI$beta[9]`            |                       `r SMD_S_SPT_DrugI$ci.lb[9]` to `r SMD_S_SPT_DrugI$ci.ub[9]`                       |                             \-                              |
-|                    \-                    |         *P.orientalis seed*         |           `r SMD_S_SPT_DrugI$beta[10]`            |                      `r SMD_S_SPT_DrugI$ci.lb[10]` to `r SMD_S_SPT_DrugI$ci.ub[10]`                      |                             \-                              |
-|                    \-                    |             *piribedil*             |           `r SMD_S_SPT_DrugI$beta[11]`            |                      `r SMD_S_SPT_DrugI$ci.lb[11]` to `r SMD_S_SPT_DrugI$ci.ub[11]`                      |                             \-                              |
-|                    \-                    |            *pramipexole*            |           `r SMD_S_SPT_DrugI$beta[12]`            |                      `r SMD_S_SPT_DrugI$ci.lb[12]` to `r SMD_S_SPT_DrugI$ci.ub[12]`                      |                             \-                              |
-|                    \-                    |            *quinpirole*             |           `r SMD_S_SPT_DrugI$beta[13]`            |              `r SMD_S_SPT_Drug$analysis$ci.lb[13]` to `r SMD_S_SPT_Drug$analysis$ci.ub[13]`              |                             \-                              |
-|                    \-                    |            *ropinirole*             |           `r SMD_S_SPT_DrugI$beta[14]`            |                      `r SMD_S_SPT_DrugI$ci.lb[14]` to `r SMD_S_SPT_DrugI$ci.ub[14]`                      |                             \-                              |
-|                    \-                    |            *selegiline*             |           `r SMD_S_SPT_DrugI$beta[15]`            |                      `r SMD_S_SPT_DrugI$ci.lb[15]` to `r SMD_S_SPT_DrugI$ci.ub[15]`                      |                             \-                              |
-|                    \-                    |            *simvastatin*            |           `r SMD_S_SPT_DrugI$beta[16]`            |                      `r SMD_S_SPT_DrugI$ci.lb[16]` to `r SMD_S_SPT_DrugI$ci.ub[16]`                      |                             \-                              |
-|                    \-                    |             *SKF38393*              |           `r SMD_S_SPT_DrugI$beta[17]`            |                      `r SMD_S_SPT_DrugI$ci.lb[17]` to `r SMD_S_SPT_DrugI$ci.ub[17]`                      |                             \-                              |
-|                    \-                    |             *SKF83959*              |           `r SMD_S_SPT_DrugI$beta[18]`            |                      `r SMD_S_SPT_DrugI$ci.lb[18]` to `r SMD_S_SPT_DrugI$ci.ub[18]`                      |                             \-                              |
-|                    \-                    |          *tranylcypromine*          |           `r SMD_S_SPT_DrugI$beta[19]`            |                      `r SMD_S_SPT_DrugI$ci.lb[19]` to `r SMD_S_SPT_DrugI$ci.ub[19]`                      |                             \-                              |
-|               Risk of Bias               |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`%      |
-|                    \-                    |          *0 criteria met*           |         `r SMD_S_SPT_SyRCLERoBI$beta[1]`          |                  `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]`                  |                             \-                              |
-|                    \-                    |          *1 criteria met*           |         `r SMD_S_SPT_SyRCLERoBI$beta[2]`          |                  `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]`                  |                             \-                              |
-|          Reporting completeness          |                 \-                  |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
-|                    \-                    |         *per unit increase*         | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
+| Moderator | Category | SMD | 95% CI | Marginal R^2^ % |
+|:-----------:|:-----------:|:-----------:|:------------------:|:-----------:|
+| Overall effect (unadjusted model) | \- | `r SMD_S_SPT$SMD_ML$beta[1]` | `r SMD_S_SPT$SMD_ML$ci.lb` to `r SMD_S_SPT$SMD_ML$ci.ub` | \- |
+| Sex | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`% |
+| \- | *Female* | `r SMD_S_SPT_sexI$beta[1]` | `r SMD_S_SPT_sexI$ci.lb[1]` to `r SMD_S_SPT_sexI$ci.ub[1]` | \- |
+| \- | *Male* | `r SMD_S_SPT_sexI$beta[2]` | `r SMD_S_SPT_sexI$ci.lb[2]` to `r SMD_S_SPT_sexI$ci.ub[2]` | \- |
+| \- | *Not reported* | `r SMD_S_SPT_sexI$beta[3]` | `r SMD_S_SPT_sexI$ci.lb[3]` to `r SMD_S_SPT_sexI$ci.ub[3]` | \- |
+| Category of disease model induction | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`% |
+| \- | *Behavioural early life stress* | `r SMD_S_SPT_CatDisIndI$beta[2]` | `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisInd_noI$ci.ub[2]` | \- |
+| \- | *Chronic unpredictable mild stress* | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` to `r SMD_S_SPT_CatDisIndI$ci.ub[1]` | \- |
+| \- | *Genetic models* | `r SMD_S_SPT_CatDisIndI$beta[4]` | `r SMD_S_SPT_CatDisIndI$ci.lb[4]` to `r SMD_S_SPT_CatDisIndI$ci.ub[4]` | \- |
+| \- | *Pharmacological early life stress* | `r SMD_S_SPT_CatDisIndI$beta[5]` | `r SMD_S_SPT_CatDisIndI$ci.lb[5]` to `r SMD_S_SPT_CatDisIndI$ci.ub[5]` | \- |
+| \- | *Pharmacological post weaning* | `r SMD_S_SPT_CatDisIndI$beta[6]` | `r SMD_S_SPT_CatDisIndI$ci.lb[6]` to `r SMD_S_SPT_CatDisIndI$ci.ub[6]` | \- |
+| \- | *Social or social defeat stress* | `r SMD_S_SPT_CatDisIndI$beta[3]` | `r SMD_S_SPT_CatDisIndI$ci.lb[3]` to `r SMD_S_SPT_CatDisIndI$ci.ub[3]` | \- |
+| \- | *Surgical models* | `r SMD_S_SPT_CatDisIndI$beta[7]` | `r SMD_S_SPT_CatDisIndI$ci.lb[7]` to `r SMD_S_SPT_CatDisIndI$ci.ub[7]` | \- |
+| Administration route | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_AdminRouteI)[1]*100),1)`% |
+| \- | *Intraperitoneal* | `r SMD_S_SPT_AdminRouteI$beta[1]` | `r SMD_S_SPT_AdminRouteI$ci.lb[1]` to `r SMD_S_SPT_AdminRouteI$ci.ub[1]` | \- |
+| \- | *Oral* | `r SMD_S_SPT_AdminRouteI$beta[2]` | `r SMD_S_SPT_AdminRouteI$ci.lb[2]` to `r SMD_S_SPT_AdminRouteI$ci.ub[2]` | \- |
+| \- | *Other* | `r SMD_S_SPT_AdminRouteI$beta[3]` | `r SMD_S_SPT_AdminRouteI$ci.lb[3]` to `r SMD_S_SPT_AdminRouteI$ci.ub[3]` | \- |
+| \- | *Subcutaneous* | `r SMD_S_SPT_AdminRouteI$beta[4]` | `r SMD_S_SPT_AdminRouteI$ci.lb[4]` to `r SMD_S_SPT_AdminRouteI$ci.ub[4]` | \- |
+| Prophylactic or therapeutic intervention | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_ProphTheraI)[1]*100),1)`% |
+| \- | *Prophylactic* | `r SMD_S_SPT_ProphTheraI$beta[1]` | `r SMD_S_SPT_ProphTheraI$ci.lb[1]` to `r SMD_S_SPT_ProphTheraI$ci.ub[1]` | \- |
+| \- | *Therapeutic* | `r SMD_S_SPT_ProphTheraI$beta[2]` | `r SMD_S_SPT_ProphTheraI$ci.lb[2]` to `r SMD_S_SPT_ProphTheraI$ci.ub[2]` | \- |
+| Duration of treatment period | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_DurRxI)[1]*100),1)`% |
+| \- | *1 to 4 weeks* | `r SMD_S_SPT_DurRxI$beta[1]` | `r SMD_S_SPT_DurRxI$ci.lb[1]` to `r SMD_S_SPT_DurRxI$ci.ub[1]` | \- |
+| \- | *less than 1 week* | `r SMD_S_SPT_DurRxI$beta[2]` | `r SMD_S_SPT_DurRxI$ci.lb[2]` to `r SMD_S_SPT_DurRxI$ci.ub[2]` | \- |
+| \- | *4 weeks or more* | `r SMD_S_SPT_DurRxI$beta[3]` | `r SMD_S_SPT_DurRxI$ci.lb[3]` to `r SMD_S_SPT_DurRxI$ci.ub[3]` | \- |
+| Intervention administered | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_DrugI)[1]*100),1)`% |
+| \- | *2-HBC* | `r SMD_S_SPT_DrugI$beta[1]` | `r SMD_S_SPT_DrugI$ci.lb[1]` to `r SMD_S_SPT_DrugI$ci.ub[1]` | \- |
+| \- | *amantadine* | `r SMD_S_SPT_DrugI$beta[2]` | `r SMD_S_SPT_DrugI$ci.lb[2]` to `r SMD_S_SPT_DrugI$ci.ub[2]` | \- |
+| \- | *aripiprazole* | `r SMD_S_SPT_DrugI$beta[3]` | `r SMD_S_SPT_Drug$analysis$ci.lb[3]` to `r SMD_S_SPT_Drug$analysis$ci.ub[3]` | \- |
+| \- | *bromocriptine* | `r SMD_S_SPT_DrugI$beta[4]` | `r SMD_S_SPT_DrugI$ci.lb[4]` to `r SMD_S_SPT_DrugI$ci.ub[4]` | \- |
+| \- | *buproprion* | `r SMD_S_SPT_DrugI$beta[5]` | `r SMD_S_SPT_DrugI$ci.lb[5]` to `r SMD_S_SPT_DrugI$ci.ub[5]` | \- |
+| \- | *cyrptotanshinone* | `r SMD_S_SPT_DrugI$beta[6]` | `r SMD_S_SPT_DrugI$ci.lb[6]` to `r SMD_S_SPT_DrugI$ci.ub[6]` | \- |
+| \- | D-amphetamine | `r SMD_S_SPT_DrugI$beta[7]` | `r SMD_S_SPT_DrugI$ci.lb[7]` to `r SMD_S_SPT_DrugI$ci.ub[7]` | \- |
+| \- | *dopamine* | `r SMD_S_SPT_DrugI$beta[8]` | `r SMD_S_SPT_DrugI$ci.lb[8]` to `r SMD_S_SPT_DrugI$ci.ub[8]` | \- |
+| \- | *L-DOPA* | `r SMD_S_SPT_DrugI$beta[9]` | `r SMD_S_SPT_DrugI$ci.lb[9]` to `r SMD_S_SPT_DrugI$ci.ub[9]` | \- |
+| \- | *P.orientalis seed* | `r SMD_S_SPT_DrugI$beta[10]` | `r SMD_S_SPT_DrugI$ci.lb[10]` to `r SMD_S_SPT_DrugI$ci.ub[10]` | \- |
+| \- | *piribedil* | `r SMD_S_SPT_DrugI$beta[11]` | `r SMD_S_SPT_DrugI$ci.lb[11]` to `r SMD_S_SPT_DrugI$ci.ub[11]` | \- |
+| \- | *pramipexole* | `r SMD_S_SPT_DrugI$beta[12]` | `r SMD_S_SPT_DrugI$ci.lb[12]` to `r SMD_S_SPT_DrugI$ci.ub[12]` | \- |
+| \- | *quinpirole* | `r SMD_S_SPT_DrugI$beta[13]` | `r SMD_S_SPT_Drug$analysis$ci.lb[13]` to `r SMD_S_SPT_Drug$analysis$ci.ub[13]` | \- |
+| \- | *ropinirole* | `r SMD_S_SPT_DrugI$beta[14]` | `r SMD_S_SPT_DrugI$ci.lb[14]` to `r SMD_S_SPT_DrugI$ci.ub[14]` | \- |
+| \- | *selegiline* | `r SMD_S_SPT_DrugI$beta[15]` | `r SMD_S_SPT_DrugI$ci.lb[15]` to `r SMD_S_SPT_DrugI$ci.ub[15]` | \- |
+| \- | *simvastatin* | `r SMD_S_SPT_DrugI$beta[16]` | `r SMD_S_SPT_DrugI$ci.lb[16]` to `r SMD_S_SPT_DrugI$ci.ub[16]` | \- |
+| \- | *SKF38393* | `r SMD_S_SPT_DrugI$beta[17]` | `r SMD_S_SPT_DrugI$ci.lb[17]` to `r SMD_S_SPT_DrugI$ci.ub[17]` | \- |
+| \- | *SKF83959* | `r SMD_S_SPT_DrugI$beta[18]` | `r SMD_S_SPT_DrugI$ci.lb[18]` to `r SMD_S_SPT_DrugI$ci.ub[18]` | \- |
+| \- | *tranylcypromine* | `r SMD_S_SPT_DrugI$beta[19]` | `r SMD_S_SPT_DrugI$ci.lb[19]` to `r SMD_S_SPT_DrugI$ci.ub[19]` | \- |
+| Risk of Bias | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`% |
+| \- | *0 criteria met* | `r SMD_S_SPT_SyRCLERoBI$beta[1]` | `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]` | \- |
+| \- | *1 criteria met* | `r SMD_S_SPT_SyRCLERoBI$beta[2]` | `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]` | \- |
+| Reporting completeness | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
+| \- | *per unit increase* | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` | \- |
 
 ### 2.1.5 Sensitivity Analyses
 
@@ -830,7 +830,7 @@ NMD_S_SPT <- run_ML_NMD(df, "TvC", "Sucrose preference test", 0.5)
 
 **Figure 2.1.5**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 12}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 18}
 forest_metafor_NMD(NMD_S_SPT, "Sucrose preference test")
 ```
 
@@ -838,17 +838,17 @@ Dopaminergic interventions had a pooled effect on Sucrose preference of NMD = `r
 
 `r NMD_S_SPT[["k"]]` experimental comparisons were reported in `r NMD_S_SPT[["s.nlevels"]][3]` experiments reported from `r length(unique(NMD_S_SPT$data$StudyId))` publications and involving `r NMD_S_SPT[["s.nlevels"]][1]` different animal strains.
 
-|            Level            |                                               Number of categories for that level included in this analysis                                               |                                                                   Attributable variance                                                                   |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:-------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_SPT$s.names, NMD_S_SPT$s.nlevels[[which(NMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% NMD_S_SPT$s.names, NMD_S_SPT$sigma2[[which(NMD_S_SPT$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 ### 2.1.6 Reporting bias/small-study effects
 
 Because of the relationship between SMD effect sizes and variance inherent in their calculation, where study size is small the standard approach to seeking evidence of small-study effects (regression based tests including Egger's regression test for multilevel meta-analysis) can lead to over-estimation of small-study effect (see for instance 10.7554/eLife.24260). To address this we used Egger's regression test for multilevel meta-analysis, with regression of SMD effect size against 1/√N, where N is the total number of animals involved in an experiment.
 
-```{r warning=FALSE, eval = TRUE, echo = FALSE}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 run_sse_plot_SMD_L(df, 'TvC', 'Sucrose preference test')
 #run_sse_NMD(df)
 ```
@@ -873,7 +873,7 @@ Figure 2.2.2a shows the reporting completeness summary for studies investigating
 
 **Figure 2.2.2**
 
-```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height = 8}
+```{r message = FALSE, warning=FALSE, eval = TRUE, echo = FALSE}
 
 ARRIVE_traffic(df, "TvC", "Dopamine concentration")
 ```
@@ -961,7 +961,7 @@ The effect of modelling depression on sucrose preference in animals using SMD as
 
 **Figure 3.1.3**
 
-```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=10}
+```{r message=FALSE, warning=FALSE, eval = TRUE, echo = FALSE, fig.height=12}
 forest_metafor(SMD_S_SPT, "CvS", "Sucrose preference")
 ```
 
@@ -969,10 +969,10 @@ Depression modelling had a pooled effect on sucrose preference of SMD = `r round
 
 `r SMD_S_SPT$SMD_ML[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_SPT$SMD_ML$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_SPT$SMD_ML$data$StudyId))` publications and involving `r length(unique(SMD_S_SPT$SMD_ML$data$Strain))` different animal strains.
 
-|            Level            |                                                         Number of categories for that level included in this analysis                                                          |                                                                             Attributable variance                                                                              |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:-------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$s.nlevels[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT$SMD_ML$s.names, SMD_S_SPT$SMD_ML$sigma2[[which(SMD_S_SPT$SMD_ML$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 ### 3.1.4 Subgroup analyses and meta-regressions
@@ -1012,10 +1012,10 @@ SMD_S_SPT_sex_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "Sex", 0
 
 The p-value for the association between the sex of animal groups used and outcome reported was `r round(SMD_S_SPT_sex_noI$QMp,3)`.
 
-|            Level            |                                                                  Number of categories for that level included in this analysis                                                                   |                                                                                      Attributable variance                                                                                       |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$s.nlevels[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_sex$analysis$s.names, SMD_S_SPT_sex$analysis$sigma2[[which(SMD_S_SPT_sex$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Category of disease induction**
@@ -1039,10 +1039,10 @@ SMD_S_SPT_CatDisInd_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "C
 
 The p-value for the association between the depression model used and the outcome reported was `r round(SMD_S_SPT_CatDisInd_noI$QMp,3)`.
 
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$s.nlevels[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_CatDisInd$analysis$s.names, SMD_S_SPT_CatDisInd$analysis$sigma2[[which(SMD_S_SPT_CatDisInd$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **SyRCLE RoB assessment considered as a categorical variable**
@@ -1066,10 +1066,10 @@ SMD_S_SPT_SyRCLERoB_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", "R
 
 The p-value for the association between SyRCLE Risk of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoB_noI$QMp,3)`.
 
-|            Level            |                                                                           Number of categories for that level included in this analysis                                                                            |                                                                                               Attributable variance                                                                                                |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoB$analysis$s.names, SMD_S_SPT_SyRCLERoB$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoB$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **SyRCLE RoB assessment considering those studies where any item is at low risk of bias**
@@ -1093,10 +1093,10 @@ SMD_S_SPT_SyRCLERoBTF_noI <- subgroup_SMD(df, "CvS", "Sucrose preference test", 
 
 The p-value for the association between low SyRCLE Risk of Bias reporting and outcome reported was `r round(SMD_S_SPT_SyRCLERoBTF_noI$QMp,3)`.
 
-|            Level            |                                                                              Number of categories for that level included in this analysis                                                                               |                                                                                                  Attributable variance                                                                                                   |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$s.nlevels[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_SyRCLERoBTF$analysis$s.names, SMD_S_SPT_SyRCLERoBTF$analysis$sigma2[[which(SMD_S_SPT_SyRCLERoBTF$analysis$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **ARRIVE reporting completeness guidelines**
@@ -1116,10 +1116,10 @@ SMD_S_SPT_ARR2$regression_plot
 
 The p-value for the association between ARRIVE reporting completeness and outcome reported was `r  round(SMD_S_SPT_ARR2$metaregression_summary$pval[2],3)`.
 
-|            Level            |                                                                                         Number of categories for that level included in this analysis                                                                                         |                                                                                                             Attributable variance                                                                                                             |
-|:----------------:|:-------------------------:|:-------------------------:|
-|           Strain            |                        `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], 0)`                        |                         `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], NA)`                         |
-|       Study x Strain        |                `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)`                |                 `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)`                 |
+| Level | Number of categories for that level included in this analysis | Attributable variance |
+|:------------:|:---------------------------:|:---------------------------:|
+| Strain | `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], 0)` | `r ifelse('Strain' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain')]], NA)` |
+| Study x Strain | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], 0)` | `r ifelse('Strain/StudyId' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId')]], NA)` |
 | Study x Strain x Experiment | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$s.nlevels[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 0)` | `r ifelse('Strain/StudyId/ExperimentID_I' %in% SMD_S_SPT_ARR2$metaregression_summary$s.names, SMD_S_SPT_ARR2$metaregression_summary$sigma2[[which(SMD_S_SPT_ARR2$metaregression_summary$s.names == 'Strain/StudyId/ExperimentID_I')]], 'NA')` |
 
 #### **Heterogeneity explained by covariates (Effect of modelling on Sucrose preference)**
@@ -1133,25 +1133,25 @@ SMD_S_SPT_ARRIVEI <- subgroup_SMDI(df, "CvS", "Sucrose preference test", "ARRIVE
 
 The table below shows which of the covariates, if any, explain some of the heterogeneity observed in the effect sizes of the effect of TAAR1 agonists on Sucrose preference. We present marginal R^2^, which measures the proportion of variance explained by including moderators in the model (the % change in the between-studies variance when the covariate is included in the model, in other words the % of the heterogeneity explained by the variable). The SMD represent the point estimate and 95% CIs of the effect in each category.
 
-|              Moderator              |              Category               |                        SMD                        |                                                  95% CI                                                  |                       Marginal R^2^ %                       |
-|:------------:|:------------:|:------------:|:------------:|:------------:|
-|  Overall effect (unadjusted model)  |                 \-                  |           `r SMD_S_SPT$SMD_ML$beta[1]`            |                         `r SMD_S_SPT$SMD_ML$ci.lb` to `r SMD_S_SPT$SMD_ML$ci.ub`                         |                             \-                              |
-|                 Sex                 |                 \-                  |                        \-                         |                                                    \-                                                    |        `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`%         |
-|                 \-                  |              *Female*               |            `r SMD_S_SPT_sexI$beta[1]`             |                        `r SMD_S_SPT_sexI$ci.lb[1]` to `r SMD_S_SPT_sexI$ci.ub[1]`                        |                             \-                              |
-|                 \-                  |               *Male*                |            `r SMD_S_SPT_sexI$beta[2]`             |                        `r SMD_S_SPT_sexI$ci.lb[2]` to `r SMD_S_SPT_sexI$ci.ub[2]`                        |                                                             |
-|                 \-                  |           *Not reported*            |            `r SMD_S_SPT_sexI$beta[3]`             |                        `r SMD_S_SPT_sexI$ci.lb[3]` to `r SMD_S_SPT_sexI$ci.ub[3]`                        |                                                             |
-| Category of disease model induction |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`%      |
-|                 \-                  |   *Behavioural early life stress*   |         `r SMD_S_SPT_CatDisIndI$beta[2]`          |                `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisInd_noI$ci.ub[2]`                 |                             \-                              |
-|                 \-                  | *Chronic unpredictable mild stress* |         `r SMD_S_SPT_CatDisIndI$beta[1]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[1]` to `r SMD_S_SPT_CatDisIndI$ci.ub[1]`                  |                             \-                              |
-|                 \-                  | *Pharmacological early life stress* |         `r SMD_S_SPT_CatDisIndI$beta[4]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[4]` to `r SMD_S_SPT_CatDisIndI$ci.ub[4]`                  |                             \-                              |
-|                 \-                  |   *Pharmacological post weaning*    |         `r SMD_S_SPT_CatDisIndI$beta[5]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[5]` to `r SMD_S_SPT_CatDisIndI$ci.ub[5]`                  |                             \-                              |
-|                 \-                  |  *Social or social defeat stress*   |         `r SMD_S_SPT_CatDisIndI$beta[2]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisIndI$ci.ub[2]`                  |                             \-                              |
-|                 \-                  |          *Surgical models*          |         `r SMD_S_SPT_CatDisIndI$beta[6]`          |                  `r SMD_S_SPT_CatDisIndI$ci.lb[6]` to `r SMD_S_SPT_CatDisIndI$ci.ub[6]`                  |                             \-                              |
-|            Risk of Bias             |                 \-                  |                        \-                         |                                                    \-                                                    |     `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`%      |
-|                 \-                  |          *0 criteria met*           |         `r SMD_S_SPT_SyRCLERoBI$beta[1]`          |                  `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]`                  |                             \-                              |
-|                 \-                  |          *1 criteria met*           |         `r SMD_S_SPT_SyRCLERoBI$beta[2]`          |                  `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]`                  |                             \-                              |
-|       Reporting completeness        |                 \-                  |                        \-                         |                                                    \-                                                    | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
-|                 \-                  |         *per unit increase*         | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` |                             \-                              |
+| Moderator | Category | SMD | 95% CI | Marginal R^2^ % |
+|:-----------:|:-----------:|:-----------:|:-------------------:|:-----------:|
+| Overall effect (unadjusted model) | \- | `r SMD_S_SPT$SMD_ML$beta[1]` | `r SMD_S_SPT$SMD_ML$ci.lb` to `r SMD_S_SPT$SMD_ML$ci.ub` | \- |
+| Sex | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_sexI)[1]*100),1)`% |
+| \- | *Female* | `r SMD_S_SPT_sexI$beta[1]` | `r SMD_S_SPT_sexI$ci.lb[1]` to `r SMD_S_SPT_sexI$ci.ub[1]` | \- |
+| \- | *Male* | `r SMD_S_SPT_sexI$beta[2]` | `r SMD_S_SPT_sexI$ci.lb[2]` to `r SMD_S_SPT_sexI$ci.ub[2]` |  |
+| \- | *Not reported* | `r SMD_S_SPT_sexI$beta[3]` | `r SMD_S_SPT_sexI$ci.lb[3]` to `r SMD_S_SPT_sexI$ci.ub[3]` |  |
+| Category of disease model induction | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_CatDisIndI)[1]*100),1)`% |
+| \- | *Behavioural early life stress* | `r SMD_S_SPT_CatDisIndI$beta[2]` | `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisInd_noI$ci.ub[2]` | \- |
+| \- | *Chronic unpredictable mild stress* | `r SMD_S_SPT_CatDisIndI$beta[1]` | `r SMD_S_SPT_CatDisIndI$ci.lb[1]` to `r SMD_S_SPT_CatDisIndI$ci.ub[1]` | \- |
+| \- | *Pharmacological early life stress* | `r SMD_S_SPT_CatDisIndI$beta[4]` | `r SMD_S_SPT_CatDisIndI$ci.lb[4]` to `r SMD_S_SPT_CatDisIndI$ci.ub[4]` | \- |
+| \- | *Pharmacological post weaning* | `r SMD_S_SPT_CatDisIndI$beta[5]` | `r SMD_S_SPT_CatDisIndI$ci.lb[5]` to `r SMD_S_SPT_CatDisIndI$ci.ub[5]` | \- |
+| \- | *Social or social defeat stress* | `r SMD_S_SPT_CatDisIndI$beta[2]` | `r SMD_S_SPT_CatDisIndI$ci.lb[2]` to `r SMD_S_SPT_CatDisIndI$ci.ub[2]` | \- |
+| \- | *Surgical models* | `r SMD_S_SPT_CatDisIndI$beta[6]` | `r SMD_S_SPT_CatDisIndI$ci.lb[6]` to `r SMD_S_SPT_CatDisIndI$ci.ub[6]` | \- |
+| Risk of Bias | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_SyRCLERoBI)[1]*100),1)`% |
+| \- | *0 criteria met* | `r SMD_S_SPT_SyRCLERoBI$beta[1]` | `r SMD_S_SPT_SyRCLERoBI$ci.lb[1]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[1]` | \- |
+| \- | *1 criteria met* | `r SMD_S_SPT_SyRCLERoBI$beta[2]` | `r SMD_S_SPT_SyRCLERoBI$ci.lb[2]` to `r SMD_S_SPT_SyRCLERoBI$ci.ub[2]` | \- |
+| Reporting completeness | \- | \- | \- | `r round((r2_ml(SMD_S_SPT_ARR2$metaregression)[1]*100),1)`% |
+| \- | *per unit increase* | `r SMD_S_SPT_ARR2$metaregression_summary$beta[2]` | `r SMD_S_SPT_ARR2$metaregression_summary$ci.lb[2]` to `r SMD_S_SPT_ARR2$metaregression_summary$ci.ub[2]` | \- |
 
 ### 3.1.5 Sensitivity Analyses
 
@@ -1224,7 +1224,7 @@ SMD_S_DA <- run_SMD(df, 'CvS', 'Dopamine concentration')
 
 Multilevel analysis is only performed if there are 5 levels or more for at least one of Strain, Study and Experiment, and that is not the case here. `r SMD_S_DA[["k"]]` experimental comparisons were reported in `r length(unique(SMD_S_DA$data$ExperimentID_I))` experiments reported from `r length(unique(SMD_S_DA$data$StudyId))` publications and involving `r length(unique(SMD_S_DA$data$Strain))` different animal strains.
 
-```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide'}
+```{r message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE, results='hide', fig.height=10}
 forest_metafor_uni(SMD_S_DA, 'CvS', 'Dopamine concentration')
 ```
 

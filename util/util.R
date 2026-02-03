@@ -100,7 +100,8 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
   forest_plot <- if(experiment_type == "TvC"){
                      forest(model$SMD_ML,
                             xlim=c(xleft, xright),
-                            ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
+                            ylim=c(-2, model$SMD_ML$k+5), 
+                            rows=c((model$SMD_ML$k+2):3),
                             mlab="SMD [95% C.I.]", 
                             alim=c((lower_x), (upper_x)),
                             slab=paste(word(Authors_I, 1), Year, Strain),
@@ -119,11 +120,12 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                             cex.axis = 1.0, 
                             cex.lab = 1.2,
                             efac = c(1,1,2))
-    text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+    text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$SMD_ML$k+4, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
   } else {
                      forest(model$SMD_ML,
                             xlim=c(xleft, xright),
-                            ylim=c(-2, model$SMD_ML$k+5), rows=c((model$SMD_ML$k+2):3),
+                            ylim=c(-2, model$SMD_ML$k+5), 
+                            rows=c((model$SMD_ML$k+2):3),
                             mlab="SMD [95% C.I.]",
                             alim=c(lower_x, upper_x),
                             slab=paste(word(Authors_I, 1), Year, Strain),
@@ -142,7 +144,7 @@ forest_metafor <- function(model, experiment_type, outcome_title) {
                             cex.lab = 1.2,
                             lty = c("solid","solid","solid"),
                             efac = c(1,1,3))
-    text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+    text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$SMD_ML$k+4, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
          }
          
 cixlower <- model$SMD_ML[["ci.lb"]]
@@ -856,7 +858,7 @@ SyRCLE_RoB_traffic <- function(df, experiment_type, outcome) {
   
   
   colnames(SyRCLE) <- c('Study','Allocation sequence','Baseline similarity','Concealment of allocation sequence','Random housing','Caregivers blinded','Random selection for outcome assessment','Blinded outcome assessor','Incomplete data reporting addressed','Free from selective outcome reporting','Free of other risks of bias')
-  RoB_TL <- rob_traffic_light(data <- SyRCLE, tool = "Generic", psize = 6, overall = FALSE)
+  RoB_TL <- rob_traffic_light(data <- SyRCLE, tool = "Generic", psize = 6)
   
   return(RoB_TL)
 }
@@ -974,7 +976,7 @@ ARRIVE_traffic <- function(df, experiment_type, outcome) {
                         'All species specified','Animal sex specified','Age, weight or developmental stage specified','Timing and frequency of proceedures described',
                         'Any acclimitisation described','Data with variance, or Effect size and CI','Ethical approval with approval number',
                         'Ethical approval with or without approval number','Conflicts of interest statement','Funding sources','Description of any role of funder')
-  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6, overall = FALSE, x_title = "")
+  Rep_TL <- rob_traffic_light(data = ARRIVE, tool = "Generic", psize = 6)
   
   return(Rep_TL)
 }
@@ -1116,11 +1118,12 @@ forest_metafor_NMD <- function(model, outcome){
   
          forest_plot <- forest(model, 
                                xlim=c(xleft, xright),
-                               ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+                               ylim=c(-2, model$k+5), 
+                               rows=c((model$k+2):3),
                                mlab="NMD [95% CI]",
-                               alim=c(lower_x-30, upper_x+20),
+                               alim=c(lower_x-30, upper_x*1.5),
                                slab=paste(word(Authors_I, 1), Year, Strain),
-                               at = seq(-500,500,100),
+                               at = seq(-600,600,100),
                                col = c("darkgrey","darkgrey"),
                                addfit = TRUE,
                                addpred = TRUE,
@@ -1134,7 +1137,7 @@ forest_metafor_NMD <- function(model, outcome){
                                cex.axis = 1.0, 
                                cex.lab = 1,
                                efac = c(1,1,2))
-         text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+         text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+4, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
 
   
   #mtext(outcome, side = 1, line = 3, cex = 1.2, font = 2)
@@ -1655,7 +1658,8 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
     forest_plot <- if(experiment_type == "TvC"){
       forest(model,
              xlim=c(xleft, xright),
-             ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+             ylim=c(-2, model$k+3), 
+             #rows=c((model$k+2):3),
              mlab="SMD [95% C.I.]", 
              alim=c((lower_x), (upper_x)),
              slab=paste(word(Authors_I, 1), Year, Strain),
@@ -1674,11 +1678,12 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
              cex.axis = 1.0, 
              cex.lab = 1.2,
              efac = c(1,1,2))
-      text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+5, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
+      text(c((lower_x-(0.72*arange)),(lower_x-(0.20*arange))), model$k+2, c("Reporting\n completeness", "Drug"), cex=0.75, font=2)
     } else {
       forest(model,
              xlim=c(xleft, xright),
-             ylim=c(-2, model$k+5), rows=c((model$k+2):3),
+             ylim=c(-2, model$k+3), 
+             #rows=c((model$k+2):3),
              mlab="SMD [95% C.I.]",
              alim=c(lower_x, upper_x),
              slab=paste(word(Authors_I, 1), Year, Strain),
@@ -1697,7 +1702,7 @@ forest_metafor_uni <- function(model, experiment_type, outcome_title) {
              cex.lab = 1.2,
              lty = c("solid","solid","solid"),
              efac = c(1,1,3))
-      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+5, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
+      text(c((lower_x-(0.52*arange)),(lower_x-(0.12*arange))), model$k+2, c("Reporting\n completeness", "Model"), cex=0.75, font=2)
     }
     
     cixlower <- model[["ci.lb"]]
